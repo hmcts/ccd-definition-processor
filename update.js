@@ -1,4 +1,4 @@
-const files = require("./lib/files")
+const files = require("./lib/file-utils")
 const ccdDef = require('./lib/modify-ccd-definition')
 const cmdLine = require('./lib/command-line-parse')
 const log = (out) => console.log(out)
@@ -17,7 +17,7 @@ const start = async () => {
     var sheets = cmdline.sheets
     if (cmdline.all && cmdline.sheetsDir) {
         sheets = files
-            .folderJsonFiles(cmdline.sheetsDir)
+            .listJsonFilesInFolder(cmdline.sheetsDir)
             .map((filename) => filename.slice(0, -5))
     }
 
@@ -34,18 +34,4 @@ const start = async () => {
     log("done.")
 }
 
-
 start()
-
-
-
-
-
-
-
-
-
-
-
-
-

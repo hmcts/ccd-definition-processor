@@ -19,6 +19,10 @@ const writeJson = (filename, json) => {
 	})
 }
 
+const exists = (path) =>{
+	return fs.existsSync(path)
+}
+
 const listJsonFilesInFolder = (dir) => {
 	var files = fs.readdirSync(dir)
 	return files.filter((file) => {
@@ -27,4 +31,4 @@ const listJsonFilesInFolder = (dir) => {
 }
 
 
-module.exports = { writeJson, readJson, listJsonFilesInFolder }
+module.exports = { writeJson, readJson, listJsonFilesInFolder, exists }

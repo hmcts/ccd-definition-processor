@@ -10,8 +10,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update": "node update",
-    "export": "node export"
+    "json2xlsx": "node ./src/main/json2xlsx",
+    "xlsx2json": "node ./src/main/xlsx2json"
   },
   "author": "mh-hmcts",
   "license": "MIT",

@@ -1,12 +1,15 @@
-const fUtils = require('./lib/file-utils')
-const ccdUtils = require('./lib/ccd-spreadsheet-utils')
-const clUtils = require('./lib/command-line-utils')
 const assert = require('assert')
+
+const fileUtils = require('./lib/file-utils')
+const ccdUtils = require('./lib/ccd-spreadsheet-utils')
+const cmdLineUtils = require('./lib/command-line-utils')
+
 const log = ccdUtils.log
 
 const forEachAsync = (list, asyncFn) => Promise.all(list.map(asyncFn))
+
 const start = async () => {
-  var options = new clUtils.Options()
+  var options = new cmdLineUtils.Options()
 
   //validate the options
   var sourceXlsx = options.templatePath
@@ -14,7 +17,7 @@ const start = async () => {
     sourceXlsx = options.sourceXlsx
     assert(options.sourceXlsx, 'source spreadsheet not set')
   }
-  assert(fUtils.exists(sourceXlsx), 'source spreadsheet not found ' + sourceXlsx)
+  assert(fileUtils.exists(sourceXlsx), 'source spreadsheet not found ' + sourceXlsx)
   assert(options.destXlsx, 'destination spreadsheet not set')
 
   log('Import...\n loading workbook: ' + sourceXlsx);
@@ -32,7 +35,7 @@ const start = async () => {
   } else {
     sheets = options.sheets;
     if (options.all) {
-      sheets = fUtils
+      sheets = fileUtils
         .listJsonFilesInFolder(options.sheetsDir)
         .map((filename) => filename.slice(0, -5))
     }
@@ -40,7 +43,7 @@ const start = async () => {
     await forEachAsync(sheets, async (sheetName) => {
       var jsonPath = options.sheetsDir + sheetName + '.json';
       log('  importing sheet data: ' + jsonPath)
-      ccdBuilder.updateSheetDataJson(sheetName, await fUtils.readJson(jsonPath))
+      ccdBuilder.updateSheetDataJson(sheetName, await fileUtils.readJson(jsonPath))
     })
   }
 
@@ -51,4 +54,3 @@ const start = async () => {
 }
 
 start().catch(err => log(err.toString()))
-//start().catch(err => log(err))

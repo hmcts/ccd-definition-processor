@@ -1,12 +1,14 @@
+const assert = require('assert');
+
 const cmdLineParser = require('./lib/command-line-utils')
 const ccdUtils = require('./lib/ccd-spreadsheet-utils')
-const fUtils = require('./lib/file-utils')
-const assert = require('assert');
+const fileUtils = require('./lib/file-utils')
+
 const log = ccdUtils.log
 
 const convert = async () => {
   var options = new cmdLineParser.Options()
-  assert(fUtils.exists(options.sourceXlsx), 'spreadsheet not found ' + options.sourceXlsx)
+  assert(fileUtils.exists(options.sourceXlsx), 'spreadsheet not found ' + options.sourceXlsx)
 
 
   log('Export...\n loading workbook: ' + options.sourceXlsx)
@@ -23,4 +25,3 @@ const convert = async () => {
 }
 
 convert().catch((err) => log(err.toString()))
-//convert().catch((err) => log(err))

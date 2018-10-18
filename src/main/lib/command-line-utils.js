@@ -13,8 +13,8 @@ class Options {
     this.all = this.sheets.length === 0
 
     // source and dest xlsx files
-    this.destXlsx = argv.o
     this.sourceXlsx = argv.i
+    this.destXlsx = argv.o
 
     // template file
     this.useTemplate = !this.sourceXlsx

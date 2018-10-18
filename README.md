@@ -4,30 +4,24 @@
 
 Tooling to support collaborative development of CCD configuration thought the use of text based representation of CCD definitions, supporting textual comparison, change control and the treatment of configuration as source code during development.
 
+## Dependencies
+
+Dependencies have to be installed prior first use by running:
+
+```sh
+$ yarn install
+```
+
 ## Usage
 
 The following commands are available:
 
-```
-json2xlsx options [<sheet name> ...]
-xlsx2json options [<sheet name> ...]
-```
-
-Above commands can be executed using Yarn or NPM: 
-
 ```sh
- $ yarn json2xlsx ...
- $ yarn xlsx2json ...
+$ yarn json2xlsx options [<sheet name> ...]
+$ yarn xlsx2json options [<sheet name> ...]
 ```
 
-or 
-
-```sh
- $ npm run json2xlsx ...
- $ npm run xlsx2json ...
-```
-
-Both commands take the following: 
+Both commands take the following arguments:
 
 _options:_
 
@@ -39,7 +33,7 @@ _[\<sheet name\> ...]:_
 
 A list of sheet names in the XLSX for processing. Data will be imported from/to a file named \<sheet name\>.json. If no \<sheet name\>'s are specified then all JSON files will be processed that are found in the sheet folder path.
 
-## Examples:
+### Examples
 
 To import data into the CaseTypes sheet of the CCD-Definition.xlsx spreadsheet from a file named CaseTypes.json in the folder ./sheets, you would use:
 

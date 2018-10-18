@@ -30,5 +30,4 @@ const listJsonFilesInFolder = (dir) => {
   });
 };
 
-
 module.exports = { writeJson, readJson, listJsonFilesInFolder, exists };

@@ -52,7 +52,7 @@ class SpreadsheetBuilder {
 
   clearSheetData(sheetName) {
     const sheet = this.workbook.sheet(sheetName);
-    assert(sheet, 'sheet ' + sheetName + ' not found in workbook '+this.filename);
+    assert(sheet, 'sheet ' + sheetName + ' not found in workbook ' + this.filename);
     sheet.range('A4:Z1000').clear();
   }
 
@@ -79,10 +79,6 @@ class SpreadsheetBuilder {
 
   saveAsAsync(newFilename) {
     this.workbook.toFileAsync(newFilename);
-  }
-
-  saveAsync() {
-    this.workbook.toFileAsync(this.filename);
   }
 }
 

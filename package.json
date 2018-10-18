@@ -7,13 +7,15 @@
     "xlsx": "^0.14.0",
     "xlsx-populate": "^1.17.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.7.0"
+  },
   "scripts": {
+    "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "json2xlsx": "node ./src/main/json2xlsx",
     "xlsx2json": "node ./src/main/xlsx2json"
   },
   "author": "mh-hmcts",
-  "license": "MIT",
-  "description": ""
+  "license": "MIT"
 }

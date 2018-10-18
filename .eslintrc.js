@@ -20,6 +20,10 @@ module.exports = {
       "error",
       "single"
     ],
+    "semi": [
+      "error",
+      "always"
+    ],
     "no-console": [
       "error",
       {

@@ -7,10 +7,10 @@ const cmdLineUtils = require('./lib/command-line-utils');
 const forEachAsync = (list, asyncFn) => Promise.all(list.map(asyncFn));
 
 const start = async () => {
-  var options = new cmdLineUtils.Options();
+  const options = new cmdLineUtils.Options();
 
   //validate the options
-  var sourceXlsx = options.templatePath;
+  let sourceXlsx = options.templatePath;
   if (!options.useTemplate) {
     sourceXlsx = options.sourceXlsx;
     assert(options.sourceXlsx, 'source spreadsheet not set');
@@ -19,7 +19,7 @@ const start = async () => {
   assert(options.destXlsx, 'destination spreadsheet not set');
 
   console.log('Import...\n loading workbook: ' + sourceXlsx);
-  var ccdBuilder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
+  const ccdBuilder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await ccdBuilder.loadAsync();
 
   let sheets;
@@ -39,7 +39,7 @@ const start = async () => {
     }
 
     await forEachAsync(sheets, async (sheetName) => {
-      var jsonPath = options.sheetsDir + sheetName + '.json';
+      const jsonPath = options.sheetsDir + sheetName + '.json';
       console.log('  importing sheet data: ' + jsonPath);
       ccdBuilder.updateSheetDataJson(sheetName, await fileUtils.readJson(jsonPath));
     });

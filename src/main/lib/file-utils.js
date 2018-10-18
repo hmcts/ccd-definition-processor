@@ -24,7 +24,7 @@ const exists = (path) =>{
 };
 
 const listJsonFilesInFolder = (dir) => {
-  var files = fs.readdirSync(dir);
+  const files = fs.readdirSync(dir);
   return files.filter((file) => {
     return path.extname(file) === '.json';
   });

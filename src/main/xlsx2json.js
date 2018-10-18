@@ -5,15 +5,15 @@ const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const fileUtils = require('./lib/file-utils');
 
 const convert = async () => {
-  var options = new cmdLineParser.Options();
+  const options = new cmdLineParser.Options();
   assert(fileUtils.exists(options.sourceXlsx), 'spreadsheet not found ' + options.sourceXlsx);
 
   console.log('Export...\n loading workbook: ' + options.sourceXlsx);
-  var converter = new ccdUtils.SpreadsheetConvert(options.sourceXlsx);
-  var sheets = options.all ? converter.allSheets() : options.sheets;
+  const converter = new ccdUtils.SpreadsheetConvert(options.sourceXlsx);
+  const sheets = options.all ? converter.allSheets() : options.sheets;
 
   await Promise.all(sheets.map(async sheetName => {
-    var jsonFilePath = options.sheetsDir + sheetName + '.json';
+    const jsonFilePath = options.sheetsDir + sheetName + '.json';
     console.log(' converting sheet to Json: ' + sheetName + ' => ' + jsonFilePath);
     await converter.sheet2Json(sheetName, jsonFilePath);
   }));

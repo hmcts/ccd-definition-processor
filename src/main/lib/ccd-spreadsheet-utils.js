@@ -86,6 +86,4 @@ class SpreadsheetBuilder {
   }
 }
 
-const log = (out) => console.log(out);
-
-module.exports = { SpreadsheetBuilder, SpreadsheetConvert, log };
+module.exports = { SpreadsheetBuilder, SpreadsheetConvert };

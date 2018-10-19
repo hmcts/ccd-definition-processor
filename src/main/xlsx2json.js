@@ -16,13 +16,13 @@ const validateArgs = (args) => {
 const run = async (args) => {
   validateArgs(args);
 
-  console.log('Export...\n loading workbook: ' + args.sourceXlsx);
+  console.log(`Export...\n loading workbook: ${args.sourceXlsx}`);
   const converter = new ccdUtils.SpreadsheetConvert(args.sourceXlsx);
   const sheets = args._ ? args._ : converter.allSheets();
 
   await asyncUtils.forEach(sheets, async sheet => {
-    const jsonFilePath = path.join(args.sheetsDir, sheet + '.json');
-    console.log(' converting sheet to JSON: ' + sheet + ' => ' + jsonFilePath);
+    const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`);
+    console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`);
     await converter.sheet2Json(sheet, jsonFilePath);
   });
 

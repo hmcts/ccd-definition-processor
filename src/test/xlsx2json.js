@@ -43,7 +43,7 @@ describe('xlsx2json', () => {
       });
 
       const files = fileUtils.listJsonFilesInFolder('./temp');
-      assert(files.length > 0, 'No files have been created')
+      assert(files.length > 0, 'No files have been created');
 
       asyncUtils.forEach(files, async file => {
         assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`);

@@ -1,24 +1,31 @@
 const assert = require('assert');
 
-const cmdLineParser = require('./lib/command-line-utils');
-const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const fileUtils = require('./lib/file-utils');
+const asyncUtils = require('./lib/async-utils');
+const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 
-const convert = async () => {
-  const options = new cmdLineParser.Options();
-  assert(fileUtils.exists(options.sourceXlsx), 'spreadsheet not found ' + options.sourceXlsx);
+const validateArgs = (args) => {
+  assert(!!args.sourceXlsx, 'spreadsheet file argument (-i) is required');
+  assert(!!args.sheetsDir, 'sheets directory argument (-D) is required');
 
-  console.log('Export...\n loading workbook: ' + options.sourceXlsx);
-  const converter = new ccdUtils.SpreadsheetConvert(options.sourceXlsx);
-  const sheets = options.all ? converter.allSheets() : options.sheets;
+  assert(fileUtils.exists(args.sourceXlsx), `spreadsheet file ${args.sourceXlsx} not found`);
+  assert(fileUtils.exists(args.sheetsDir), `sheets directory ${args.sheetsDir} not found`);
+};
 
-  await Promise.all(sheets.map(async sheetName => {
-    const jsonFilePath = options.sheetsDir + sheetName + '.json';
-    console.log(' converting sheet to Json: ' + sheetName + ' => ' + jsonFilePath);
-    await converter.sheet2Json(sheetName, jsonFilePath);
-  }));
+const run = async (args) => {
+  validateArgs(args);
+
+  console.log('Export...\n loading workbook: ' + args.sourceXlsx);
+  const converter = new ccdUtils.SpreadsheetConvert(args.sourceXlsx);
+  const sheets = args._ ? args._ : converter.allSheets();
+
+  await asyncUtils.forEach(sheets, async sheet => {
+    const jsonFilePath = args.sheetsDir + sheet + '.json';
+    console.log(' converting sheet to JSON: ' + sheet + ' => ' + jsonFilePath);
+    await converter.sheet2Json(sheet, jsonFilePath);
+  });
 
   console.log('done.');
 };
 
-convert().catch((err) => console.log(err.toString()));
+module.exports = run;

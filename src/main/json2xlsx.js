@@ -1,10 +1,9 @@
 const assert = require('assert');
 
 const fileUtils = require('./lib/file-utils');
+const asyncUtils = require('./lib/async-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const cmdLineUtils = require('./lib/command-line-utils');
-
-const forEachAsync = (list, asyncFn) => Promise.all(list.map(asyncFn));
 
 const start = async () => {
   const options = new cmdLineUtils.Options();
@@ -26,7 +25,7 @@ const start = async () => {
   if (options.clear) {
     sheets = options.all ? ccdBuilder.allSheets().map(s => s.name()) : options.sheets;
 
-    await forEachAsync(sheets, async (sheetName) => {
+    await asyncUtils.forEach(sheets, async (sheetName) => {
       console.log('  clearing sheet: ' + sheetName);
       ccdBuilder.clearSheetData(sheetName);
     });
@@ -38,7 +37,7 @@ const start = async () => {
         .map((filename) => filename.slice(0, -5));
     }
 
-    await forEachAsync(sheets, async (sheetName) => {
+    await asyncUtils.forEach(sheets, async (sheetName) => {
       const jsonPath = options.sheetsDir + sheetName + '.json';
       console.log('  importing sheet data: ' + jsonPath);
       ccdBuilder.updateSheetDataJson(sheetName, await fileUtils.readJson(jsonPath));

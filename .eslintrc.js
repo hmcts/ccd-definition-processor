@@ -1,8 +1,12 @@
 module.exports = {
   "extends": "eslint:recommended",
+  "plugins": [
+    "mocha"
+  ],
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "parserOptions": {
     "ecmaVersion": 2018

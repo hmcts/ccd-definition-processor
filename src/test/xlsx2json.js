@@ -11,9 +11,9 @@ describe('xlsx2json', () => {
       try {
         await run({
           sourceXlsx: '',
-          sheetsDir: '/tmp/sheets'
+          sheetsDir: './temp'
         });
-        assert.fail();
+        assert.fail('No error has been thrown');
       } catch (err) {
         assert.equal(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-i) is required');
       }
@@ -22,10 +22,10 @@ describe('xlsx2json', () => {
     it('should throw an error when sheets directory argument is not provided', async () => {
       try {
         await run({
-          sourceXlsx: '/tmp/ccd-template.xlsx',
+          sourceXlsx: './data/ccd-template.xlsx',
           sheetsDir: ''
         });
-        assert.fail();
+        assert.fail('No error has been thrown');
       } catch (err) {
         assert.equal(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required');
       }
@@ -36,11 +36,14 @@ describe('xlsx2json', () => {
     it('should create empty JSON files from embedded template', async () => {
       await run({
         sourceXlsx: './data/ccd-template.xlsx',
-        sheetsDir: './temp/'
+        sheetsDir: './temp'
       });
 
-      asyncUtils.forEach(fileUtils.listJsonFilesInFolder('./temp/'), async file => {
-        assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), []);
+      const files = fileUtils.listJsonFilesInFolder('./temp');
+      assert(files.length > 0, 'No files have been created')
+
+      asyncUtils.forEach(files, async file => {
+        assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`);
       });
     }).timeout(5000);
   });

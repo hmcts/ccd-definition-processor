@@ -1,3 +1,4 @@
+const path = require('path');
 const assert = require('assert');
 
 const fileUtils = require('./lib/file-utils');
@@ -20,7 +21,7 @@ const run = async (args) => {
   const sheets = args._ ? args._ : converter.allSheets();
 
   await asyncUtils.forEach(sheets, async sheet => {
-    const jsonFilePath = args.sheetsDir + sheet + '.json';
+    const jsonFilePath = path.join(args.sheetsDir, sheet + '.json');
     console.log(' converting sheet to JSON: ' + sheet + ' => ' + jsonFilePath);
     await converter.sheet2Json(sheet, jsonFilePath);
   });

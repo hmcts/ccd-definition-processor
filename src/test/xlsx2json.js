@@ -10,6 +10,7 @@ describe('xlsx2json', () => {
     it('should throw an error when spreadsheet file argument is not provided', async () => {
       try {
         await run({
+          _: [],
           sourceXlsx: '',
           sheetsDir: './temp'
         });
@@ -22,6 +23,7 @@ describe('xlsx2json', () => {
     it('should throw an error when sheets directory argument is not provided', async () => {
       try {
         await run({
+          _: [],
           sourceXlsx: './data/ccd-template.xlsx',
           sheetsDir: ''
         });
@@ -35,6 +37,7 @@ describe('xlsx2json', () => {
   describe('outcome', () => {
     it('should create empty JSON files from embedded template', async () => {
       await run({
+        _: [],
         sourceXlsx: './data/ccd-template.xlsx',
         sheetsDir: './temp'
       });

@@ -18,7 +18,7 @@ const run = async (args) => {
 
   console.log(`Export...\n loading workbook: ${args.sourceXlsx}`);
   const converter = new ccdUtils.SpreadsheetConvert(args.sourceXlsx);
-  const sheets = args._ ? args._ : converter.allSheets();
+  const sheets = args._.length > 0 ? args._ : converter.allSheets();
 
   await asyncUtils.forEach(sheets, async sheet => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`);

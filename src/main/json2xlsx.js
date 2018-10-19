@@ -1,53 +1,57 @@
+const path = require('path');
 const assert = require('assert');
 
 const fileUtils = require('./lib/file-utils');
 const asyncUtils = require('./lib/async-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
-const cmdLineUtils = require('./lib/command-line-utils');
 
-const start = async () => {
-  const options = new cmdLineUtils.Options();
+const validateArgs = (args) => {
+  if (args.clear) {
+    assert(!!args.sourceXlsx, 'source spreadsheet file argument (-i) is required');
+    assert(fileUtils.exists(args.sourceXlsx), `spreadsheet file ${args.sourceXlsx} not found`);
+  } else {
+    assert(!!args.sourceXlsx, 'source spreadsheet file argument (-i) is required');
+    assert(!!args.destinationXlsx, 'destination spreadsheet file argument (-o) is required');
+    assert(!!args.sheetsDir, 'sheets directory argument (-D) is required');
 
-  //validate the options
-  let sourceXlsx = options.templatePath;
-  if (!options.useTemplate) {
-    sourceXlsx = options.sourceXlsx;
-    assert(options.sourceXlsx, 'source spreadsheet not set');
+    assert(fileUtils.exists(args.sourceXlsx), `source spreadsheet file ${args.sourceXlsx} not found`);
+    assert(fileUtils.exists(args.sheetsDir), `sheets directory ${args.sheetsDir} not found`);
   }
-  assert(fileUtils.exists(sourceXlsx), 'source spreadsheet not found ' + sourceXlsx);
-  assert(options.destXlsx, 'destination spreadsheet not set');
+};
 
-  console.log('Import...\n loading workbook: ' + sourceXlsx);
-  const ccdBuilder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
-  await ccdBuilder.loadAsync();
+const run = async (args) => {
+  validateArgs(args);
+
+  console.log(`Import...\n loading workbook: ${args.sourceXlsx}`);
+  const builder = new ccdUtils.SpreadsheetBuilder(args.sourceXlsx);
+  await builder.loadAsync();
 
   let sheets;
-  if (options.clear) {
-    sheets = options.all ? ccdBuilder.allSheets().map(s => s.name()) : options.sheets;
+  if (args.clear) {
+    sheets = args._.length > 0 ? args._ : builder.allSheets().map(sheet => sheet.name());
 
-    await asyncUtils.forEach(sheets, async (sheetName) => {
-      console.log('  clearing sheet: ' + sheetName);
-      ccdBuilder.clearSheetData(sheetName);
+    await asyncUtils.forEach(sheets, async (sheet) => {
+      console.log(`  clearing sheet: ${sheet}`);
+      builder.clearSheetData(sheet);
     });
-  } else {
-    sheets = options.sheets;
-    if (options.all) {
-      sheets = fileUtils
-        .listJsonFilesInFolder(options.sheetsDir)
-        .map((filename) => filename.slice(0, -5));
-    }
 
-    await asyncUtils.forEach(sheets, async (sheetName) => {
-      const jsonPath = options.sheetsDir + sheetName + '.json';
-      console.log('  importing sheet data: ' + jsonPath);
-      ccdBuilder.updateSheetDataJson(sheetName, await fileUtils.readJson(jsonPath));
+    args.destinationXlsx = args.sourceXlsx;
+  } else {
+    sheets = args._.length > 0 ? args._ : fileUtils
+      .listJsonFilesInFolder(args.sheetsDir)
+      .map((filename) => filename.slice(0, -5));
+
+    await asyncUtils.forEach(sheets, async (sheet) => {
+      const jsonPath = path.join(args.sheetsDir, `${sheet}.json`);
+      console.log(`  importing sheet data: ${jsonPath}`);
+      builder.updateSheetDataJson(sheet, await fileUtils.readJson(jsonPath));
     });
   }
 
-  console.log(' saving workbook: ' + options.destXlsx);
-  await ccdBuilder.saveAsAsync(options.destXlsx);
+  console.log(` saving workbook: ${args.destinationXlsx}`);
+  await builder.saveAsAsync(args.destinationXlsx);
 
   console.log('done.');
 };
 
-start().catch(err => console.log(err.toString()));
+module.exports = run;

@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "mocha ./src/test",
-    "json2xlsx": "node ./src/main/json2xlsx",
+    "json2xlsx": "node ./bin/json2xlsx",
     "xlsx2json": "node ./bin/xlsx2json"
   },
   "author": "mh-hmcts",

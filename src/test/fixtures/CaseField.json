@@ -1,0 +1,10 @@
+[
+  {
+    "LiveFrom": 42736,
+    "CaseTypeID": "DRAFT",
+    "ID": "caseTitle",
+    "Label": "Case Title",
+    "FieldType": "Text",
+    "SecurityClassification": "Public"
+  }
+]

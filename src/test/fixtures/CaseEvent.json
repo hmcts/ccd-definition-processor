@@ -1,0 +1,12 @@
+[
+  {
+    "LiveFrom": 42736,
+    "CaseTypeID": "DRAFT",
+    "ID": "initiateCase",
+    "Name": "Initiate Case",
+    "Description": "Create a new case",
+    "DisplayOrder": 1,
+    "PostConditionState": "1_Initiation",
+    "SecurityClassification": "Public"
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {
+    "LiveFrom": 42736,
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "Label": "Case title",
+    "DisplayOrder": 1
+  }
+]

@@ -57,15 +57,17 @@ describe('json2xlsx', () => {
         _: [],
         sourceXlsx: './data/ccd-template.xlsx',
         destinationXlsx: './temp/ccd-definitions.xlsx',
-        sheetsDir: './temp'
+        sheetsDir: './src/test/fixtures'
       });
 
-      const sheets = Object.keys(XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets)
-      assert(sheets.length > 0, 'No sheets have been created');
+      const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;
+      assert(Object.keys(sheets).length > 0, 'No sheets have been created');
 
-      const files = fileUtils.listJsonFilesInFolder('./temp');
+      const files = fileUtils.listJsonFilesInFolder('./src/test/fixtures');
       asyncUtils.forEach(files, file => {
-        assert(sheets.includes(file.slice(0, -5)), `Sheet corresponding to JSON file ${file} does not exist`);
+        const sheetName = file.slice(0, -5);
+        assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);
+        assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
       });
     }).timeout(15000);
   });

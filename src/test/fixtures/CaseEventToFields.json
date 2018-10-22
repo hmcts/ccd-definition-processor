@@ -1,0 +1,14 @@
+[
+  {
+    "LiveFrom": 42736,
+    "CaseTypeID": "DRAFT",
+    "CaseEventID": "addCaseIDReference",
+    "CaseFieldID": "caseIDReference",
+    "PageFieldDisplayOrder": 1,
+    "DisplayContext": "OPTIONAL",
+    "PageID": 1,
+    "PageLabel": "Add Case ID",
+    "PageDisplayOrder": 1,
+    "PageColumnNumber": 1
+  }
+]

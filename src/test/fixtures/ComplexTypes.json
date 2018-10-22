@@ -1,0 +1,10 @@
+[
+  {
+    "LiveFrom": 42736,
+    "ID": "UploadDocument",
+    "ListElementCode": "typeOfDocument",
+    "FieldType": "Document",
+    "ElementLabel": "Upload a file",
+    "SecurityClassification": "Public"
+  }
+]

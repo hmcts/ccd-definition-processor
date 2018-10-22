@@ -1,0 +1,12 @@
+[
+  {
+    "LiveFrom": 42736,
+    "CaseTypeID": "DRAFT",
+    "Channel": "CaseWorker",
+    "TabID": "OverviewTab",
+    "TabLabel": "Overview",
+    "TabDisplayOrder": 1,
+    "CaseFieldID": "caseIDReference",
+    "TabFieldDisplayOrder": 1
+  }
+]

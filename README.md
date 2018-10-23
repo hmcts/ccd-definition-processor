@@ -26,7 +26,7 @@ Both commands take the following arguments:
 _options:_
 
 * -o    file path of the XLSX file to write
-* -i    file path to the XLSX for use with xlsx2jsonS
+* -i    file path to the XLSX for use with xlsx2json
 * -D    (optional) path to the sheets folder; if no folder is specified the the current working directory is used
 
 _[\<sheet name\> ...]:_

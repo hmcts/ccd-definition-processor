@@ -59,6 +59,14 @@ To export just CaseType and CaseEvent sheets from a CCD definition XLSX file you
 $ yarn xlsx2json -D ./sheets -i CCD-Definition.xlsx CaseType CaseEvent
 ```
 
+## Docker image
+
+To build Docker image please run:
+
+```bash
+$ docker build --tag docker.artifactory.reform.hmcts.net/ccd/ccd-definition-processor:latest .
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.

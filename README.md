@@ -26,7 +26,7 @@ Both commands take the following arguments:
 _options:_
 
 * -o    file path of the XLSX file to write
-* -i    (optional) file path to the template XLSX file; if this is not specified then the embedded template file is used instead
+* -i    file path to the XLSX for use with xlsx2jsonS
 * -D    (optional) path to the sheets folder; if no folder is specified the the current working directory is used
 
 _[\<sheet name\> ...]:_
@@ -36,10 +36,6 @@ A list of sheet names in the XLSX for processing. Data will be imported from/to 
 ### Examples
 
 To import data into the CaseTypes sheet of the CCD-Definition.xlsx spreadsheet from a file named CaseTypes.json in the folder ./sheets, you would use:
-
-```sh
-$ yarn json2xlsx -D ./sheets -i CCD-Definition.xlsx -o CCD-Definition.xlsx CaseTypes
-```
 
 To import all JSON files found in the ./sheets folder into a XLSX named CCD-Definition.xlsx which was created based on the embedded template CCD definition XLSX file, you would use:
 

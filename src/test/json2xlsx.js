@@ -52,7 +52,7 @@ describe('json2xlsx', () => {
   });
 
   describe('outcome', () => {
-    it('should create empty JSON files from embedded template', async () => {
+    it('should create XLSX file from JSON fixtures', async () => {
       await run({
         _: [],
         sourceXlsx: './data/ccd-template.xlsx',

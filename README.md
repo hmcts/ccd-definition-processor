@@ -35,8 +35,6 @@ A list of sheet names in the XLSX for processing. Data will be imported from/to 
 
 ### Examples
 
-To import data into the CaseTypes sheet of the CCD-Definition.xlsx spreadsheet from a file named CaseTypes.json in the folder ./sheets, you would use:
-
 To import all JSON files found in the ./sheets folder into a XLSX named CCD-Definition.xlsx which was created based on the embedded template CCD definition XLSX file, you would use:
 
 ```sh

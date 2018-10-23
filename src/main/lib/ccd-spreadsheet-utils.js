@@ -70,8 +70,8 @@ class SpreadsheetBuilder {
     this.workbook = await XlsxPopulate.fromFileAsync(this.filename);
   }
 
-  saveAsAsync(newFilename) {
-    this.workbook.toFileAsync(newFilename);
+  async saveAsAsync(newFilename) {
+    await this.workbook.toFileAsync(newFilename);
   }
 }
 

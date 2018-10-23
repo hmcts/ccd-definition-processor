@@ -4,19 +4,11 @@ const run = require('../src/main/json2xlsx');
 
 run(parseArgs(process.argv.slice(2), {
   string: [
-    'i',
-    'o',
-    'D'
-  ],
-  boolean: [
-    'clear'
+    'D',
+    'o'
   ],
   alias: {
-    sourceXlsx: 'i',
-    destinationXlsx: 'o',
-    sheetsDir: 'D'
-  },
-  default: {
-    sourceXlsx: './data/ccd-template.xlsx'
+    sheetsDir: 'D',
+    destinationXlsx: 'o'
   }
 })).catch(err => console.log(err.toString()));

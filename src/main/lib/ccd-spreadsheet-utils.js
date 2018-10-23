@@ -50,15 +50,8 @@ class SpreadsheetBuilder {
     this.filename = filename;
   }
 
-  clearSheetData(sheetName) {
-    const sheet = this.workbook.sheet(sheetName);
-    assert(sheet, 'sheet ' + sheetName + ' not found in workbook ' + this.filename);
-    sheet.range('A4:Z1000').clear();
-  }
-
   updateSheetDataJson(sheetName, json) {
     const sheet = this.workbook.sheet(sheetName);
-    sheet.range('A4:Z1000').clear();
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
     const table = json.map(record => {
       return headers.map(key => {
@@ -77,8 +70,8 @@ class SpreadsheetBuilder {
     this.workbook = await XlsxPopulate.fromFileAsync(this.filename);
   }
 
-  saveAsAsync(newFilename) {
-    this.workbook.toFileAsync(newFilename);
+  async saveAsAsync(newFilename) {
+    await this.workbook.toFileAsync(newFilename);
   }
 }
 

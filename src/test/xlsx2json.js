@@ -48,6 +48,6 @@ describe('xlsx2json', () => {
       asyncUtils.forEach(files, async file => {
         assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`);
       });
-    }).timeout(5000);
+    });
   });
 });

@@ -3,10 +3,8 @@ const XLSX = require('xlsx');
 const stringify = require('json-stringify-pretty-compact');
 const XlsxPopulate = require('xlsx-populate');
 
-const fileUtils = require('./file-utils');
-
 // SpreadsheetConvert
-//   A class to export the contents of an existing xlsx
+//   A class to export the contents of an existing CCD definition xlsx
 //   each sheet in the spreadsheet can be exported as a json file
 class SpreadsheetConvert {
 
@@ -17,22 +15,16 @@ class SpreadsheetConvert {
     this.filename = filename;
   }
 
-  async sheet2Json(sheetName, jsonFilePath) {
+  async sheet2Json(sheetName) {
     const worksheet = this.workbook.Sheets[sheetName];
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename);
 
     this._setSheetRange(worksheet, 2);
-    const json = this._sheet2Json(worksheet);
-
-    await fileUtils.writeJson(jsonFilePath, json);
+    return XLSX.utils.sheet_to_json(worksheet);
   }
 
   allSheets() {
     return this.sheets;
-  }
-
-  _sheet2Json(worksheet) {
-    return stringify(XLSX.utils.sheet_to_json(worksheet), { maxLength: 420, indent: 2 });
   }
 
   _setSheetRange(worksheet, startRow) {
@@ -75,4 +67,33 @@ class SpreadsheetBuilder {
   }
 }
 
-module.exports = { SpreadsheetBuilder, SpreadsheetConvert };
+class JsonHelper {
+  static dateFieldToString(fieldname, json) {
+    json.forEach(obj => {
+      if (obj[fieldname]){
+        obj[fieldname] = XlsxPopulate.numberToDate(obj[fieldname]).toLocaleDateString();
+      }
+    });
+  }
+
+  static stringToDateField(fieldname, json){
+    json.forEach(obj => {
+      if (obj[fieldname]){
+        let dateString = obj[fieldname];
+        obj[fieldname] = XlsxPopulate.dateToNumber( new Date(dateString));
+      }
+    });
+  }
+
+  static stringify(json) {
+    return stringify(json, { maxLength: 420, indent: 2 });
+  }
+
+}
+
+
+
+
+
+
+module.exports = { SpreadsheetBuilder, SpreadsheetConvert, JsonHelper };

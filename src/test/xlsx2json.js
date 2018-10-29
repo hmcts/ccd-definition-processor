@@ -49,5 +49,20 @@ describe('xlsx2json', () => {
         assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`);
       });
     });
+
+    it('should create JSON files with human readable date fields', async () => {
+      await run({
+        _: ['Jurisdiction'],
+        sourceXlsx: './src/test/fixtures/sheet/definition.xlsx',
+        sheetsDir: './temp'
+      });
+
+      const files = fileUtils.listJsonFilesInFolder('./temp');
+      assert(files.length > 0, 'No files have been created');
+      let exported = await fileUtils.readJson('./temp/Jurisdiction.json');
+      let expected = [{ Description: 'description', 'ID': 1, 'LiveFrom': '2017-6-20', 'LiveTo': '2018-7-20', 'Name': 'name' }];
+      assert.deepEqual(exported, expected, 'Jurisdiction.json does not contain correctly formatted dates');
+    });
+
   });
 });

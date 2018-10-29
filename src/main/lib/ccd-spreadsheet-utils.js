@@ -2,6 +2,7 @@ const assert = require('assert');
 const XLSX = require('xlsx');
 const stringify = require('json-stringify-pretty-compact');
 const XlsxPopulate = require('xlsx-populate');
+const moment = require('moment');
 
 // SpreadsheetConvert
 //   A class to export the contents of an existing CCD definition xlsx
@@ -67,20 +68,24 @@ class SpreadsheetBuilder {
   }
 }
 
+const dateFormat = 'DD/MM/YYYY';
 class JsonHelper {
-  static propertyToString(propertyName, json) {
+
+  static ConvertPropertyValueDateToString(propertyName, json) {
     json.forEach(obj => {
       if (obj[propertyName]) {
-        obj[propertyName] = XlsxPopulate.numberToDate(obj[propertyName]).toLocaleDateString();
+        const date = moment(XlsxPopulate.numberToDate(obj[propertyName]));
+        obj[propertyName] = date.format(dateFormat);
       }
     });
   }
 
-  static propertyToDate(propertyName, json) {
+  static convertPropertyValueStringToDate(propertyName, json) {
     json.forEach(obj => {
       if (obj[propertyName]) {
         const dateString = obj[propertyName];
-        obj[propertyName] = XlsxPopulate.dateToNumber(new Date(dateString));
+        const date = moment(dateString,dateFormat).toDate();
+        obj[propertyName] = XlsxPopulate.dateToNumber(date);
       }
     });
   }

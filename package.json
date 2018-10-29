@@ -4,6 +4,7 @@
   "dependencies": {
     "json-stringify-pretty-compact": "^1.2.0",
     "minimist": "^1.2.0",
+    "moment": "^2.22.2",
     "xlsx": "^0.14.0",
     "xlsx-populate": "^1.17.0"
   },

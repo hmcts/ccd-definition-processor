@@ -29,8 +29,8 @@ const run = async (args) => {
     const jsonPath = path.join(args.sheetsDir, `${sheet}.json`);
     console.log(`  importing sheet data: ${jsonPath}`);
     const json = await fileUtils.readJson(jsonPath);
-    ccdUtils.JsonHelper.propertyToDate('LiveFrom', json);
-    ccdUtils.JsonHelper.propertyToDate('LiveTo', json);
+    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
+    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
     builder.updateSheetDataJson(sheet, json);
   });
 

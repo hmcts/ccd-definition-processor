@@ -51,6 +51,7 @@ describe('json2xlsx', () => {
         const sheetName = file.slice(0, -5);
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);
         assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+        assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
       });
     });
   });

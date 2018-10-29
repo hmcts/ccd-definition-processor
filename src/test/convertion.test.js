@@ -21,7 +21,7 @@ describe('JsonHelper', () => {
   });
 
   describe('stringToDateField on json', () => {
-    it('should convert date fileds from string to number', async () => {
+    it('should convert date fields from string to number', async () => {
       let json = jsonWithStrings();
       sheetUtils.JsonHelper.stringToDateField('LiveFrom', json);
       sheetUtils.JsonHelper.stringToDateField('LiveTo', json);

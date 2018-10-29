@@ -24,9 +24,9 @@ const run = async (args) => {
   await asyncUtils.forEach(sheets, async sheet => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`);
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`);
-    let json = await converter.sheet2Json(sheet);
-    jsonUtil.dateFieldToString('LiveFrom',json);
-    jsonUtil.dateFieldToString('LiveTo',json);
+    const json = await converter.sheet2Json(sheet);
+    jsonUtil.propertyToString('LiveFrom',json);
+    jsonUtil.propertyToString('LiveTo',json);
     await fileUtils.writeJson(jsonFilePath, jsonUtil.stringify(json));
   });
 

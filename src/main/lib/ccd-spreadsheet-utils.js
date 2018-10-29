@@ -68,19 +68,19 @@ class SpreadsheetBuilder {
 }
 
 class JsonHelper {
-  static dateFieldToString(fieldname, json) {
+  static propertyToString(propertyName, json) {
     json.forEach(obj => {
-      if (obj[fieldname]){
-        obj[fieldname] = XlsxPopulate.numberToDate(obj[fieldname]).toLocaleDateString();
+      if (obj[propertyName]) {
+        obj[propertyName] = XlsxPopulate.numberToDate(obj[propertyName]).toLocaleDateString();
       }
     });
   }
 
-  static stringToDateField(fieldname, json){
+  static propertyToDate(propertyName, json) {
     json.forEach(obj => {
-      if (obj[fieldname]){
-        let dateString = obj[fieldname];
-        obj[fieldname] = XlsxPopulate.dateToNumber( new Date(dateString));
+      if (obj[propertyName]) {
+        const dateString = obj[propertyName];
+        obj[propertyName] = XlsxPopulate.dateToNumber(new Date(dateString));
       }
     });
   }
@@ -90,10 +90,5 @@ class JsonHelper {
   }
 
 }
-
-
-
-
-
 
 module.exports = { SpreadsheetBuilder, SpreadsheetConvert, JsonHelper };

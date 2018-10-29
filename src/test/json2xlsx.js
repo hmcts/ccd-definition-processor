@@ -37,16 +37,17 @@ describe('json2xlsx', () => {
 
   describe('outcome', () => {
     it('should create XLSX file from JSON fixtures', async () => {
+      const jsonDefinitionsFolder = './src/test/fixtures/jsonDefinitions';
       await run({
         _: [],
-        sheetsDir: './src/test/fixtures',
+        sheetsDir: jsonDefinitionsFolder,
         destinationXlsx: './temp/ccd-definitions.xlsx'
       });
 
       const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;
       assert(Object.keys(sheets).length > 0, 'No sheets have been created');
 
-      const files = fileUtils.listJsonFilesInFolder('./src/test/fixtures');
+      const files = fileUtils.listJsonFilesInFolder(jsonDefinitionsFolder);
       asyncUtils.forEach(files, file => {
         const sheetName = file.slice(0, -5);
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);

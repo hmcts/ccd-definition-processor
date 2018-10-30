@@ -19,7 +19,7 @@ const writeJson = (filename, json) => {
   });
 };
 
-const exists = (path) =>{
+const exists = (path) => {
   return fs.existsSync(path);
 };
 

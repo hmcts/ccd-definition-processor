@@ -4,6 +4,7 @@ const assert = require('assert');
 const fileUtils = require('./lib/file-utils');
 const asyncUtils = require('./lib/async-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
+const jsonUtil = ccdUtils.JsonHelper;
 
 const validateArgs = (args) => {
   assert(!!args.sourceXlsx, 'spreadsheet file argument (-i) is required');
@@ -23,7 +24,10 @@ const run = async (args) => {
   await asyncUtils.forEach(sheets, async sheet => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`);
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`);
-    await converter.sheet2Json(sheet, jsonFilePath);
+    const json = await converter.sheet2Json(sheet);
+    jsonUtil.convertPropertyValueDateToString('LiveFrom', json);
+    jsonUtil.convertPropertyValueDateToString('LiveTo', json);
+    await fileUtils.writeJson(jsonFilePath, jsonUtil.stringify(json));
   });
 
   console.log('done.');

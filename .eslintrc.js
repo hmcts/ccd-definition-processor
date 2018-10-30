@@ -34,6 +34,32 @@ module.exports = {
       {
         allow: ["log", "warn", "error"]
       }
+    ],
+    "space-before-function-paren": [
+      "error", {
+        "anonymous": "always",
+        "named": "always",
+        "asyncArrow": "always"
+      }
+    ],
+    "arrow-spacing": [
+      "error", {
+        "before": true,
+        "after": true
+      }
+    ],
+    "comma-spacing": "error",
+    "space-in-parens": [
+      "error",
+      "never"
+    ],
+    "camelcase": "error",
+    "no-multi-spaces": "error",
+    "no-multiple-empty-lines": [
+      "error", {
+        "max": 1, 
+        "maxEOF": 0
+      }
     ]
   }
 };

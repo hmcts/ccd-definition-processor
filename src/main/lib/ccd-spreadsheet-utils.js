@@ -9,14 +9,14 @@ const moment = require('moment');
 //   each sheet in the spreadsheet can be exported as a json file
 class SpreadsheetConvert {
 
-  constructor(filename) {
+  constructor (filename) {
     this.workbook = XLSX.readFile(filename);
     assert(this.workbook, 'could not load ' + filename);
     this.sheets = Object.keys(this.workbook.Sheets);
     this.filename = filename;
   }
 
-  async sheet2Json(sheetName) {
+  async sheet2Json (sheetName) {
     const worksheet = this.workbook.Sheets[sheetName];
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename);
 
@@ -24,11 +24,11 @@ class SpreadsheetConvert {
     return XLSX.utils.sheet_to_json(worksheet);
   }
 
-  allSheets() {
+  allSheets () {
     return this.sheets;
   }
 
-  _setSheetRange(worksheet, startRow) {
+  _setSheetRange (worksheet, startRow) {
     const range = XLSX.utils.decode_range(worksheet['!ref']);
     range.s.r = startRow;
     worksheet['!ref'] = XLSX.utils.encode_range(range);
@@ -39,11 +39,11 @@ class SpreadsheetConvert {
 //    A class to update the contents of an existing xlsx
 class SpreadsheetBuilder {
 
-  constructor(filename) {
+  constructor (filename) {
     this.filename = filename;
   }
 
-  updateSheetDataJson(sheetName, json) {
+  updateSheetDataJson (sheetName, json) {
     const sheet = this.workbook.sheet(sheetName);
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
     const table = json.map(record => {
@@ -55,15 +55,15 @@ class SpreadsheetBuilder {
     sheet.cell('A4').value(table);
   }
 
-  allSheets() {
+  allSheets () {
     return this.workbook.sheets();
   }
 
-  async loadAsync() {
+  async loadAsync () {
     this.workbook = await XlsxPopulate.fromFileAsync(this.filename);
   }
 
-  saveAsAsync(newFilename) {
+  saveAsAsync (newFilename) {
     return this.workbook.toFileAsync(newFilename);
   }
 }
@@ -71,7 +71,7 @@ class SpreadsheetBuilder {
 const dateFormat = 'DD/MM/YYYY';
 class JsonHelper {
 
-  static ConvertPropertyValueDateToString(propertyName, json) {
+  static convertPropertyValueDateToString (propertyName, json) {
     json.forEach(obj => {
       if (obj[propertyName]) {
         const date = moment(XlsxPopulate.numberToDate(obj[propertyName]));
@@ -80,17 +80,17 @@ class JsonHelper {
     });
   }
 
-  static convertPropertyValueStringToDate(propertyName, json) {
+  static convertPropertyValueStringToDate (propertyName, json) {
     json.forEach(obj => {
       if (obj[propertyName]) {
         const dateString = obj[propertyName];
-        const date = moment(dateString,dateFormat).toDate();
+        const date = moment(dateString, dateFormat).toDate();
         obj[propertyName] = XlsxPopulate.dateToNumber(date);
       }
     });
   }
 
-  static stringify(json) {
+  static stringify (json) {
     return stringify(json, { maxLength: 420, indent: 2 });
   }
 

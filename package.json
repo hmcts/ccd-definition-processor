@@ -16,6 +16,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "mocha ./src/test",
+    "lint-fix": "eslint src --fix",
     "json2xlsx": "node ./bin/json2xlsx",
     "xlsx2json": "node ./bin/xlsx2json"
   },

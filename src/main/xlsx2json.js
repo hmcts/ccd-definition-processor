@@ -25,8 +25,8 @@ const run = async (args) => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`);
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`);
     const json = await converter.sheet2Json(sheet);
-    jsonUtil.ConvertPropertyValueDateToString('LiveFrom',json);
-    jsonUtil.ConvertPropertyValueDateToString('LiveTo',json);
+    jsonUtil.convertPropertyValueDateToString('LiveFrom', json);
+    jsonUtil.convertPropertyValueDateToString('LiveTo', json);
     await fileUtils.writeJson(jsonFilePath, jsonUtil.stringify(json));
   });
 

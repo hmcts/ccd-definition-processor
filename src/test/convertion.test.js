@@ -14,8 +14,8 @@ describe('JsonHelper', () => {
   describe('dateFieldToString', () => {
     it('should convert date fields from number to string', async () => {
       const json = createJsonWithNumbers();
-      sheetUtils.JsonHelper.ConvertPropertyValueDateToString('LiveFrom', json);
-      sheetUtils.JsonHelper.ConvertPropertyValueDateToString('LiveTo', json);
+      sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveFrom', json);
+      sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveTo', json);
       assert.deepEqual(json, createJsonWithStrings());
     });
   });

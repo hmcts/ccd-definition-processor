@@ -37,6 +37,8 @@ describe('json2xlsx', () => {
 
   describe('outcome', () => {
     it('should create XLSX file from JSON fixtures', async () => {
+      process.env.CCD_DEF_BASE_URL = 'http://localhost';
+
       const jsonDefinitionsFolder = './src/test/fixtures/jsonDefinitions';
       await run({
         _: [],
@@ -53,6 +55,9 @@ describe('json2xlsx', () => {
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);
         assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
         assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+        if (sheetName === 'CaseEvent') {
+          assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
+        }
       });
     });
   });

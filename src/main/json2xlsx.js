@@ -4,6 +4,7 @@ const assert = require('assert');
 const fileUtils = require('./lib/file-utils');
 const asyncUtils = require('./lib/async-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
+const { Substitutor } = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 
@@ -28,7 +29,7 @@ const run = async (args) => {
   await asyncUtils.forEach(sheets, async (sheet) => {
     const jsonPath = path.join(args.sheetsDir, `${sheet}.json`);
     console.log(`  importing sheet data: ${jsonPath}`);
-    const json = await fileUtils.readJson(jsonPath);
+    const json = await fileUtils.readJson(jsonPath, Substitutor.injectEnvironmentVariables);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
     builder.updateSheetDataJson(sheet, json);

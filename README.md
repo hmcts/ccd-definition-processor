@@ -4,6 +4,38 @@
 
 Tooling to support collaborative development of CCD configuration thought the use of text based representation of CCD definitions, supporting textual comparison, change control and the treatment of configuration as source code during development.
 
+## Features
+
+### Variable substitution
+
+A `json2xlsx` processor is able to replace variable placeholders defined in JSON definition files with values read from environment variables as long as variable name starts with `CCD_DEF` prefix. 
+ 
+For example `CCD_DEF_BASE_URL=http://localhost` environment variable gets injected into fragment of following CCD definition:
+
+```json
+[
+  {
+    "LiveFrom": "2017-01-01",
+    "CaseTypeID": "DRAFT",
+    "ID": "initiateCase",
+    "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/callback"
+  }
+]
+```  
+
+to become:
+
+```json
+[
+  {
+    "LiveFrom": "2017-01-01",
+    "CaseTypeID": "DRAFT",
+    "ID": "initiateCase",
+    "CallBackURLSubmittedEvent": "http://localhost/callback"
+  }
+]
+```  
+
 ## Dependencies
 
 Dependencies have to be installed prior first use by running:

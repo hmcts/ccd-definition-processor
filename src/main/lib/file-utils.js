@@ -1,10 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const readJson = filename => {
+const readJson = (filename, processFn) => {
   return new Promise((resolve) => {
     fs.readFile(filename, 'utf8', function (err, data) {
       if (err) throw err;
+      if (processFn) {
+        data = processFn(data);
+      }
       resolve(JSON.parse(data));
     });
   });

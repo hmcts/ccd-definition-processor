@@ -41,6 +41,15 @@ describe('Substitutor', () => {
         assert.equal(result, 'Version: 1.0.0');
       });
 
+      it('should return string with all values extracted from environment variables when placeholder is used many times', () => {
+        const template = 'Name: ${CCD_DEF_NAME}; Raw name: ${CCD_DEF_NAME}';
+
+        process.env.CCD_DEF_NAME = 'FPL';
+        const result = Substitutor.injectEnvironmentVariables(template);
+
+        assert.equal(result, 'Name: FPL; Raw name: FPL');
+      });
+
       it('should return string with values extracted from environment variables when many placeholders are used', () => {
         const template = 'Name: ${CCD_DEF_NAME}; Version: ${CCD_DEF_VERSION}';
 

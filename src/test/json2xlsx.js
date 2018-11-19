@@ -56,7 +56,8 @@ describe('json2xlsx', () => {
         assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
         assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
         if (sheetName === 'CaseEvent') {
-          assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
         }
       });
     });

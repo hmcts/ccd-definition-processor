@@ -16,7 +16,7 @@
     "ID": "submitCase",
     "Name": "Submit Case",
     "Description": "Submit case",
-    "DisplayOrder": 1,
+    "DisplayOrder": 2,
     "PostConditionState": "1_Initiation",
     "SecurityClassification": "Public",
     "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/submit/callback"

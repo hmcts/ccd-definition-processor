@@ -5,20 +5,26 @@
     "json-stringify-pretty-compact": "^1.2.0",
     "minimist": "^1.2.0",
     "moment": "^2.22.2",
+    "typescript": "^3.1.6",
     "xlsx": "^0.14.0",
     "xlsx-populate": "^1.17.0"
   },
   "devDependencies": {
-    "eslint": "^5.7.0",
-    "eslint-plugin-mocha": "^5.2.0",
-    "mocha": "^5.2.0"
+    "@types/assert": "^1.4.0",
+    "@types/minimist": "^1.2.0",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.9",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-standard": "^8.0.1"
   },
   "scripts": {
-    "lint": "eslint src",
-    "test": "mocha ./src/test",
-    "lint-fix": "eslint src --fix",
-    "json2xlsx": "node ./bin/json2xlsx",
-    "xlsx2json": "node ./bin/xlsx2json"
+    "lint": "tsc --noEmit && tslint -p tsconfig.json",
+    "lint-fix": "tslint -p tsconfig.json --fix",
+    "test": "mocha --opts mocha.opts ./src/test/**/*.ts",
+    "json2xlsx": "ts-node ./bin/json2xlsx",
+    "xlsx2json": "ts-node ./bin/xlsx2json"
   },
   "author": "mh-hmcts",
   "license": "MIT"

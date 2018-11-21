@@ -16,7 +16,7 @@ describe('xlsx2json', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.equal(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-i) is required')
+        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-i) is required')
       }
     })
 
@@ -29,7 +29,7 @@ describe('xlsx2json', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.equal(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
+        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
       }
     })
   })
@@ -45,8 +45,8 @@ describe('xlsx2json', () => {
       const files = fileUtils.listJsonFilesInFolder('./temp')
       assert(files.length > 0, 'No files have been created')
 
-      asyncUtils.forEach(files, async file => {
-        assert.deepEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`)
+      await asyncUtils.forEach(files, async file => {
+        assert.deepStrictEqual(await fileUtils.readJson(`./temp/${file}`), [], `File ${file} is not empty`)
       })
     })
 
@@ -67,7 +67,7 @@ describe('xlsx2json', () => {
         'LiveTo': '20/07/2018',
         'Name': 'name'
       }]
-      assert.deepEqual(exported, expected, 'Jurisdiction.json does not contain correctly formatted dates')
+      assert.deepStrictEqual(exported, expected, 'Jurisdiction.json does not contain correctly formatted dates')
     })
 
   })

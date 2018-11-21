@@ -10,7 +10,7 @@ describe('Substitutor', () => {
 
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, template)
+        assert.strictEqual(result, template)
       })
     })
 
@@ -20,7 +20,7 @@ describe('Substitutor', () => {
 
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, template)
+        assert.strictEqual(result, template)
       })
 
       it('should return unchanged input when environment variable does not start with supported prefix', () => {
@@ -29,7 +29,7 @@ describe('Substitutor', () => {
         process.env.VERSION = '1.0.0'
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, template)
+        assert.strictEqual(result, template)
       })
 
       it('should return string with value extracted from environment variable when one placeholder is used', () => {
@@ -38,7 +38,7 @@ describe('Substitutor', () => {
         process.env.CCD_DEF_VERSION = '1.0.0'
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, 'Version: 1.0.0')
+        assert.strictEqual(result, 'Version: 1.0.0')
       })
 
       it('should return string with all values extracted from environment variables when placeholder is used many times', () => {
@@ -47,7 +47,7 @@ describe('Substitutor', () => {
         process.env.CCD_DEF_NAME = 'FPL'
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, 'Name: FPL; Raw name: FPL')
+        assert.strictEqual(result, 'Name: FPL; Raw name: FPL')
       })
 
       it('should return string with values extracted from environment variables when many placeholders are used', () => {
@@ -57,7 +57,7 @@ describe('Substitutor', () => {
         process.env.CCD_DEF_VERSION = '1.0.0'
         const result = Substitutor.injectEnvironmentVariables(template)
 
-        assert.equal(result, 'Name: FPL; Version: 1.0.0')
+        assert.strictEqual(result, 'Name: FPL; Version: 1.0.0')
       })
     })
   })

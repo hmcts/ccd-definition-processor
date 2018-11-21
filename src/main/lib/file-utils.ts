@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-export const readJson = (filename: string, processFn: (data: string) => string): Promise<void> => {
+export const readJson = (filename: string, processFn: (data: string) => string): Promise<object> => {
   return new Promise((resolveFn: (value?: any) => void) => {
     fs.readFile(filename, 'utf8', (err: Error, data: string): void => {
       if (err) throw err

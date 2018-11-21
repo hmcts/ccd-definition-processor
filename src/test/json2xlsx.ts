@@ -17,7 +17,7 @@ describe('json2xlsx', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.equal(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
+        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
       }
     })
 
@@ -30,7 +30,7 @@ describe('json2xlsx', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.equal(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-o) is required')
+        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-o) is required')
       }
     })
   })
@@ -50,14 +50,14 @@ describe('json2xlsx', () => {
       assert(Object.keys(sheets).length > 0, 'No sheets have been created')
 
       const files = fileUtils.listJsonFilesInFolder(jsonDefinitionsFolder)
-      asyncUtils.forEach(files, file => {
+      await asyncUtils.forEach(files, file => {
         const sheetName = file.slice(0, -5)
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`)
-        assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`)
-        assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`)
+        assert.strictEqual(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`)
+        assert.strictEqual(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`)
         if (sheetName === 'CaseEvent') {
-          assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`)
-          assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`)
+          assert.strictEqual(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`)
+          assert.strictEqual(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`)
         }
       })
     })

@@ -16,7 +16,7 @@ describe('JsonHelper', () => {
       const json = createJsonWithNumbers()
       sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
       sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveTo', json)
-      assert.deepEqual(json, createJsonWithStrings())
+      assert.deepStrictEqual(json, createJsonWithStrings())
     })
   })
 
@@ -25,7 +25,7 @@ describe('JsonHelper', () => {
       const json = createJsonWithStrings()
       sheetUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
       sheetUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
-      assert.deepEqual(json, createJsonWithNumbers())
+      assert.deepStrictEqual(json, createJsonWithNumbers())
     })
   })
 })

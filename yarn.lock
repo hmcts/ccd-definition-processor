@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@types/assert@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@types/assert/-/assert-1.4.0.tgz#95a469cbb1bb94b21e9deb5fd1939859c613a87f"
-  integrity sha512-VUHsfGbKXGjCa0yanF3woz+a1hW72knNw/bumzeVQ4qH+znsQxdLhJf14QcyM1c7yOdjyIHmIX0cbbf1IgrhhA==
-
 "@types/minimist@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"

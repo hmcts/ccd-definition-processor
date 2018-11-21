@@ -1,6 +1,5 @@
 import * as assert from 'assert'
 import * as XLSX from 'xlsx'
-import { WorkBook, WorkSheet } from 'xlsx'
 import * as stringify from 'json-stringify-pretty-compact'
 import * as XlsxPopulate from 'xlsx-populate'
 import * as moment from 'moment'
@@ -9,7 +8,7 @@ import * as moment from 'moment'
 //   A class to export the contents of an existing CCD definition xlsx
 //   each sheet in the spreadsheet can be exported as a json file
 export class SpreadsheetConvert {
-  workbook: WorkBook
+  workbook: XLSX.WorkBook
   sheets: any
 
   constructor (private filename: string) {
@@ -19,7 +18,7 @@ export class SpreadsheetConvert {
   }
 
   async sheet2Json (sheetName: string) {
-    const worksheet: WorkSheet = this.workbook.Sheets[sheetName]
+    const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename)
 
     this._setSheetRange(worksheet, 2)
@@ -30,7 +29,7 @@ export class SpreadsheetConvert {
     return this.sheets
   }
 
-  _setSheetRange (worksheet: WorkSheet, startRow: number) {
+  _setSheetRange (worksheet: XLSX.WorkSheet, startRow: number) {
     const range = XLSX.utils.decode_range(worksheet['!ref'] as string)
     range.s.r = startRow
     worksheet['!ref'] = XLSX.utils.encode_range(range)
@@ -40,7 +39,7 @@ export class SpreadsheetConvert {
 //  SpreadsheetBuilder
 //    A class to update the contents of an existing xlsx
 export class SpreadsheetBuilder {
-  workbook: WorkBook | undefined
+  workbook: XLSX.WorkBook | undefined
 
   constructor (private filename: string) {
   }
@@ -70,7 +69,7 @@ const dateFormat = 'DD/MM/YYYY'
 
 export class JsonHelper {
 
-  static convertPropertyValueDateToString (propertyName: string, json: object[]) {
+  static convertPropertyValueDateToString (propertyName: string, json: any) {
     json.forEach((obj: object) => {
       if (obj[propertyName]) {
         const date = moment(XlsxPopulate.numberToDate(obj[propertyName]))
@@ -79,7 +78,7 @@ export class JsonHelper {
     })
   }
 
-  static convertPropertyValueStringToDate (propertyName: string, json: object[]) {
+  static convertPropertyValueStringToDate (propertyName: string, json: any) {
     json.forEach((obj: object) => {
       if (obj[propertyName]) {
         const dateString = obj[propertyName]

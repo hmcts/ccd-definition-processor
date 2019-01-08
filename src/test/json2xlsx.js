@@ -36,6 +36,21 @@ describe('json2xlsx', () => {
   });
 
   describe('outcome', () => {
+
+    it('should throw an error when a sheet matching a json file is not found in the template spreadsheet', async () => {
+      try {
+        const jsonDefinitionsFolder = './src/test/fixtures/jsonErrorCaseDefinitions';
+        await run({
+          _: ['unexpected'],
+          sheetsDir: jsonDefinitionsFolder,
+          destinationXlsx: './temp/ccd-definitions.xlsx'
+        });
+        assert.fail('No error has been thrown');
+      } catch (err) {
+        assert.equal(err, 'AssertionError [ERR_ASSERTION]: Unexpected spreadsheet data file "unexpected.json"');
+      }
+    });
+
     it('should create XLSX file from JSON fixtures', async () => {
       process.env.CCD_DEF_BASE_URL = 'http://localhost';
 

@@ -37,7 +37,7 @@ describe('json2xlsx', () => {
 
   describe('outcome', () => {
 
-    it('should throw an error when a sheet matching a json file is not found in the template spreadsheet', async () => {
+    it('should throw an error when json file does not have a matching sheet in the template spreadsheet', async () => {
       try {
         const jsonDefinitionsFolder = './src/test/fixtures/jsonErrorCaseDefinitions';
         await run({

@@ -45,6 +45,7 @@ class SpreadsheetBuilder {
 
   updateSheetDataJson (sheetName, json) {
     const sheet = this.workbook.sheet(sheetName);
+    assert(sheet, `Unexpected spreadsheet data file "${sheetName}.json"`);
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
     const table = json.map(record => {
       return headers.map(key => {

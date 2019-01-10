@@ -46,7 +46,7 @@ class SpreadsheetBuilder {
   updateSheetDataJson (sheetName, json) {
     const sheet = this.workbook.sheet(sheetName);
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
-    if (Object.keys(json).length > 0) {
+    if (json.length > 0) {
       const table = json.map(record => {
         return headers.map(key => {
           const data = record[key];
@@ -71,6 +71,7 @@ class SpreadsheetBuilder {
 }
 
 const dateFormat = 'DD/MM/YYYY';
+
 class JsonHelper {
 
   static convertPropertyValueDateToString (propertyName, json) {

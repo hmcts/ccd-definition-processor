@@ -46,13 +46,15 @@ class SpreadsheetBuilder {
   updateSheetDataJson (sheetName, json) {
     const sheet = this.workbook.sheet(sheetName);
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
-    const table = json.map(record => {
-      return headers.map(key => {
-        const data = record[key];
-        return data ? data : null;
+    if (Object.keys(json).length > 0) {
+      const table = json.map(record => {
+        return headers.map(key => {
+          const data = record[key];
+          return data ? data : null;
+        });
       });
-    });
-    sheet.cell('A4').value(table);
+      sheet.cell('A4').value(table);
+    }
   }
 
   allSheets () {

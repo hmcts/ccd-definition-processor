@@ -47,13 +47,15 @@ class SpreadsheetBuilder {
     const sheet = this.workbook.sheet(sheetName);
     assert(sheet, `Unexpected spreadsheet data file "${sheetName}.json"`);
     const headers = sheet.range('A3:AZ3').value()[0].filter(el => !!el);
-    const table = json.map(record => {
-      return headers.map(key => {
-        const data = record[key];
-        return data ? data : null;
+    if (json.length > 0) {
+      const table = json.map(record => {
+        return headers.map(key => {
+          const data = record[key];
+          return data ? data : null;
+        });
       });
-    });
-    sheet.cell('A4').value(table);
+      sheet.cell('A4').value(table);
+    }
   }
 
   allSheets () {
@@ -70,6 +72,7 @@ class SpreadsheetBuilder {
 }
 
 const dateFormat = 'DD/MM/YYYY';
+
 class JsonHelper {
 
   static convertPropertyValueDateToString (propertyName, json) {

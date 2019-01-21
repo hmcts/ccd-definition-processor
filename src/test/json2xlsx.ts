@@ -43,7 +43,7 @@ describe('json2xlsx', () => {
           _: ['unexpected'],
           sheetsDir: jsonDefinitionsFolder,
           destinationXlsx: './temp/ccd-definitions.xlsx'
-        });
+        })
         assert.fail('No error has been thrown')
       } catch (err) {
         assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: Unexpected spreadsheet data file "unexpected.json"')

@@ -6,6 +6,7 @@ import * as assert from 'assert'
 import * as fileUtils from './lib/file-utils'
 import * as asyncUtils from './lib/async-utils'
 import * as ccdUtils from './lib/ccd-spreadsheet-utils'
+import { JSON } from '../../types/json'
 
 const jsonUtil = ccdUtils.JsonHelper
 
@@ -27,7 +28,7 @@ export const run = async (args: ParsedArgs): Promise<void> => {
   await asyncUtils.forEach(sheets, async (sheet: string) => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`)
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`)
-    const json = await converter.sheet2Json(sheet)
+    const json: JSON = await converter.sheet2Json(sheet)
     jsonUtil.convertPropertyValueDateToString('LiveFrom', json)
     jsonUtil.convertPropertyValueDateToString('LiveTo', json)
     await fileUtils.writeJson(jsonFilePath, jsonUtil.stringify(json))

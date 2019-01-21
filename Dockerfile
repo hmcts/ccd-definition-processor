@@ -1,12 +1,17 @@
-FROM node:10-alpine
+# ---- Base Image ----
+FROM node:10-alpine as base
 
 WORKDIR /opt/ccd-definition-processor
 
-ADD . /opt/ccd-definition-processor/
+COPY package.json yarn.lock ./
 
-RUN rm -rf node_modules \
-    && yarn install --production \
+RUN yarn install --production \
     && yarn cache clean
+
+# ---- Runtime Image ----
+FROM base as runtime
+
+COPY . .
 
 ENTRYPOINT [ "yarn", "--silent" ]
 CMD [ "json2xlsx" ]

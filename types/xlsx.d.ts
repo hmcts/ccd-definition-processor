@@ -1,4 +1,4 @@
-import { WorkSheet, Range } from 'xlsx'
+import { WorkSheet } from 'xlsx'
 
 declare module 'xlsx' {
   export interface WorkBook {

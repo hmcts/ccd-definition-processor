@@ -1,6 +1,6 @@
 import * as parseArgs from 'minimist'
 
-import { run } from '../src/main/json2xlsx'
+import { run } from 'json2xlsx'
 
 run(parseArgs(process.argv.slice(2), {
   string: [

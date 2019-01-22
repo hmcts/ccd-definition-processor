@@ -1,10 +1,10 @@
 import * as assert from 'assert'
 import * as XLSX from 'xlsx'
 
-import { run } from '../main/json2xlsx'
+import { run } from 'json2xlsx'
 
-import * as fileUtils from '../main/lib/file-utils'
-import * as asyncUtils from '../main/lib/async-utils'
+import * as fileUtils from 'lib/file-utils'
+import * as asyncUtils from 'lib/async-utils'
 
 describe('json2xlsx', () => {
   describe('validation', () => {

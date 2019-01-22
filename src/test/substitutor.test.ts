@@ -1,6 +1,6 @@
 import * as assert from 'assert'
 
-import { Substitutor } from '../main/lib/substitutor'
+import { Substitutor } from 'lib/substitutor'
 
 describe('Substitutor', () => {
   describe('injecting environment variables', () => {

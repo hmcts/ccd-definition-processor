@@ -2,6 +2,9 @@
   "name": "ccd-definition-processor",
   "version": "1.0.0",
   "dependencies": {
+    "@types/minimist": "^1.2.0",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
     "json-stringify-pretty-compact": "^1.2.0",
     "minimist": "^1.2.0",
     "moment": "^2.23.0",
@@ -12,9 +15,6 @@
     "xlsx-populate": "^1.19.0"
   },
   "devDependencies": {
-    "@types/minimist": "^1.2.0",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
     "mocha": "^5.2.0",
     "tslint": "^5.12.1",
     "tslint-config-standard": "^8.0.1"
@@ -23,8 +23,8 @@
     "lint": "tsc --noEmit && tslint -p tsconfig.json",
     "lint-fix": "tslint -p tsconfig.json --fix",
     "test": "TS_NODE_FILES=true mocha --opts mocha.opts ./src/test/**/*.ts",
-    "json2xlsx": "TS_NODE_FILES=true ts-node -r tsconfig-paths/register ./bin/json2xlsx",
-    "xlsx2json": "TS_NODE_FILES=true ts-node -r tsconfig-paths/register ./bin/xlsx2json"
+    "json2xlsx": "TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register ./bin/json2xlsx",
+    "xlsx2json": "TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register ./bin/xlsx2json"
   },
   "author": "mh-hmcts",
   "license": "MIT"

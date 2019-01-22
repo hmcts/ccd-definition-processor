@@ -10,3 +10,5 @@
 !bin/**
 !data/**
 !src/main/**
+!types/**
+!tsconfig.json

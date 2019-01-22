@@ -1,8 +1,6 @@
 import * as assert from 'assert'
 import * as XLSX from 'xlsx'
-import * as stringify from 'json-stringify-pretty-compact'
 import * as XlsxPopulate from 'xlsx-populate'
-import * as moment from 'moment'
 import { Json } from 'types/json'
 
 // SpreadsheetConvert
@@ -75,33 +73,4 @@ export class SpreadsheetBuilder {
 
     return this.workbook.toFileAsync(newFilename)
   }
-}
-
-const dateFormat = 'DD/MM/YYYY'
-
-export class JsonHelper {
-
-  static convertPropertyValueDateToString (propertyName: string, json: Json[]) {
-    json.forEach((obj: Json) => {
-      if (obj[propertyName]) {
-        const date = moment(XlsxPopulate.numberToDate(obj[propertyName] as number))
-        obj[propertyName] = date.format(dateFormat)
-      }
-    })
-  }
-
-  static convertPropertyValueStringToDate (propertyName: string, json: Json[]) {
-    json.forEach((obj: Json) => {
-      if (obj[propertyName]) {
-        const dateString: string = obj[propertyName] as string
-        const date = moment(dateString, dateFormat).toDate()
-        obj[propertyName] = XlsxPopulate.dateToNumber(date)
-      }
-    })
-  }
-
-  static stringify (json: Json | Json[]) {
-    return stringify(json, { maxLength: 420, indent: 2 })
-  }
-
 }

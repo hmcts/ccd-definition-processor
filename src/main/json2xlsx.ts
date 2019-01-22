@@ -9,6 +9,7 @@ import * as asyncUtils from 'lib/async-utils'
 import * as ccdUtils from 'lib/ccd-spreadsheet-utils'
 import { Substitutor } from 'lib/substitutor'
 import { Json } from 'types/json'
+import { JsonHelper } from 'lib/json-helper'
 
 const sourceXlsx = './data/ccd-template.xlsx'
 
@@ -34,8 +35,8 @@ export const run = async (args: ParsedArgs): Promise<void> => {
     const jsonPath = path.join(args.sheetsDir, `${sheet}.json`)
     console.log(`  importing sheet data: ${jsonPath}`)
     const json: Json[] = await fileUtils.readJson(jsonPath, Substitutor.injectEnvironmentVariables) as Json[]
-    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
-    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
+    JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
+    JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
     builder.updateSheetDataJson(sheet, json)
   })
 

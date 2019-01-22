@@ -1,7 +1,7 @@
 import * as assert from 'assert'
-import * as sheetUtils from 'lib/ccd-spreadsheet-utils'
 
 import { Json } from 'types/json'
+import { JsonHelper } from 'lib/json-helper'
 
 describe('JsonHelper', () => {
   const createJsonWithNumbers = (): Json[] => [
@@ -16,8 +16,8 @@ describe('JsonHelper', () => {
   describe('dateFieldToString', () => {
     it('should convert date fields from number to string', async () => {
       const json: Json[] = createJsonWithNumbers()
-      sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
-      sheetUtils.JsonHelper.convertPropertyValueDateToString('LiveTo', json)
+      JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
+      JsonHelper.convertPropertyValueDateToString('LiveTo', json)
       assert.deepStrictEqual(json, createJsonWithStrings())
     })
   })
@@ -25,8 +25,8 @@ describe('JsonHelper', () => {
   describe('stringToDateField', () => {
     it('should convert date fields from string to number', async () => {
       const json: Json[] = createJsonWithStrings()
-      sheetUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
-      sheetUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
+      JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
+      JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
       assert.deepStrictEqual(json, createJsonWithNumbers())
     })
   })

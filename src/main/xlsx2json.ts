@@ -8,8 +8,8 @@ import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
 import * as ccdUtils from 'lib/ccd-spreadsheet-utils'
 import { Json } from 'types/json'
-
-const jsonUtil = ccdUtils.JsonHelper
+import { JsonHelper } from 'lib/json-helper'
+import { JsonFormatter } from 'lib/json-formatter'
 
 const validateArgs = (args: ParsedArgs): void => {
   assert(!!args.sourceXlsx, 'spreadsheet file argument (-i) is required')
@@ -30,9 +30,9 @@ export const run = async (args: ParsedArgs): Promise<void> => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`)
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`)
     const json: Json[] = await converter.sheet2Json(sheet)
-    jsonUtil.convertPropertyValueDateToString('LiveFrom', json)
-    jsonUtil.convertPropertyValueDateToString('LiveTo', json)
-    await fileUtils.writeJson(jsonFilePath, jsonUtil.stringify(json))
+    JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
+    JsonHelper.convertPropertyValueDateToString('LiveTo', json)
+    await fileUtils.writeJson(jsonFilePath, JsonFormatter.stringify(json))
   })
 
   console.log('done.')

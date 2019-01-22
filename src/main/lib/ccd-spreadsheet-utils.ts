@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx'
 import * as stringify from 'json-stringify-pretty-compact'
 import * as XlsxPopulate from 'xlsx-populate'
 import * as moment from 'moment'
-import { Json } from '../../../types/json'
+import { Json } from 'types/json'
 
 // SpreadsheetConvert
 //   A class to export the contents of an existing CCD definition xlsx

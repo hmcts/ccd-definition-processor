@@ -5,7 +5,7 @@ import { run } from 'xlsx2json'
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
 
-import { Json } from '../../types/json'
+import { Json } from 'types/json'
 
 describe('xlsx2json', () => {
   describe('validation', () => {

@@ -7,7 +7,7 @@ import * as assert from 'assert'
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
 import * as ccdUtils from 'lib/ccd-spreadsheet-utils'
-import { Json } from '../../types/json'
+import { Json } from 'types/json'
 
 const jsonUtil = ccdUtils.JsonHelper
 

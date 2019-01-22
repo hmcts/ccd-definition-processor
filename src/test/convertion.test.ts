@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import * as sheetUtils from 'lib/ccd-spreadsheet-utils'
 
-import { Json } from '../../types/json'
+import { Json } from 'types/json'
 
 describe('JsonHelper', () => {
   const createJsonWithNumbers = (): Json[] => [

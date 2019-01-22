@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { Json } from '../../../types/json'
+import { Json } from 'types/json'
 
 export const readJson = (filename: string, processFn?: (data: string) => string): Promise<Json | Json[]> => {
   return new Promise((resolveFn: (value?: Json | Json[]) => void) => {

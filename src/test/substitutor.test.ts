@@ -8,7 +8,7 @@ describe('Substitutor', () => {
       it('should return unchanged input', () => {
         const template = 'Static text'
 
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, template)
       })
@@ -18,7 +18,7 @@ describe('Substitutor', () => {
       it('should return unchanged input when no value exists', () => {
         const template = 'Version: ${CCD_DEF_VERSION}'
 
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, template)
       })
@@ -27,7 +27,7 @@ describe('Substitutor', () => {
         const template = 'Version: ${VERSION}'
 
         process.env.VERSION = '1.0.0'
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, template)
       })
@@ -36,7 +36,7 @@ describe('Substitutor', () => {
         const template = 'Version: ${CCD_DEF_VERSION}'
 
         process.env.CCD_DEF_VERSION = '1.0.0'
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, 'Version: 1.0.0')
       })
@@ -45,7 +45,7 @@ describe('Substitutor', () => {
         const template = 'Name: ${CCD_DEF_NAME}; Raw name: ${CCD_DEF_NAME}'
 
         process.env.CCD_DEF_NAME = 'FPL'
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, 'Name: FPL; Raw name: FPL')
       })
@@ -55,7 +55,7 @@ describe('Substitutor', () => {
 
         process.env.CCD_DEF_NAME = 'FPL'
         process.env.CCD_DEF_VERSION = '1.0.0'
-        const result = Substitutor.injectEnvironmentVariables(template)
+        const result: string = Substitutor.injectEnvironmentVariables(template)
 
         assert.strictEqual(result, 'Name: FPL; Version: 1.0.0')
       })

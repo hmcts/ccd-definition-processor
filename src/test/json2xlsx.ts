@@ -60,12 +60,12 @@ describe('json2xlsx', () => {
         destinationXlsx: './temp/ccd-definitions.xlsx'
       })
 
-      const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets
+      const sheets: { [sheet: string]: XLSX.WorkSheet } = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets
       assert(Object.keys(sheets).length > 0, 'No sheets have been created')
 
-      const files = fileUtils.listJsonFilesInFolder(jsonDefinitionsFolder)
-      await asyncUtils.forEach(files, file => {
-        const sheetName = file.slice(0, -5)
+      const files: string[] = fileUtils.listJsonFilesInFolder(jsonDefinitionsFolder)
+      await asyncUtils.forEach(files, (file: string) => {
+        const sheetName: string = file.slice(0, -5)
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`)
         assert.strictEqual(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`)
         assert.strictEqual(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`)

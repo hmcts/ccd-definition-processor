@@ -1,5 +1,6 @@
 import { ParsedArgs } from 'minimist'
 
+import * as fs from 'fs'
 import * as path from 'path'
 import * as assert from 'assert'
 
@@ -15,7 +16,7 @@ const validateArgs = (args: ParsedArgs): void => {
   assert(!!args.sheetsDir, 'sheets directory argument (-D) is required')
   assert(!!args.destinationXlsx, 'spreadsheet file argument (-o) is required')
 
-  assert(fileUtils.exists(args.sheetsDir), `sheets directory ${args.sheetsDir} not found`)
+  assert(fs.existsSync(args.sheetsDir), `sheets directory ${args.sheetsDir} not found`)
 }
 
 export const run = async (args: ParsedArgs): Promise<void> => {

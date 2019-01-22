@@ -3,9 +3,10 @@ import * as XLSX from 'xlsx'
 import * as XlsxPopulate from 'xlsx-populate'
 import { Json } from 'types/json'
 
-// SpreadsheetConvert
-//   A class to export the contents of an existing CCD definition xlsx
-//   each sheet in the spreadsheet can be exported as a json file
+/**
+ * A class to export the contents of an existing CCD definition xlsx
+ * each sheet in the spreadsheet can be exported as a json file
+ */
 export class SpreadsheetConvert {
   workbook: XLSX.WorkBook
   sheets: any
@@ -35,8 +36,9 @@ export class SpreadsheetConvert {
   }
 }
 
-//  SpreadsheetBuilder
-//    A class to update the contents of an existing xlsx
+/**
+ * A class to update the contents of an existing xlsx
+ */
 export class SpreadsheetBuilder {
   workbook: XLSX.WorkBook | undefined
 

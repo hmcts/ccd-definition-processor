@@ -3,6 +3,11 @@
   "extends": [
     "tslint-config-standard"
   ],
-  "rules": {},
+  "rules": {
+    "linebreak-style": [
+      true,
+      "LF"
+    ]
+  },
   "rulesDirectory": []
 }

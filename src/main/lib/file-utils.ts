@@ -1,9 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { JSON } from '../../../types/json'
+import { Json } from '../../../types/json'
 
-export const readJson = (filename: string, processFn?: (data: string) => string): Promise<JSON | JSON[]> => {
+export const readJson = (filename: string, processFn?: (data: string) => string): Promise<Json | Json[]> => {
   return new Promise((resolveFn: (value?: any) => void) => {
     fs.readFile(filename, 'utf8', (err: Error, data: string): void => {
       if (err) throw err
@@ -15,7 +15,7 @@ export const readJson = (filename: string, processFn?: (data: string) => string)
   })
 }
 
-export const writeJson = (filename: string, json: JSON | string): Promise<void> => {
+export const writeJson = (filename: string, json: Json | Json[] | string): Promise<void> => {
   return new Promise((resolveFn: (value?: any) => void) => {
     fs.writeFile(filename, json, (err) => {
       if (err) throw err

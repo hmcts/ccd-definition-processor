@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx'
 import * as stringify from 'json-stringify-pretty-compact'
 import * as XlsxPopulate from 'xlsx-populate'
 import * as moment from 'moment'
-import { JSON } from '../../../types/json'
+import { Json } from '../../../types/json'
 
 // SpreadsheetConvert
 //   A class to export the contents of an existing CCD definition xlsx
@@ -18,7 +18,7 @@ export class SpreadsheetConvert {
     this.sheets = Object.keys(this.workbook.Sheets)
   }
 
-  async sheet2Json (sheetName: string): Promise<JSON> {
+  async sheet2Json (sheetName: string): Promise<Json[]> {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename)
 
@@ -45,7 +45,7 @@ export class SpreadsheetBuilder {
   constructor (private filename: string) {
   }
 
-  updateSheetDataJson (sheetName: string, json: JSON) {
+  updateSheetDataJson (sheetName: string, json: Json[]) {
     if (this.workbook === undefined) {
       throw new Error('IllegalState: workbook is undefined')
     }
@@ -54,7 +54,7 @@ export class SpreadsheetBuilder {
     assert(sheet, `Unexpected spreadsheet data file "${sheetName}.json"`)
     const headers = sheet.range('A3:AZ3').value()[0].filter((value: any) => !!value)
     if (json.length > 0) {
-      const table = json.map((record: JSON) => {
+      const table = json.map((record: Json) => {
         return headers.map((key: string) => {
           const data = record[key]
           return data ? data : null
@@ -81,26 +81,26 @@ const dateFormat = 'DD/MM/YYYY'
 
 export class JsonHelper {
 
-  static convertPropertyValueDateToString (propertyName: string, json: JSON) {
-    json.forEach((obj: JSON) => {
+  static convertPropertyValueDateToString (propertyName: string, json: Json[]) {
+    json.forEach((obj: Json) => {
       if (obj[propertyName]) {
-        const date = moment(XlsxPopulate.numberToDate(obj[propertyName]))
+        const date = moment(XlsxPopulate.numberToDate(obj[propertyName] as number))
         obj[propertyName] = date.format(dateFormat)
       }
     })
   }
 
-  static convertPropertyValueStringToDate (propertyName: string, json: JSON) {
-    json.forEach((obj: JSON) => {
+  static convertPropertyValueStringToDate (propertyName: string, json: Json[]) {
+    json.forEach((obj: Json) => {
       if (obj[propertyName]) {
-        const dateString = obj[propertyName]
+        const dateString: string = obj[propertyName] as string
         const date = moment(dateString, dateFormat).toDate()
         obj[propertyName] = XlsxPopulate.dateToNumber(date)
       }
     })
   }
 
-  static stringify (json: JSON | JSON[]) {
+  static stringify (json: Json | Json[]) {
     return stringify(json, { maxLength: 420, indent: 2 })
   }
 

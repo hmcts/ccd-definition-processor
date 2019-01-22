@@ -5,7 +5,7 @@ import { run } from 'xlsx2json'
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
 
-import { JSON } from '../../types/json'
+import { Json } from '../../types/json'
 
 describe('xlsx2json', () => {
   describe('validation', () => {
@@ -62,8 +62,8 @@ describe('xlsx2json', () => {
       const files: string[] = fileUtils.listJsonFilesInFolder('./temp')
       assert(files.length > 0, 'No files have been created')
 
-      const exported: JSON[] = await fileUtils.readJson('./temp/Jurisdiction.json') as JSON[]
-      const expected: JSON[] = [{
+      const exported: Json[] = await fileUtils.readJson('./temp/Jurisdiction.json') as Json[]
+      const expected: Json[] = [{
         Description: 'description',
         'ID': 1,
         'LiveFrom': '20/06/2017',

@@ -16,7 +16,7 @@ describe('xlsx2json', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-i) is required')
+        assert.strictEqual(`${err.name}: ${err.message}`, 'AssertionError [ERR_ASSERTION]: spreadsheet file argument (-i) is required')
       }
     })
 
@@ -29,7 +29,7 @@ describe('xlsx2json', () => {
         })
         assert.fail('No error has been thrown')
       } catch (err) {
-        assert.strictEqual(err, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
+        assert.strictEqual(`${err.name}: ${err.message}`, 'AssertionError [ERR_ASSERTION]: sheets directory argument (-D) is required')
       }
     })
   })

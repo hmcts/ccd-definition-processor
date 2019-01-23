@@ -4,6 +4,12 @@ import * as XlsxPopulate from 'xlsx-populate'
 
 import { Json } from 'types/json'
 
+function setSheetRange (worksheet: XLSX.WorkSheet, startRow: number): void {
+  const range: XLSX.Range = XLSX.utils.decode_range(worksheet['!ref'] as string)
+  range.s.r = startRow
+  worksheet['!ref'] = XLSX.utils.encode_range(range)
+}
+
 /**
  * A class to export the contents of an existing CCD definition xlsx
  * each sheet in the spreadsheet can be exported as a json file
@@ -20,18 +26,13 @@ export class SpreadsheetConvert {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
     assert(worksheet, 'sheet named \'' + sheetName + '\' does not exist in ' + this.filename)
 
-    this.setSheetRange(worksheet, 2)
+    setSheetRange(worksheet, 2)
+
     return XLSX.utils.sheet_to_json(worksheet)
   }
 
   allSheets (): string[] {
     return Object.keys(this.workbook.Sheets)
-  }
-
-  private setSheetRange (worksheet: XLSX.WorkSheet, startRow: number): void {
-    const range: XLSX.Range = XLSX.utils.decode_range(worksheet['!ref'] as string)
-    range.s.r = startRow
-    worksheet['!ref'] = XLSX.utils.encode_range(range)
   }
 }
 
@@ -60,15 +61,15 @@ export class SpreadsheetBuilder {
     }
   }
 
-  async loadAsync () {
+  async loadAsync (): Promise<void> {
     this.workbook = await XlsxPopulate.fromFileAsync('./data/ccd-template.xlsx')
   }
 
-  saveAsAsync (newFilename: string) {
+  saveAsAsync (path: string): Promise<void> {
     if (this.workbook === undefined) {
       throw new Error('IllegalState: workbook is undefined')
     }
 
-    return this.workbook.toFileAsync(newFilename)
+    return this.workbook.toFileAsync(path)
   }
 }

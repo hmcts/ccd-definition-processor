@@ -1,6 +1,7 @@
 import * as assert from 'assert'
 import * as XLSX from 'xlsx'
 import * as XlsxPopulate from 'xlsx-populate'
+
 import { Json } from 'types/json'
 
 /**
@@ -9,7 +10,7 @@ import { Json } from 'types/json'
  */
 export class SpreadsheetConvert {
   workbook: XLSX.WorkBook
-  sheets: any
+  sheets: string[]
 
   constructor (private filename: string) {
     this.workbook = XLSX.readFile(filename)
@@ -21,16 +22,16 @@ export class SpreadsheetConvert {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename)
 
-    this._setSheetRange(worksheet, 2)
+    this.setSheetRange(worksheet, 2)
     return XLSX.utils.sheet_to_json(worksheet)
   }
 
-  allSheets () {
+  allSheets (): string[] {
     return this.sheets
   }
 
-  _setSheetRange (worksheet: XLSX.WorkSheet, startRow: number) {
-    const range = XLSX.utils.decode_range(worksheet['!ref'] as string)
+  private setSheetRange (worksheet: XLSX.WorkSheet, startRow: number): void {
+    const range: XLSX.Range = XLSX.utils.decode_range(worksheet['!ref'] as string)
     range.s.r = startRow
     worksheet['!ref'] = XLSX.utils.encode_range(range)
   }
@@ -40,19 +41,19 @@ export class SpreadsheetConvert {
  * A class to update the contents of an existing xlsx
  */
 export class SpreadsheetBuilder {
-  workbook: XLSX.WorkBook | undefined
+  workbook: XlsxPopulate.Workbook | undefined
 
   constructor (private filename: string) {
   }
 
-  updateSheetDataJson (sheetName: string, json: Json[]) {
+  updateSheetDataJson (sheetName: string, json: Json[]): void {
     if (this.workbook === undefined) {
       throw new Error('IllegalState: workbook is undefined')
     }
 
-    const sheet: XLSX.WorkSheet = this.workbook.sheet(sheetName)
+    const sheet: XlsxPopulate.Sheet | undefined = this.workbook.sheet(sheetName)
     assert(sheet, `Unexpected spreadsheet data file "${sheetName}.json"`)
-    const headers = sheet.range('A3:AZ3').value()[0].filter((value: any) => !!value)
+    const headers: string[] = sheet!.range('A3:AZ3').value()[0].filter((value: any) => !!value)
     if (json.length > 0) {
       const table = json.map((record: Json) => {
         return headers.map((key: string) => {
@@ -60,7 +61,7 @@ export class SpreadsheetBuilder {
           return data ? data : null
         })
       })
-      sheet.cell('A4').value(table)
+      sheet!.cell('A4').value(table)
     }
   }
 

@@ -6,7 +6,7 @@ import * as assert from 'assert'
 
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
-import * as ccdUtils from 'lib/ccd-spreadsheet-utils'
+import { SpreadsheetBuilder } from 'lib/ccd-spreadsheet-utils'
 import { Substitutor } from 'lib/substitutor'
 import { Json } from 'types/json'
 import { JsonHelper } from 'lib/json-helper'
@@ -24,7 +24,7 @@ export const run = async (args: ParsedArgs): Promise<void> => {
   validateArgs(args)
 
   console.log(`Import...\n loading workbook: ${sourceXlsx}`)
-  const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx)
+  const builder = new SpreadsheetBuilder(sourceXlsx)
   await builder.loadAsync()
 
   const sheets = args._.length > 0 ? args._ : fileUtils

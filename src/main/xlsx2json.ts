@@ -6,7 +6,7 @@ import * as assert from 'assert'
 
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
-import * as ccdUtils from 'lib/ccd-spreadsheet-utils'
+import { SpreadsheetConvert } from 'lib/ccd-spreadsheet-utils'
 import { Json } from 'types/json'
 import { JsonHelper } from 'lib/json-helper'
 import { JsonFormatter } from 'lib/json-formatter'
@@ -23,7 +23,7 @@ export const run = async (args: ParsedArgs): Promise<void> => {
   validateArgs(args)
 
   console.log(`Export...\n loading workbook: ${args.sourceXlsx}`)
-  const converter = new ccdUtils.SpreadsheetConvert(args.sourceXlsx)
+  const converter = new SpreadsheetConvert(args.sourceXlsx)
   const sheets = args._.length > 0 ? args._ : converter.allSheets()
 
   await asyncUtils.forEach(sheets, async (sheet: string) => {

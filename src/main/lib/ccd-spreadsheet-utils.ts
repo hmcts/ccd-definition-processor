@@ -19,12 +19,12 @@ export class SpreadsheetConvert {
 
   constructor (private filename: string) {
     this.workbook = XLSX.readFile(filename)
-    assert(this.workbook, 'could not load ' + filename)
+    assert(this.workbook, `could not load ${filename}`)
   }
 
   sheet2Json (sheetName: string): Json[] {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
-    assert(worksheet, 'sheet named \'' + sheetName + '\' does not exist in ' + this.filename)
+    assert(worksheet, `sheet named '${sheetName}' does not exist in ${this.filename}`)
 
     setSheetRange(worksheet, 2)
 
@@ -43,11 +43,9 @@ export class SpreadsheetBuilder {
   workbook: XlsxPopulate.Workbook | undefined
 
   updateSheetDataJson (sheetName: string, json: Json[]): void {
-    if (this.workbook === undefined) {
-      throw new Error('IllegalState: workbook is undefined')
-    }
+    assert(this.workbook, 'workbook is undefined')
 
-    const sheet: XlsxPopulate.Sheet | undefined = this.workbook.sheet(sheetName)
+    const sheet: XlsxPopulate.Sheet | undefined = this.workbook!.sheet(sheetName)
     assert(sheet, `Unexpected spreadsheet data file "${sheetName}.json"`)
     const headers: string[] = sheet!.range('A3:AZ3').value()[0].filter((value: any) => !!value)
     if (json.length > 0) {
@@ -66,10 +64,8 @@ export class SpreadsheetBuilder {
   }
 
   saveAsAsync (path: string): Promise<void> {
-    if (this.workbook === undefined) {
-      throw new Error('IllegalState: workbook is undefined')
-    }
+    assert(this.workbook, 'workbook is undefined')
 
-    return this.workbook.toFileAsync(path)
+    return this.workbook!.toFileAsync(path)
   }
 }

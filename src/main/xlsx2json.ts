@@ -6,7 +6,7 @@ import * as assert from 'assert'
 
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
-import { SpreadsheetConvert } from 'lib/ccd-spreadsheet-utils'
+import { SpreadsheetReader } from 'lib/ccd-spreadsheet-reader'
 import { Json } from 'types/json'
 import { JsonHelper } from 'lib/json-helper'
 import { JsonFormatter } from 'lib/json-formatter'
@@ -23,13 +23,13 @@ export const run = async (args: ParsedArgs): Promise<void> => {
   validateArgs(args)
 
   console.log(`Export...\n loading workbook: ${args.sourceXlsx}`)
-  const converter = new SpreadsheetConvert(args.sourceXlsx)
-  const sheets = args._.length > 0 ? args._ : converter.allSheets()
+  const reader = new SpreadsheetReader(args.sourceXlsx)
+  const sheets = args._.length > 0 ? args._ : reader.getSheetNames()
 
   await asyncUtils.forEach(sheets, async (sheet: string) => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`)
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`)
-    const json: Json[] = converter.sheet2Json(sheet)
+    const json: Json[] = reader.readSheetAsJson(sheet)
     JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
     JsonHelper.convertPropertyValueDateToString('LiveTo', json)
     await fileUtils.writeJson(jsonFilePath, JsonFormatter.stringify(json))

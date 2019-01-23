@@ -6,7 +6,7 @@ import * as assert from 'assert'
 
 import * as fileUtils from 'lib/file-utils'
 import * as asyncUtils from 'lib/async-utils'
-import { SpreadsheetBuilder } from 'lib/ccd-spreadsheet-utils'
+import { SpreadsheetBuilder } from 'lib/ccd-spreadsheet-builder'
 import { Substitutor } from 'lib/substitutor'
 import { Json } from 'types/json'
 import { JsonHelper } from 'lib/json-helper'
@@ -23,7 +23,7 @@ export const run = async (args: ParsedArgs): Promise<void> => {
 
   console.log(`Import...\n loading template workbook`)
   const builder = new SpreadsheetBuilder()
-  await builder.loadAsync()
+  await builder.loadTemplate()
 
   const sheets = args._.length > 0 ? args._ : fileUtils
     .listJsonFilesInFolder(args.sheetsDir)
@@ -35,11 +35,11 @@ export const run = async (args: ParsedArgs): Promise<void> => {
     const json: Json[] = await fileUtils.readJson(jsonPath, Substitutor.injectEnvironmentVariables) as Json[]
     JsonHelper.convertPropertyValueStringToDate('LiveFrom', json)
     JsonHelper.convertPropertyValueStringToDate('LiveTo', json)
-    builder.updateSheetDataJson(sheet, json)
+    builder.populateSheet(sheet, json)
   })
 
   console.log(` saving workbook: ${args.destinationXlsx}`)
-  await builder.saveAsAsync(args.destinationXlsx)
+  await builder.saveAs(args.destinationXlsx)
 
   console.log('done.')
 }

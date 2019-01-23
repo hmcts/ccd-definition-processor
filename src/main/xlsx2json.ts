@@ -29,7 +29,7 @@ export const run = async (args: ParsedArgs): Promise<void> => {
   await asyncUtils.forEach(sheets, async (sheet: string) => {
     const jsonFilePath = path.join(args.sheetsDir, `${sheet}.json`)
     console.log(` converting sheet to JSON: ${sheet} => ${jsonFilePath}`)
-    const json: Json[] = await converter.sheet2Json(sheet)
+    const json: Json[] = converter.sheet2Json(sheet)
     JsonHelper.convertPropertyValueDateToString('LiveFrom', json)
     JsonHelper.convertPropertyValueDateToString('LiveTo', json)
     await fileUtils.writeJson(jsonFilePath, JsonFormatter.stringify(json))

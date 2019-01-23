@@ -16,7 +16,7 @@ export class SpreadsheetConvert {
     assert(this.workbook, 'could not load ' + filename)
   }
 
-  async sheet2Json (sheetName: string): Promise<Json[]> {
+  sheet2Json (sheetName: string): Json[] {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
     assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename)
 

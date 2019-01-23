@@ -10,12 +10,10 @@ import { Json } from 'types/json'
  */
 export class SpreadsheetConvert {
   workbook: XLSX.WorkBook
-  sheets: string[]
 
   constructor (private filename: string) {
     this.workbook = XLSX.readFile(filename)
     assert(this.workbook, 'could not load ' + filename)
-    this.sheets = Object.keys(this.workbook.Sheets)
   }
 
   async sheet2Json (sheetName: string): Promise<Json[]> {
@@ -27,7 +25,7 @@ export class SpreadsheetConvert {
   }
 
   allSheets (): string[] {
-    return this.sheets
+    return Object.keys(this.workbook.Sheets)
   }
 
   private setSheetRange (worksheet: XLSX.WorkSheet, startRow: number): void {

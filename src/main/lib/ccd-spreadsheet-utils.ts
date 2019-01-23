@@ -18,7 +18,7 @@ export class SpreadsheetConvert {
 
   sheet2Json (sheetName: string): Json[] {
     const worksheet: XLSX.WorkSheet = this.workbook.Sheets[sheetName]
-    assert(worksheet, 'sheet named \'' + sheetName + '\' dose not exist in ' + this.filename)
+    assert(worksheet, 'sheet named \'' + sheetName + '\' does not exist in ' + this.filename)
 
     this.setSheetRange(worksheet, 2)
     return XLSX.utils.sheet_to_json(worksheet)

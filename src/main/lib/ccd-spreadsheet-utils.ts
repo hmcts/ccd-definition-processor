@@ -41,9 +41,6 @@ export class SpreadsheetConvert {
 export class SpreadsheetBuilder {
   workbook: XlsxPopulate.Workbook | undefined
 
-  constructor (private filename: string) {
-  }
-
   updateSheetDataJson (sheetName: string, json: Json[]): void {
     if (this.workbook === undefined) {
       throw new Error('IllegalState: workbook is undefined')
@@ -64,7 +61,7 @@ export class SpreadsheetBuilder {
   }
 
   async loadAsync () {
-    this.workbook = await XlsxPopulate.fromFileAsync(this.filename)
+    this.workbook = await XlsxPopulate.fromFileAsync('./data/ccd-template.xlsx')
   }
 
   saveAsAsync (newFilename: string) {

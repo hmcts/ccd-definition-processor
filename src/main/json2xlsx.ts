@@ -11,8 +11,6 @@ import { Substitutor } from 'lib/substitutor'
 import { Json } from 'types/json'
 import { JsonHelper } from 'lib/json-helper'
 
-const sourceXlsx = './data/ccd-template.xlsx'
-
 const validateArgs = (args: ParsedArgs): void => {
   assert(!!args.sheetsDir, 'sheets directory argument (-D) is required')
   assert(!!args.destinationXlsx, 'spreadsheet file argument (-o) is required')
@@ -23,8 +21,8 @@ const validateArgs = (args: ParsedArgs): void => {
 export const run = async (args: ParsedArgs): Promise<void> => {
   validateArgs(args)
 
-  console.log(`Import...\n loading workbook: ${sourceXlsx}`)
-  const builder = new SpreadsheetBuilder(sourceXlsx)
+  console.log(`Import...\n loading template workbook`)
+  const builder = new SpreadsheetBuilder()
   await builder.loadAsync()
 
   const sheets = args._.length > 0 ? args._ : fileUtils

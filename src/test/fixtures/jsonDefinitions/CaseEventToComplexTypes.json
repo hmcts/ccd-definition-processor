@@ -1,0 +1,14 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "ID": "CaseEventToComplexType",
+    "CaseEventID": "CaseEventId",
+    "CaseFieldID": "CaseField",
+    "ListElementCode": "typeOfDocument",
+    "EventElementLabel": "Event element label",
+    "EventHintText": "Event hint text",
+    "FieldDisplayOrder": "1",
+    "DisplayContext": "OPTIONAL",
+    "FieldShowCondition": ""
+  }
+]

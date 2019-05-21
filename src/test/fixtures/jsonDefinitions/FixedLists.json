@@ -4,5 +4,11 @@
     "ID": "TimeFrame",
     "ListElementCode": "Same day",
     "ListElement": "Same day"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "ID": "TimeFrame",
+    "ListElementCode": 0,
+    "ListElement": "Zero element"
   }
 ]

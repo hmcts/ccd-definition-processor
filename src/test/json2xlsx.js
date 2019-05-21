@@ -74,6 +74,9 @@ describe('json2xlsx', () => {
           assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
         }
+        if (sheetName === 'FixedLists') {
+          assert.equal(sheets[sheetName]['D5'].v, 0, `Missing zero value in ${sheetName} sheet`);
+        }
       });
     });
   });

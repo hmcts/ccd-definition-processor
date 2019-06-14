@@ -51,7 +51,7 @@ class SpreadsheetBuilder {
       const table = json.map(record => {
         return headers.map(key => {
           const data = record[key];
-          return data ? data : null;
+          return data || data === 0 ? data : null;
         });
       });
       sheet.cell('A4').value(table);

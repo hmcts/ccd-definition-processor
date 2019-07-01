@@ -1,0 +1,9 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "ID": "SOL_PETITIONER",
+    "Name": "PetitionerSolicitor",
+    "Description": "Solicitor for the petitioner"
+  }
+]

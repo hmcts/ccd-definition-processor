@@ -3,12 +3,14 @@
     "LiveFrom": "01/01/2017",
     "ID": "TimeFrame",
     "ListElementCode": "Same day",
-    "ListElement": "Same day"
+    "ListElement": "Same day",
+    "DisplayOrder": 1
   },
   {
     "LiveFrom": "01/01/2017",
     "ID": "TimeFrame",
     "ListElementCode": 0,
-    "ListElement": "Zero element"
+    "ListElement": "Zero element",
+    "DisplayOrder": 1
   }
 ]

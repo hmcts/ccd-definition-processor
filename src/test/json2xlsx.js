@@ -68,8 +68,10 @@ describe('json2xlsx', () => {
       asyncUtils.forEach(files, file => {
         const sheetName = file.slice(0, -5);
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);
-        assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
-        assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+        if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
+          assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+        }
         if (sheetName === 'CaseEvent') {
           assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);

@@ -1,7 +1,7 @@
 [
   {
-    "CaseTypeID": "DRAFT", 
-    "SearchAliasID": "previousServiceCaseReference", 
+    "CaseTypeID": "DRAFT",
+    "SearchAliasID": "previousServiceCaseReference",
     "CaseFieldID": "previousServiceCaseReference"
   }
 ]

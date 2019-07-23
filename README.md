@@ -90,7 +90,7 @@ $ yarn xlsx2json -D ./sheets -i CCD-Definition.xlsx CaseType CaseEvent
 To build Docker image please run:
 
 ```bash
-$ docker build --tag docker.artifactory.reform.hmcts.net/ccd/ccd-definition-processor:latest .
+$ docker build --tag hmcts/ccd-definition-processor:latest .
 ```
 
 ## License

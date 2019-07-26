@@ -1,6 +1,9 @@
 {
   "name": "ccd-definition-processor",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=11"
+  },
   "dependencies": {
     "json-stringify-pretty-compact": "^2.0.0",
     "minimist": "^1.2.0",

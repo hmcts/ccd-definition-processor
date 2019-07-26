@@ -21,7 +21,7 @@ For example `CCD_DEF_BASE_URL=http://localhost` environment variable gets inject
     "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/callback"
   }
 ]
-```  
+```
 
 to become:
 
@@ -34,7 +34,62 @@ to become:
     "CallBackURLSubmittedEvent": "http://localhost/callback"
   }
 ]
-```  
+```
+
+### JSON fragments
+
+A `json2xlsx` processor is able to read smaller JSON fragments with CCD definitions that helps splitting large definition files into smaller chunks.
+
+For example large `AuthorisationCaseField.json` file presented below: 
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker",
+    "CRUD": "CRU"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "solicitor",
+    "CRUD": "CRU"
+  }
+]
+```
+
+can be split into `caseworker.json` file presented below:
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker",
+    "CRUD": "CRU"
+  }
+]
+```
+
+and `solicitor.json` file presented below:
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "solicitor",
+    "CRUD": "CRU"
+  }
+]
+```
+
+located in `AuthorisationCaseField` directory that corresponds the XLS tab name.
 
 ## Dependencies
 

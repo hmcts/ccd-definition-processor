@@ -26,11 +26,21 @@ const exists = (path) => {
   return fs.existsSync(path);
 };
 
-const listJsonFilesInFolder = (dir) => {
-  const files = fs.readdirSync(dir);
-  return files.filter((file) => {
-    return path.extname(file) === '.json';
-  });
+const listFilesInDirectory = (dir, includeOnly) => {
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter((file) => {
+      if (file.isDirectory()) {
+        return true;
+      } else {
+        return path.extname(file.name) === '.json';
+      }
+    })
+    .filter((file) => {
+      if (includeOnly != null && includeOnly.length > 0) {
+        return includeOnly.includes(path.basename(file.name, '.json'));
+      }
+      return true;
+    });
 };
 
-module.exports = { writeJson, readJson, listJsonFilesInFolder, exists };
+module.exports = { writeJson, readJson, listFilesInDirectory, exists };

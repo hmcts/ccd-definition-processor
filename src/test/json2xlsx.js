@@ -1,10 +1,10 @@
+const path = require('path');
 const assert = require('assert');
 const XLSX = require('xlsx');
 
 const run = require('../main/json2xlsx');
 
 const fileUtils = require('../main/lib/file-utils');
-const asyncUtils = require('../main/lib/async-utils');
 
 describe('json2xlsx', () => {
   describe('validation', () => {
@@ -64,18 +64,24 @@ describe('json2xlsx', () => {
       const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;
       assert(Object.keys(sheets).length > 0, 'No sheets have been created');
 
-      const files = fileUtils.listJsonFilesInFolder(jsonDefinitionsFolder);
-      asyncUtils.forEach(files, file => {
-        const sheetName = file.slice(0, -5);
-        assert(sheets[sheetName], `No sheet corresponding to JSON file ${file} exists`);
-        assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
-        assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
-        if (sheetName === 'CaseEvent') {
+      const files = fileUtils.listFilesInDirectory(jsonDefinitionsFolder);
+      files.forEach(file => {
+        const sheetName = path.basename(file.name, '.json');
+        assert(sheets[sheetName], `No sheet corresponding to JSON file ${file.name} exists`);
+        if (sheetName === 'AuthorisationCaseField') { // AuthorisationCaseField tab uniquely is build from JSON fragments
+          assert.equal(sheets[sheetName]['E4'].v, 'caseworker', `Unexpected value found in E4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E5'].v, 'solicitor', `Unexpected value found in E5 cell of ${sheetName} sheet`);
+        }
+        if (sheetName === 'CaseEvent') { // CaseEvent tab uniquely has environment variable placeholders
           assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
         }
-        if (sheetName === 'FixedLists') {
+        if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assert.equal(sheets[sheetName]['D5'].v, 0, `Missing zero value in ${sheetName} sheet`);
+        }
+        if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
+          assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
         }
       });
     });

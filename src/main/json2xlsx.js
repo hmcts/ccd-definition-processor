@@ -2,7 +2,6 @@ const path = require('path');
 const assert = require('assert');
 
 const fileUtils = require('./lib/file-utils');
-const asyncUtils = require('./lib/async-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const { Substitutor } = require('./lib/substitutor');
 
@@ -22,18 +21,31 @@ const run = async (args) => {
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();
 
-  const sheets = args._.length > 0 ? args._ : fileUtils
-    .listJsonFilesInFolder(args.sheetsDir)
-    .map((filename) => filename.slice(0, -5));
+  const files = fileUtils.listFilesInDirectory(args.sheetsDir, args._);
 
-  await asyncUtils.forEach(sheets, async (sheet) => {
-    const jsonPath = path.join(args.sheetsDir, `${sheet}.json`);
-    console.log(`  importing sheet data: ${jsonPath}`);
-    const json = await fileUtils.readJson(jsonPath, Substitutor.injectEnvironmentVariables);
+  for (const file of files) {
+    const readSheetData = async (file) => {
+      const readJsonFile = (relativeFilePath) => {
+        return fileUtils.readJson(path.join(args.sheetsDir, relativeFilePath), Substitutor.injectEnvironmentVariables);
+      };
+
+      if (file.isDirectory()) {
+        const jsonFragments = await Promise.all(
+          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name))
+            .map(fragmentFile => readJsonFile(`${file.name}/${fragmentFile.name}`))
+        );
+        return jsonFragments.flat();
+      } else {
+        return await readJsonFile(file.name);
+      }
+    };
+
+    console.log(`  importing sheet data from ${file.name} ${file.isDirectory() ? 'directory' : 'file'}`);
+    const json = await readSheetData(file);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
-    builder.updateSheetDataJson(sheet, json);
-  });
+    builder.updateSheetDataJson(path.basename(file.name, '.json'), json);
+  }
 
   console.log(` saving workbook: ${args.destinationXlsx}`);
   await builder.saveAsAsync(args.destinationXlsx);

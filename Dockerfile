@@ -1,5 +1,5 @@
 # ---- Base Image ----
-FROM node:12-alpine as base
+FROM hmctspublic.azurecr.io/base/node/stretch-slim-lts-10:10-stretch-slim as base
 
 WORKDIR /opt/ccd-definition-processor
 

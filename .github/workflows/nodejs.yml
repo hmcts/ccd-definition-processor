@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      - refs/tags/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 11
+      - name: Install Yarn package manager
+        run: npm install -g yarn
+      - name: Install dependencies and check their integrity
+        run: |
+          yarn install
+          yarn check --integrity
+      - name: Lint code
+        run: yarn lint
+      - name: Run tests
+        run: yarn test

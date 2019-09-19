@@ -3,7 +3,7 @@ steps:
 
   - id: build
     build: >
-      -t {{.Run.Registry}}/ccd/ccd-definition-processor:latest -t {{.Run.Registry}}/ccd/ccd-definition-processor:{{.Run.ID}}
+      -t {{.Run.Registry}}/ccd/definition-processor:latest -t {{.Run.Registry}}/ccd/definition-processor:{{.Run.ID}}
       .
     keep: true
 

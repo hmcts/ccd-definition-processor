@@ -9,7 +9,7 @@ steps:
 
   - id: push
     push:
-      - "{{.Run.Registry}}/ccd/ccd-definition-processor:{{.Run.ID}}"
+      - "{{.Run.Registry}}/ccd/definition-processor:{{.Run.ID}}"
       - "{{.Run.Registry}}/ccd/ccd-definition-processor:latest"
     when:
       - build

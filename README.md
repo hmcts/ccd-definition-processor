@@ -145,7 +145,7 @@ $ yarn xlsx2json -D ./sheets -i CCD-Definition.xlsx CaseType CaseEvent
 To build Docker image please run:
 
 ```bash
-$ docker build --tag hmctspublic/ccd-definition-processor:latest .
+$ docker build --tag hmctspublic.azurecr.io/ccd/definition-processor:latest .
 ```
 
 ## Building

@@ -159,6 +159,6 @@ Note: you will need a GitHub personal token defined in `GITHUB_TOKEN` environmen
 
 More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
 
-## License
+## License 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.

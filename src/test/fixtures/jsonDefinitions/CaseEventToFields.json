@@ -9,6 +9,8 @@
     "PageID": 1,
     "PageLabel": "Add Case ID",
     "PageDisplayOrder": 1,
-    "PageColumnNumber": 1
+    "PageColumnNumber": 1,
+    "CaseEventFieldLabel": "caseIDLabelOverride",
+    "CaseEventFieldHint": "caseIDHintOverride"
   }
 ]

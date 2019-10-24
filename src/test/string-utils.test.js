@@ -19,7 +19,7 @@ describe('StringUtils', () => {
       const result = StringUtils.split(input, ':', false);
 
       console.log(result);
-      assert.notStrictEqual(result,  ['text', 'to be ,   splitted', 'and another']);
+      assert.notStrictEqual(result, ['text', 'to be ,   splitted', 'and another']);
     });
   });
 });

@@ -18,7 +18,6 @@ const validateArgs = (args) => {
 const run = async (args) => {
   validateArgs(args);
 
-
   console.log(`Import...\n loading workbook: ${sourceXlsx}`);
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();

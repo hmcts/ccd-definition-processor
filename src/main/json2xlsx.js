@@ -3,6 +3,7 @@ const assert = require('assert');
 
 const fileUtils = require('./lib/file-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
+const stringUtils = require('./lib/string-utils');
 const { Substitutor } = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
@@ -17,11 +18,13 @@ const validateArgs = (args) => {
 const run = async (args) => {
   validateArgs(args);
 
+
   console.log(`Import...\n loading workbook: ${sourceXlsx}`);
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();
 
-  const files = fileUtils.listFilesInDirectory(args.sheetsDir, args._);
+  const excluded = args.exclude ? stringUtils.split(args.exclude) : null;
+  const files = fileUtils.listFilesInDirectory(args.sheetsDir, args._, excluded);
 
   for (const file of files) {
     const readSheetData = async (file) => {
@@ -31,7 +34,7 @@ const run = async (args) => {
 
       if (file.isDirectory()) {
         const jsonFragments = await Promise.all(
-          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name))
+          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name), null, excluded)
             .map(fragmentFile => readJsonFile(`${file.name}/${fragmentFile.name}`))
         );
         return jsonFragments.flat();

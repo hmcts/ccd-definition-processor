@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matcher = require('matcher');
 
 const readJson = (filename, processFn) => {
   return new Promise((resolve) => {
@@ -26,7 +27,7 @@ const exists = (path) => {
   return fs.existsSync(path);
 };
 
-const listFilesInDirectory = (dir, includeOnly) => {
+const listFilesInDirectory = (dir, includeOnly, excludes) => {
   return fs.readdirSync(dir, { withFileTypes: true })
     .filter((file) => {
       if (file.isDirectory()) {
@@ -38,6 +39,10 @@ const listFilesInDirectory = (dir, includeOnly) => {
     .filter((file) => {
       if (includeOnly != null && includeOnly.length > 0) {
         return includeOnly.includes(path.basename(file.name, '.json'));
+      }
+
+      if (excludes != null) {
+        return !excludes.some(el => matcher.isMatch(file.name, el));
       }
       return true;
     });

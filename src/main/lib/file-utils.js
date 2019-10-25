@@ -27,7 +27,7 @@ const exists = (path) => {
   return fs.existsSync(path);
 };
 
-const listFilesInDirectory = (dir, includeOnly, excludes) => {
+const listFilesInDirectory = (dir, excludes = []) => {
   return fs.readdirSync(dir, { withFileTypes: true })
     .filter((file) => {
       if (file.isDirectory()) {
@@ -36,16 +36,9 @@ const listFilesInDirectory = (dir, includeOnly, excludes) => {
         return path.extname(file.name) === '.json';
       }
     })
-    .filter((file) => {
-      if (includeOnly != null && includeOnly.length > 0) {
-        return includeOnly.includes(path.basename(file.name, '.json'));
-      }
-
-      if (excludes != null) {
-        return !excludes.some(el => matcher.isMatch(file.name, el));
-      }
-      return true;
-    });
+    .filter((file) =>
+      !excludes.some(el => matcher.isMatch(file.name, el))
+    );
 };
 
 module.exports = { writeJson, readJson, listFilesInDirectory, exists };

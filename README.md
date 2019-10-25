@@ -116,9 +116,12 @@ _options:_
 * -i    file path to the XLSX for use with xlsx2json
 * -D    (optional) path to the sheets folder; if no folder is specified the the current working directory is used
 
-_[\<sheet name\> ...]:_
+The json2xlsx option take following additional argument:
+* -e    comma delimited list of wildcards patterns of the files which needs to be excluded from processing,
+        i.e. -e UserProfile.json, *-nonprod.json will exclude UserProfile.json and all -nonprod.json files from processing 
 
-A list of sheet names in the XLSX for processing. Data will be imported from/to a file named \<sheet name\>.json. If no \<sheet name\>'s are specified then all JSON files will be processed that are found in the sheet folder path.
+### Warning: 
+The previous support for includes parameters to select json files to process was removed in this version (replaced with -e option). 
 
 ### Examples
 

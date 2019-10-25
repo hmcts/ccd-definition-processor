@@ -22,8 +22,8 @@ const run = async (args) => {
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();
 
-  const excluded = args.exclude ? stringUtils.split(args.exclude) : null;
-  const files = fileUtils.listFilesInDirectory(args.sheetsDir, args._, excluded);
+  const excludedFilenamePatterns = stringUtils.split(args.excludedFilenamePatterns);
+  const files = fileUtils.listFilesInDirectory(args.sheetsDir, excludedFilenamePatterns);
 
   for (const file of files) {
     const readSheetData = async (file) => {
@@ -33,7 +33,7 @@ const run = async (args) => {
 
       if (file.isDirectory()) {
         const jsonFragments = await Promise.all(
-          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name), null, excluded)
+          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name), excludedFilenamePatterns)
             .map(fragmentFile => readJsonFile(`${file.name}/${fragmentFile.name}`))
         );
         return jsonFragments.flat();

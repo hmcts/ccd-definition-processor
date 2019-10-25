@@ -1,5 +1,5 @@
 const split = (input, delimeter = ',') => {
-  return input
+  return input == null ? [] : input
     .split(delimeter)
     .map(el => el.trim());
 };

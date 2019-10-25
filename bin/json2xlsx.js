@@ -11,6 +11,6 @@ run(parseArgs(process.argv.slice(2), {
   alias: {
     sheetsDir: 'D',
     destinationXlsx: 'o',
-    exclude: 'e'
+    excludedFilenamePatterns: 'e'
   }
 })).catch(err => console.log(err.toString()));

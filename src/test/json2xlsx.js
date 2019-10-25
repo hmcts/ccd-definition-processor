@@ -78,9 +78,6 @@ describe('json2xlsx', () => {
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assert.equal(sheets[sheetName]['D5'].v, 0, `Missing zero value in ${sheetName} sheet`);
         }
-        if (sheetName === 'UserProfile') { // UserProfile will be excluded in the next test
-          assert.equal(sheets[sheetName]['C4'].v, 'local-authority@example.com', `Missing user email in the ${sheetName} sheet`);
-        }
         if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
           assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);

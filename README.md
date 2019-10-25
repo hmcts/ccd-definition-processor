@@ -108,17 +108,24 @@ $ yarn json2xlsx options [<sheet name> ...]
 $ yarn xlsx2json options [<sheet name> ...]
 ```
 
-Both commands take the following arguments:
+Commands take the following arguments:
 
+###  json2xlsx
 _options:_
 
 * -o    file path of the XLSX file to write
-* -i    file path to the XLSX for use with xlsx2json
-* -D    (optional) path to the sheets folder; if no folder is specified the the current working directory is used
-
-The json2xlsx option take following additional argument:
-* -e    comma delimited list of wildcards patterns of the files which needs to be excluded from processing,
+* -D    path to the sheets folder
+* -e    (optional) comma delimited list of wildcards patterns of the files which needs to be excluded from processing,
         i.e. -e 'UserProfile.json, *-nonprod.json' will exclude UserProfile.json and all -nonprod.json files from processing 
+
+###  xlsx2json
+
+* -i    file path to the XLSX to convert to json files
+* -D    path to the output sheets folder
+
+[<sheet name> ...]:
+
+A list of sheet names in the XLSX for processing. Data will be imported to a file named <sheet name>.json. If no <sheet name>'s are specified then all JSON files will be processed that are found in the sheet folder path.
 
 ### Warning: 
 The previous support for includes parameters to select json files to process was removed (replaced with -e option).

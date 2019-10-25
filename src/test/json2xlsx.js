@@ -36,6 +36,7 @@ describe('json2xlsx', () => {
   });
 
   describe('outcome', () => {
+    process.env.CCD_DEF_BASE_URL = 'http://localhost';
 
     it('should throw an error when json file does not have a matching sheet in the template spreadsheet', async () => {
       try {
@@ -52,11 +53,9 @@ describe('json2xlsx', () => {
     });
 
     it('should create XLSX file from JSON fixtures', async () => {
-      process.env.CCD_DEF_BASE_URL = 'http://localhost';
 
       const jsonDefinitionsFolder = './src/test/fixtures/jsonDefinitions';
       await run({
-        _: [],
         sheetsDir: jsonDefinitionsFolder,
         destinationXlsx: './temp/ccd-definitions.xlsx'
       });
@@ -79,9 +78,38 @@ describe('json2xlsx', () => {
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assert.equal(sheets[sheetName]['D5'].v, 0, `Missing zero value in ${sheetName} sheet`);
         }
+        if (sheetName === 'UserProfile') { // UserProfile will be excluded in the next test
+          assert.equal(sheets[sheetName]['C4'].v, 'local-authority@example.com', `Missing user email in the ${sheetName} sheet`);
+        }
         if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
           assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+        }
+      });
+
+    });
+
+    it('should create XLSX file from JSON fixtures with exclusions', async () => {
+
+      const jsonDefinitionsFolder = './src/test/fixtures/jsonDefinitionsWithExclusions';
+      await run({
+        sheetsDir: jsonDefinitionsFolder,
+        destinationXlsx: './temp/ccd-definitions.xlsx',
+        excludedFilenamePatterns: 'UserProfile.json,*-nonprod.json'
+      });
+
+      const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;
+      assert(Object.keys(sheets).length > 0, 'No sheets have been created');
+
+      const files = fileUtils.listFilesInDirectory(jsonDefinitionsFolder);
+      files.forEach(file => {
+        const sheetName = path.basename(file.name, '.json');
+        assert(sheets[sheetName], `No sheet corresponding to JSON file ${file.name} exists`);
+        if (sheetName === 'AuthorisationCaseField') { // AuthorisationCaseField tab uniquely is build from JSON fragments
+          assert.equal(sheets[sheetName]['E5'], undefined, 'Solicitor entry should be excluded from the output XLSX file');
+        }
+        if (sheetName === 'UserProfile') { // UserProfile values should be excluded
+          assert.equal(sheets[sheetName]['C4'], undefined, `User email should be excluded from the ${sheetName} sheet`);
         }
       });
     });

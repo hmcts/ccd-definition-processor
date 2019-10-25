@@ -1,6 +1,6 @@
-const split = (input, delimeter = ',') => {
-  return input == null ? [] : input
-    .split(delimeter)
+const split = (input, delimiter = ',') => {
+  return input
+    .split(delimiter)
     .map(el => el.trim());
 };
 

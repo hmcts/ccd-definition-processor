@@ -5,7 +5,7 @@ describe('file-utils', () => {
 
   describe('listFilesInDirectory', () => {
     it('lists all files in the directory if no filters are provided', () => {
-      let filesInDirectory = fileUtils.listFilesInDirectory(
+      const filesInDirectory = fileUtils.listFilesInDirectory(
         './src/test/fixtures/listFiles'
       );
 
@@ -15,7 +15,7 @@ describe('file-utils', () => {
     });
 
     it('lists all files in the directory if filters are not matching any of the file', () => {
-      let filesInDirectory = fileUtils.listFilesInDirectory(
+      const filesInDirectory = fileUtils.listFilesInDirectory(
         './src/test/fixtures/listFiles', ['UserProfile']
       );
 
@@ -25,7 +25,7 @@ describe('file-utils', () => {
     });
 
     it('excludes the directory which is on the dir list', () => {
-      let filesInDirectory = fileUtils.listFilesInDirectory(
+      const filesInDirectory = fileUtils.listFilesInDirectory(
         './src/test/fixtures/listFilesDirectory', ['excluded']
       );
 
@@ -34,7 +34,7 @@ describe('file-utils', () => {
     });
 
     it('excludes the files from the exclude list', () => {
-      let filesInDirectory = fileUtils.listFilesInDirectory(
+      const filesInDirectory = fileUtils.listFilesInDirectory(
         './src/test/fixtures/listFiles', ['UserProfile.json']
       );
 
@@ -43,7 +43,7 @@ describe('file-utils', () => {
     });
 
     it('excludes the files from the exclude list by wildcard', () => {
-      let filesInDirectory = fileUtils.listFilesInDirectory(
+      const filesInDirectory = fileUtils.listFilesInDirectory(
         './src/test/fixtures/listFilesWildcard', ['*-nonprod.json']
       );
 

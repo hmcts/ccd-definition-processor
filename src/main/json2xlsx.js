@@ -22,7 +22,7 @@ const run = async (args) => {
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();
 
-  const excludedFilenamePatterns = stringUtils.split(args.excludedFilenamePatterns);
+  const excludedFilenamePatterns = args.excludedFilenamePatterns ? stringUtils.split(args.excludedFilenamePatterns) : [];
   const files = fileUtils.listFilesInDirectory(args.sheetsDir, excludedFilenamePatterns);
 
   for (const file of files) {

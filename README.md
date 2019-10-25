@@ -118,10 +118,10 @@ _options:_
 
 The json2xlsx option take following additional argument:
 * -e    comma delimited list of wildcards patterns of the files which needs to be excluded from processing,
-        i.e. -e UserProfile.json, *-nonprod.json will exclude UserProfile.json and all -nonprod.json files from processing 
+        i.e. -e 'UserProfile.json, *-nonprod.json' will exclude UserProfile.json and all -nonprod.json files from processing 
 
 ### Warning: 
-The previous support for includes parameters to select json files to process was removed in this version (replaced with -e option). 
+The previous support for includes parameters to select json files to process was removed (replaced with -e option).
 
 ### Examples
 

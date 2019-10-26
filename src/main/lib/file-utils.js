@@ -58,6 +58,6 @@ function listFilesInDirectoryRec (root, dir, excludes = []) {
       }
     });
 
-  return files;
+  return files.flat();
 }
 module.exports = { writeJson, readJson, listFilesInDirectory, exists, listFilesInDirectoryRec };

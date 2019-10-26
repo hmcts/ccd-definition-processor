@@ -115,7 +115,7 @@ describe('json2xlsx', () => {
       const jsonDefinitionsFolder = './src/test/fixtures/deepJsonDefinitions';
       await run({
         sheetsDir: jsonDefinitionsFolder,
-        destinationXlsx: './temp/ccd-definitions.xlsx',
+        destinationXlsx: './temp/ccd-definitions.xlsx'
       });
 
       const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;

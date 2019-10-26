@@ -52,4 +52,21 @@ describe('file-utils', () => {
     });
   });
 
+  describe('listFilesInDirectoryRec', () => {
+    const directory = './src/test/fixtures/deepJsonDefinitions';
+
+    it('lists all files in the directory', () => {
+      const filesInDirectory = fileUtils.listFilesInDirectoryRec(directory, directory);
+
+      assert.equal(filesInDirectory.length, 4);
+      assert.equal(filesInDirectory[0], 'CaseEvent/Initiation/excluded/excludeMe.json');
+    });
+
+    it('lists all files in the directory with exclusions', () => {
+      const filesInDirectory = fileUtils.listFilesInDirectoryRec(directory, directory, ['excluded']);
+
+      assert.equal(filesInDirectory.length, 3);
+      assert.ok(!filesInDirectory.includes('CaseEvent/Initiation/excluded/excludeMe.json'));
+    });
+  });
 });

@@ -41,4 +41,23 @@ const listFilesInDirectory = (dir, excludes = []) => {
     );
 };
 
-module.exports = { writeJson, readJson, listFilesInDirectory, exists };
+function listFilesInDirectoryRec (root, dir, excludes = []) {
+  let files = [];
+
+  fs.readdirSync(dir, { withFileTypes: true })
+    .filter(file =>
+      file.isDirectory() ? true : path.extname(file.name) === '.json')
+    .filter(file =>
+      !excludes.some(el => matcher.isMatch(file.name, el))
+    ).forEach(file => {
+      const fullPath = path.join(dir, file.name);
+      if (file.isDirectory()) {
+        files.push(listFilesInDirectoryRec(root, fullPath, excludes));
+      } else {
+        files.push(path.relative(root, fullPath));
+      }
+    });
+
+  return files;
+}
+module.exports = { writeJson, readJson, listFilesInDirectory, exists, listFilesInDirectoryRec };

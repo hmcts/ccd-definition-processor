@@ -32,9 +32,11 @@ const run = async (args) => {
       };
 
       if (file.isDirectory()) {
+        let directory = path.join(args.sheetsDir, file.name);
         const jsonFragments = await Promise.all(
-          fileUtils.listFilesInDirectory(path.join(args.sheetsDir, file.name), excludedFilenamePatterns)
-            .map(fragmentFile => readJsonFile(`${file.name}/${fragmentFile.name}`))
+          fileUtils.listFilesInDirectoryRec(directory, directory, excludedFilenamePatterns)
+            .flat(Infinity)
+            .map(fragmentFile => readJsonFile(`${file.name}/${fragmentFile}`))
         );
         return jsonFragments.flat();
       } else {

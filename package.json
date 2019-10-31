@@ -2,10 +2,11 @@
   "name": "ccd-definition-processor",
   "version": "1.0.0",
   "dependencies": {
+    "glob": "^7.1.5",
     "json-stringify-pretty-compact": "^2.0.0",
+    "matcher": "^2.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.24.0",
-    "matcher": "^2.0.0",
     "xlsx": "^0.14.4",
     "xlsx-populate": "^1.20.0"
   },

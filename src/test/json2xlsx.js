@@ -4,7 +4,7 @@ const XLSX = require('xlsx');
 
 const run = require('../main/json2xlsx');
 
-const fileUtils = require('../main/lib/file-utils');
+const fileUtils = require('./lib/file-utils');
 
 describe('json2xlsx', () => {
   describe('validation', () => {
@@ -126,10 +126,10 @@ describe('json2xlsx', () => {
         const sheetName = path.basename(file.name, '.json');
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${file.name} exists`);
         if (sheetName === 'CaseEvent') { // CaseEvent is made from json files in many sub directories
-          assert.equal(sheets[sheetName]['I4'].v, '1_Initiation', `Unexpected value found in I4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['I5'].v, '2_Submitted', `Unexpected value found in I5 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['I6'].v, '1_Initiation', `Unexpected value found in I6 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['I7'].v, '*', `Unexpected value found in I7 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['I4'].v, '*', `Unexpected value found in I4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['I5'].v, '1_Initiation', `Unexpected value found in I5 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['I6'].v, '2_Submitted', `Unexpected value found in I6 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['I7'].v, '1_Initiation', `Unexpected value found in I7 cell of ${sheetName} sheet`);
         }
       });
     });

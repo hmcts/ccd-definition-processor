@@ -1,11 +1,14 @@
 const fs = require('fs');
 const path = require('path');
-const matcher = require('matcher');
+const glob = require('glob');
+const exclusionUtils = require('./exclusion-utils');
 
 const readJson = (filename, processFn) => {
   return new Promise((resolve) => {
     fs.readFile(filename, 'utf8', function (err, data) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       if (processFn) {
         data = processFn(data);
       }
@@ -17,47 +20,54 @@ const readJson = (filename, processFn) => {
 const writeJson = (filename, json) => {
   return new Promise((resolve) => {
     fs.writeFile(filename, json, (err) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       resolve();
     });
   });
 };
 
-const exists = (path) => {
-  return fs.existsSync(path);
+const exists = (path) => fs.existsSync(path);
+
+const getJsonFiles = (directory, exclusions = []) => {
+  let paths = glob.sync(directory + '/**/*.json');
+  let relativePaths = toRelativePaths(paths, directory);
+  exclusions = exclusions.map(exclusion => exclusionUtils.prepareExclusion(exclusion));
+  let filteredPaths = exclusionUtils.filterPaths(relativePaths, exclusions);
+  return groupToSheets(filteredPaths);
 };
 
-const listFilesInDirectory = (dir, excludes = []) => {
-  return fs.readdirSync(dir, { withFileTypes: true })
-    .filter((file) => {
-      if (file.isDirectory()) {
-        return true;
-      } else {
-        return path.extname(file.name) === '.json';
-      }
-    })
-    .filter((file) =>
-      !excludes.some(el => matcher.isMatch(file.name, el))
-    );
-};
-
-function listFilesInDirectoryRec (root, dir, excludes = []) {
-  let files = [];
-
-  fs.readdirSync(dir, { withFileTypes: true })
-    .filter(file =>
-      file.isDirectory() ? true : path.extname(file.name) === '.json')
-    .filter(file =>
-      !excludes.some(el => matcher.isMatch(file.name, el))
-    ).forEach(file => {
-      const fullPath = path.join(dir, file.name);
-      if (file.isDirectory()) {
-        files.push(listFilesInDirectoryRec(root, fullPath, excludes));
-      } else {
-        files.push(path.relative(root, fullPath));
-      }
-    });
-
-  return files.flat();
+function toRelativePaths (array, root) {
+  return array.map(
+    file => path.relative(root, file));
 }
-module.exports = { writeJson, readJson, listFilesInDirectory, exists, listFilesInDirectoryRec };
+
+function groupToSheets (paths) {
+  return paths.reduce((groupMap, filePath) => {
+    // Split on the first '/'
+    let splitPath = filePath.split(/\/(.+)/, 2);
+
+    if (splitPath.length > 1) {
+      prepareMap(groupMap, splitPath[0]);
+      groupMap[splitPath[0]].push(splitPath[1]);
+    } else {
+      prepareMap(groupMap, splitPath[0]);
+    }
+
+    return groupMap;
+  }, {});
+}
+
+function prepareMap (map, key) {
+  if (!Object.prototype.hasOwnProperty.call(map, key)) {
+    map[key] = [];
+  }
+}
+
+module.exports = {
+  writeJson,
+  readJson,
+  getJsonFiles,
+  exists
+};

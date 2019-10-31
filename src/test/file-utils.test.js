@@ -58,14 +58,14 @@ describe('file-utils', () => {
     it('lists all files in the directory', () => {
       const filesInDirectory = fileUtils.listFilesInDirectoryRec(directory, directory);
 
-      assert.equal(filesInDirectory.length, 4);
-      assert.equal(filesInDirectory[0], 'CaseEvent/Initiation/excluded/excludeMe.json');
+      assert.equal(filesInDirectory.length, 5);
+      assert.equal(filesInDirectory[0], 'CaseEvent/Application/excluded/excludeMe.json');
     });
 
     it('lists all files in the directory with exclusions', () => {
       const filesInDirectory = fileUtils.listFilesInDirectoryRec(directory, directory, ['excluded']);
 
-      assert.equal(filesInDirectory.length, 3);
+      assert.equal(filesInDirectory.length, 4);
       assert.ok(!filesInDirectory.includes('CaseEvent/Initiation/excluded/excludeMe.json'));
     });
   });

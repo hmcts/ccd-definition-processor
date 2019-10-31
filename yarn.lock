@@ -118,17 +118,7 @@ camelcase@^5.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-cfb@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/cfb/-/cfb-1.1.0.tgz#44fb1b30eee014fa5633a0ed5f26c87fd765799a"
-  integrity sha512-ZqfxNGWTMKhd0a/n6YKJLq8hWbd5kR3cA4kXwUj9vVEdHlwJ09werR8gN15Z7Y1FTXqdD6dE3GGCxv4uc28raA==
-  dependencies:
-    adler-32 "~1.2.0"
-    commander "^2.16.0"
-    crc-32 "~1.2.0"
-    printj "~1.1.2"
-
-cfb@^1.1.2:
+cfb@^1.1.0, cfb@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/cfb/-/cfb-1.1.2.tgz#5dfff9813eb37757597272dae3da3b37b3edcc44"
   integrity sha512-FAEjGHtrAF027TFkhDmTDNbRf97C33jBXRa9ODeabZRqYDglsq/F5uRpJfV5BitCH4yiyplHNBKx2xOhQb12PA==
@@ -1468,10 +1458,10 @@ write@1.0.3:
   dependencies:
     mkdirp "^0.5.1"
 
-xlsx-populate@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/xlsx-populate/-/xlsx-populate-1.20.0.tgz#7c6879751a251604dfbc7a613182846860f63526"
-  integrity sha512-KHku5tSeqI0NfM/zmaZ4DO1mlu10GUF/1T2FUuiuMeJXBsbmWOna/eJIcGAaVQMKYOIETOtz1VVnYTSHR5sZMg==
+xlsx-populate@^1.20.1:
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/xlsx-populate/-/xlsx-populate-1.20.1.tgz#71714a0b3efd0c928f24038002286255bf01fc0a"
+  integrity sha512-128l+3CWPJaI0keGQ6G6HaqWhHdQ8AbfhX7G/Ouy/uq5yKv/O6hJOg+IqJp8zOcx9eLimVIfyNVyjZmEZ0Zhcw==
   dependencies:
     cfb "^1.1.0"
     jszip "^3.1.5"

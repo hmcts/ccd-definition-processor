@@ -5,13 +5,12 @@ function isDirExclusion (exclusion) {
 function isExcluded (filePath, exclusion) {
   let toMatch;
   if (isDirExclusion(exclusion)) {
-
     let index = filePath.lastIndexOf('/');
     // Return if it is a top level file
     if (index === -1) {
       return false;
-
     }
+
     toMatch = filePath.substring(0, index);
   } else {
     toMatch = filePath;

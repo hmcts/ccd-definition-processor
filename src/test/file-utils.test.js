@@ -1,72 +1,69 @@
 const assert = require('assert');
 const fileUtils = require('../main/lib/file-utils');
-const sheetUtils = require('../main/lib/sheet-utils');
 
 describe('file-utils', () => {
 
   describe('getJsonFilePaths', () => {
     it('lists all files in the directory if no filters are provided', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/listFiles');
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles');
 
-      assert.equal(Object.keys(filesInDirectory).length, 2);
-      assert.ok(hasProperty(filesInDirectory, 'NotExcluded.json'));
-      assert.ok(hasProperty(filesInDirectory, 'UserProfile.json'));
+      assert.equal(filesInDirectory.length, 2);
+      assert.equal(filesInDirectory[0], 'NotExcluded.json');
+      assert.equal(filesInDirectory[1], 'UserProfile.json');
     });
 
     it(
       'lists all files in the directory if filters are not matching any of the file', () => {
-        const filesInDirectory = getMapping('./src/test/fixtures/listFiles', ['UserProfile']);
+        const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile']);
 
-        assert.equal(Object.keys(filesInDirectory).length, 2);
-        assert.ok(hasProperty(filesInDirectory, 'NotExcluded.json'));
-        assert.ok(hasProperty(filesInDirectory, 'UserProfile.json'));
+        assert.equal(filesInDirectory.length, 2);
+        assert.equal(filesInDirectory[0], 'NotExcluded.json');
+        assert.equal(filesInDirectory[1], 'UserProfile.json');
       });
 
     it('excludes the directory which is on the dir list', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/listFilesDirectory', ['excluded']);
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFilesDirectory', ['excluded']);
 
-      assert.equal(Object.keys(filesInDirectory).length, 1);
-      assert.ok(hasProperty(filesInDirectory, 'dir'));
+      assert.equal(filesInDirectory.length, 1);
+      assert.equal(filesInDirectory[0], 'dir/readMe.json');
     });
 
     it('excludes the files from the exclude list', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/listFiles', ['UserProfile.json']);
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile.json']);
 
-      assert.equal(Object.keys(filesInDirectory).length, 1);
-      assert.ok(hasProperty(filesInDirectory, 'NotExcluded.json'));
+      assert.equal(filesInDirectory.length, 1);
+      assert.equal(filesInDirectory[0], 'NotExcluded.json');
     });
 
     it('excludes the files from the exclude list by wildcard', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/listFilesWildcard', ['*-nonprod.json']);
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFilesWildcard', ['*-nonprod.json']);
 
-      assert.equal(Object.keys(filesInDirectory).length, 1);
-      assert.ok(hasProperty(filesInDirectory, 'Authorisation.json'));
+      assert.equal(filesInDirectory.length, 1);
+      assert.equal(filesInDirectory[0], 'Authorisation.json');
     });
 
     it('lists all files in a deep directory', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/deepJsonDefinitions');
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/deepJsonDefinitions');
 
-      assert.equal(Object.keys(filesInDirectory).length, 2);
-      assert.ok(hasProperty(filesInDirectory, 'CaseEvent'));
-      assert.equal(filesInDirectory['CaseEvent'].length, 5);
-      assert.ok(hasProperty(filesInDirectory, 'UserProfile.json'));
-      assert.equal(filesInDirectory['UserProfile.json'].length, 0);
+      assert.equal(filesInDirectory.length, 6);
+      assert.equal(filesInDirectory[0], 'CaseEvent/allStates.json');
+      assert.equal(filesInDirectory[1], 'CaseEvent/Application/excluded/excludeMe.json');
+      assert.equal(filesInDirectory[2], 'CaseEvent/Application/initiateCase.json');
+      assert.equal(filesInDirectory[3], 'CaseEvent/Application/submitCase.json');
+      assert.equal(filesInDirectory[4], 'CaseEvent/Case/revertCase.json');
+      assert.equal(filesInDirectory[5], 'UserProfile.json');
     });
 
     it('lists all files in a deep directory with exclusions', () => {
-      const filesInDirectory = getMapping('./src/test/fixtures/deepJsonDefinitions', ['excluded']);
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/deepJsonDefinitions', ['excluded']);
 
-      assert.equal(Object.keys(filesInDirectory).length, 2);
-      assert.ok(hasProperty(filesInDirectory, 'CaseEvent'));
-      assert.equal(filesInDirectory['CaseEvent'].length, 4);
-      assert.ok(hasProperty(filesInDirectory, 'UserProfile.json'));
-      assert.equal(filesInDirectory['UserProfile.json'].length, 0);
+      assert.equal(filesInDirectory.length, 5);
+      assert.equal(filesInDirectory[0], 'CaseEvent/allStates.json');
+      assert.equal(filesInDirectory[1], 'CaseEvent/Application/initiateCase.json');
+      assert.equal(filesInDirectory[2], 'CaseEvent/Application/submitCase.json');
+      assert.equal(filesInDirectory[3], 'CaseEvent/Case/revertCase.json');
+      assert.equal(filesInDirectory[4], 'UserProfile.json');
     });
 
   });
 });
-
-const getMapping = (directory, exclusions = []) => sheetUtils.groupToSheets(
-  fileUtils.getJsonFilePaths(directory, exclusions));
-
-const hasProperty = (object, property) => Object.prototype.hasOwnProperty.call(object, property);

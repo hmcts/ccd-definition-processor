@@ -31,7 +31,7 @@ const writeJson = (filename, json) => {
 
 const exists = (path) => fs.existsSync(path);
 
-const getJsonFiles = (directory, exclusions = []) => {
+const getJsonFilePaths = (directory, exclusions = []) => {
   const paths = glob.sync(directory + '/**/*.json');
   const relativePaths = toRelativePaths(paths, directory);
   exclusions = exclusions.map(exclusion => exclusionUtils.prepareExclusion(exclusion));
@@ -47,6 +47,6 @@ function toRelativePaths (array, root) {
 module.exports = {
   writeJson,
   readJson,
-  getJsonFilePaths: getJsonFiles,
+  getJsonFilePaths,
   exists
 };

@@ -66,7 +66,7 @@ describe('file-utils', () => {
   });
 });
 
-const getMapping = (directory, exclusions = []) => sheetUtils.mapToSheets(
+const getMapping = (directory, exclusions = []) => sheetUtils.groupToSheets(
   fileUtils.getJsonFilePaths(directory, exclusions));
 
 const hasProperty = (object, property) => Object.prototype.hasOwnProperty.call(object, property);

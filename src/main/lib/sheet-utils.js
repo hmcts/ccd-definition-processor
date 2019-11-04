@@ -1,4 +1,4 @@
-const mapToSheets = paths => {
+const groupToSheets = paths => {
   return paths.reduce((groupMap, filePath) => {
     // Split on the first '/'
     const splitPath = filePath.split(/\/(.+)/, 2);
@@ -17,4 +17,4 @@ const mapToSheets = paths => {
   }, {});
 };
 
-module.exports = { mapToSheets };
+module.exports = { groupToSheets };

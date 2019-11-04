@@ -7,13 +7,13 @@
     "matcher": "^2.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.24.0",
-    "xlsx": "^0.14.4",
-    "xlsx-populate": "^1.20.0"
+    "xlsx": "^0.15.1",
+    "xlsx-populate": "^1.20.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
-    "eslint-plugin-mocha": "^6.0.0",
-    "mocha": "^6.2.0"
+    "eslint-plugin-mocha": "^6.2.1",
+    "mocha": "^6.2.2"
   },
   "scripts": {
     "lint": "eslint src",

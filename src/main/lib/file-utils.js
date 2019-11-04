@@ -33,39 +33,13 @@ const exists = (path) => fs.existsSync(path);
 const getJsonFilePaths = (directory, exclusions = []) => {
   const paths = glob.sync(directory + '/**/*.json');
   const relativePaths = toRelativePaths(paths, directory);
-  exclusions = exclusions.map(exclusion => prepareExclusion(exclusion));
   return exclusions.length === 0 ? relativePaths : relativePaths.filter(
-    path => !exclusions.some(exclusion => matcher.isMatch(path, exclusion)));
+    path => !exclusions.some(exclusion => path.split('/').some(chunk => matcher.isMatch(chunk, exclusion))));
 };
 
 function toRelativePaths (array, root) {
   return array.map(
     file => path.relative(root, file));
-}
-
-function isDirExclusion (exclusion) {
-  return exclusion.indexOf('.') === -1;
-}
-
-function prepareExclusion (exclusion) {
-  let prepared = exclusion;
-  if (isDirExclusion(exclusion)) {
-    if (prepared.charAt(prepared.length - 1) !== '/') {
-      prepared = prepared + '/';
-    }
-    if (exclusion.indexOf('*') !== 0) {
-      prepared = '*' + prepared;
-    }
-    if (exclusion.lastIndexOf('*') !== exclusion.length - 1) {
-      prepared = prepared + '*';
-    }
-  } else {
-    if (exclusion.indexOf('*') !== 0) {
-      prepared = '*' + prepared;
-    }
-  }
-
-  return prepared;
 }
 
 module.exports = {

@@ -2,34 +2,25 @@ function isDirExclusion (exclusion) {
   return exclusion.indexOf('.') === -1;
 }
 
-function isExcluded (filePath, exclusion) {
-  let toMatch;
+const prepareExclusion = (exclusion) => {
+  let prepared = exclusion;
   if (isDirExclusion(exclusion)) {
-    let index = filePath.lastIndexOf('/');
-    // Return if it is a top level file
-    if (index === -1) {
-      return false;
+    if (prepared.charAt(prepared.length - 1) !== '/') {
+      prepared = prepared + '/';
     }
-
-    toMatch = filePath.substring(0, index);
+    if (exclusion.indexOf('*') !== 0) {
+      prepared = '*' + prepared;
+    }
+    if (exclusion.lastIndexOf('*') !== exclusion.length - 1) {
+      prepared = prepared + '*';
+    }
   } else {
-    toMatch = filePath;
+    if (exclusion.indexOf('*') !== 0) {
+      prepared = '*' + prepared;
+    }
   }
 
-  const regex = new RegExp(exclusion, 'g');
-  return toMatch.match(regex) != null;
-}
-
-const prepareExclusion = (exclusion) => exclusion.replace('*', '\\w*');
-
-const filterPaths = (paths, exclusions = []) => {
-  if (exclusions.length === 0) {
-    return paths;
-  }
-
-  return paths.filter(file => {
-    return !exclusions.some(exclusion => isExcluded(file, exclusion));
-  });
+  return prepared;
 };
 
-module.exports = { filterPaths, prepareExclusion };
+module.exports = { prepareExclusion };

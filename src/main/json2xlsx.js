@@ -4,7 +4,8 @@ const assert = require('assert');
 const fileUtils = require('./lib/file-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const stringUtils = require('./lib/string-utils');
-const { Substitutor } = require('./lib/substitutor');
+const sheetUtils = require('./lib/sheet-utils');
+const {Substitutor} = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 
@@ -23,23 +24,33 @@ const run = async (args) => {
   const builder = new ccdUtils.SpreadsheetBuilder(sourceXlsx);
   await builder.loadAsync();
 
-  let excludedFilenamePatterns = args.excludedFilenamePatterns
-    ? stringUtils.split(args.excludedFilenamePatterns) : [];
+  const excludedFilenamePatterns = args.excludedFilenamePatterns ?
+    stringUtils.split(args.excludedFilenamePatterns) : [];
 
-  let fileMap = await fileUtils.getJsonFiles(args.sheetsDir,
-    excludedFilenamePatterns);
+  const paths = await fileUtils.getJsonFilePaths(args.sheetsDir, excludedFilenamePatterns);
+  const fileMap = await sheetUtils.mapToSheets(paths);
 
   for (const file in fileMap) {
-    if (Object.prototype.hasOwnProperty.call(fileMap, file)) {
-      console.log(
-        `  importing sheet data from ${file} ${file.indexOf('.json') === -1
-          ? 'directory' : 'file'}`);
+    const readSheetData = async (filesFragments) => {
+      const readJsonFile = (relativeFilePath) => fileUtils.readJson(
+        path.join(args.sheetsDir, relativeFilePath), Substitutor.injectEnvironmentVariables);
 
-      const json = await readSheetData(fileMap, file, args.sheetsDir);
-      ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
-      ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
-      builder.updateSheetDataJson(path.basename(file, '.json'), json);
-    }
+      if (filesFragments.length === 0) {
+        return readJsonFile(file);
+      } else {
+        const jsonFragments = await Promise.all(
+          filesFragments.map(fileFragment => readJsonFile(`${file}/${fileFragment}`)));
+        return jsonFragments.flat();
+      }
+    };
+
+    console.log(`  importing sheet data from ${file} ${file.indexOf('.json') === -1 ? 'directory' : 'file'}`);
+
+    const fragments = fileMap[file].length === 0 ? [] : fileMap[file];
+    const json = await readSheetData(fragments);
+    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
+    ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
+    builder.updateSheetDataJson(path.basename(file, '.json'), json);
   }
 
   console.log(` saving workbook: ${args.destinationXlsx}`);
@@ -47,21 +58,5 @@ const run = async (args) => {
 
   console.log('done.');
 };
-
-async function readSheetData (fileMap, file, sheetDirectory) {
-  const readJsonFile = (sheetDirectory, relativeFilePath) => fileUtils.readJson(
-    path.join(sheetDirectory, relativeFilePath),
-    Substitutor.injectEnvironmentVariables);
-
-  if (fileMap[file].length === 0) {
-    return readJsonFile(sheetDirectory, file);
-  } else {
-    let files = fileMap[file];
-    const jsonFragments = await Promise.all(
-      files.map(fileFragment => readJsonFile(sheetDirectory,
-        `${file}/${fileFragment}`)));
-    return jsonFragments.flat();
-  }
-}
 
 module.exports = run;

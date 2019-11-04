@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const exclusionUtils = require('./exclusion-utils');
+const matcher = require('matcher');
 
 const readJson = (filename, processFn) => {
   return new Promise((resolve) => {
@@ -31,11 +32,11 @@ const writeJson = (filename, json) => {
 const exists = (path) => fs.existsSync(path);
 
 const getJsonFiles = (directory, exclusions = []) => {
-  let paths = glob.sync(directory + '/**/*.json');
-  let relativePaths = toRelativePaths(paths, directory);
+  const paths = glob.sync(directory + '/**/*.json');
+  const relativePaths = toRelativePaths(paths, directory);
   exclusions = exclusions.map(exclusion => exclusionUtils.prepareExclusion(exclusion));
-  let filteredPaths = exclusionUtils.filterPaths(relativePaths, exclusions);
-  return groupToSheets(filteredPaths);
+  return exclusions.length === 0 ? relativePaths : relativePaths.filter(
+    path => !exclusions.some(exclusion => matcher.isMatch(path, exclusion)));
 };
 
 function toRelativePaths (array, root) {
@@ -43,31 +44,9 @@ function toRelativePaths (array, root) {
     file => path.relative(root, file));
 }
 
-function groupToSheets (paths) {
-  return paths.reduce((groupMap, filePath) => {
-    // Split on the first '/'
-    let splitPath = filePath.split(/\/(.+)/, 2);
-
-    if (splitPath.length > 1) {
-      prepareMap(groupMap, splitPath[0]);
-      groupMap[splitPath[0]].push(splitPath[1]);
-    } else {
-      prepareMap(groupMap, splitPath[0]);
-    }
-
-    return groupMap;
-  }, {});
-}
-
-function prepareMap (map, key) {
-  if (!Object.prototype.hasOwnProperty.call(map, key)) {
-    map[key] = [];
-  }
-}
-
 module.exports = {
   writeJson,
   readJson,
-  getJsonFiles,
+  getJsonFilePaths: getJsonFiles,
   exists
 };

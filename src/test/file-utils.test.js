@@ -4,7 +4,7 @@ const sheetUtils = require('../main/lib/sheet-utils');
 
 describe('file-utils', () => {
 
-  describe('getJsonFiles', () => {
+  describe('getJsonFilePaths', () => {
     it('lists all files in the directory if no filters are provided', () => {
       const filesInDirectory = getMapping('./src/test/fixtures/listFiles');
 

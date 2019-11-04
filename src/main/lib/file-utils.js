@@ -38,8 +38,7 @@ const getJsonFilePaths = (directory, exclusions = []) => {
 };
 
 function toRelativePaths (array, root) {
-  return array.map(
-    file => path.relative(root, file));
+  return array.map(file => path.relative(root, file));
 }
 
 module.exports = {

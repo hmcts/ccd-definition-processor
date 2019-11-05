@@ -4,7 +4,7 @@ const groupToSheets = paths => {
     const splitPath = filePath.split(/\/(.+)/, 2);
     const sheetName = splitPath[0];
 
-    if (!Object.prototype.hasOwnProperty.call(groupMap, sheetName)) {
+    if (groupMap[sheetName] === undefined) {
       groupMap[sheetName] = [];
     }
 

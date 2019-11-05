@@ -5,7 +5,7 @@ const fileUtils = require('./lib/file-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const stringUtils = require('./lib/string-utils');
 const sheetUtils = require('./lib/sheet-utils');
-const {Substitutor} = require('./lib/substitutor');
+const { Substitutor } = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 

@@ -12,9 +12,8 @@ describe('sheet-utils', () => {
 
       const grouped = sheetUtils.groupToSheets(paths);
       assert.equal(Object.keys(grouped).length, 2);
-      assert.ok(hasProperty(grouped, 'first'));
-      assert.equal(grouped['first'].length, 2);
-      assert.equal(grouped['first'][0], 'file.json');
+      assertGroupExists(grouped, 'first', ['file.json', 'another.json']);
+      assertGroupExists(grouped, 'second', ['file.json']);
     });
 
     it('should have top level files as there own elements', function () {
@@ -25,9 +24,16 @@ describe('sheet-utils', () => {
 
       const grouped = sheetUtils.groupToSheets(paths);
       assert.equal(Object.keys(grouped).length, 2);
-      assert.ok(hasProperty(grouped, 'another.json'));
+      assertGroupExists(grouped, 'top', ['file.json']);
+      assertGroupExists(grouped, 'another.json', []);
     });
   });
 });
 
-const hasProperty = (object, property) => Object.prototype.hasOwnProperty.call(object, property);
+function assertGroupExists (groups, groupName, elements) {
+  assert.ok(Object.prototype.hasOwnProperty.call(groups, groupName));
+  assert.equal(groups[groupName].length, elements.length);
+  for (let i = 0; i < elements.length; i++) {
+    assert.equal(groups[groupName][i], elements[i]);
+  }
+}

@@ -5,7 +5,7 @@ const fileUtils = require('./lib/file-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const stringUtils = require('./lib/string-utils');
 const sheetUtils = require('./lib/sheet-utils');
-const {Substitutor} = require('./lib/substitutor');
+const { Substitutor } = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 
@@ -13,8 +13,7 @@ const validateArgs = (args) => {
   assert(!!args.sheetsDir, 'sheets directory argument (-D) is required');
   assert(!!args.destinationXlsx, 'spreadsheet file argument (-o) is required');
 
-  assert(fileUtils.exists(args.sheetsDir),
-    `sheets directory ${args.sheetsDir} not found`);
+  assert(fileUtils.exists(args.sheetsDir), `sheets directory ${args.sheetsDir} not found`);
 };
 
 const run = async (args) => {

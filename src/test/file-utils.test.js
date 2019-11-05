@@ -12,14 +12,13 @@ describe('file-utils', () => {
       assert.equal(filesInDirectory[1], 'UserProfile.json');
     });
 
-    it(
-      'lists all files in the directory if filters are not matching any of the file', () => {
-        const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile']);
+    it('lists all files in the directory if filters are not matching any of the file', () => {
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile']);
 
-        assert.equal(filesInDirectory.length, 2);
-        assert.equal(filesInDirectory[0], 'NotExcluded.json');
-        assert.equal(filesInDirectory[1], 'UserProfile.json');
-      });
+      assert.equal(filesInDirectory.length, 2);
+      assert.equal(filesInDirectory[0], 'NotExcluded.json');
+      assert.equal(filesInDirectory[1], 'UserProfile.json');
+    });
 
     it('excludes the directory which is on the dir list', () => {
       const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFilesDirectory', ['excluded']);

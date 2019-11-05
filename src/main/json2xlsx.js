@@ -5,7 +5,7 @@ const fileUtils = require('./lib/file-utils');
 const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const stringUtils = require('./lib/string-utils');
 const sheetUtils = require('./lib/sheet-utils');
-const { Substitutor } = require('./lib/substitutor');
+const {Substitutor} = require('./lib/substitutor');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 
@@ -27,29 +27,25 @@ const run = async (args) => {
     stringUtils.split(args.excludedFilenamePatterns) : [];
 
   const paths = await fileUtils.getJsonFilePaths(args.sheetsDir, excludedFilenamePatterns);
-  const fileMap = await sheetUtils.groupToSheets(paths);
+  const sheetToFragmentsMap = await sheetUtils.groupToSheets(paths);
 
-  for (const file in fileMap) {
-    const readSheetData = async (filesFragments) => {
-      const readJsonFile = (relativeFilePath) => fileUtils.readJson(
-        path.join(args.sheetsDir, relativeFilePath), Substitutor.injectEnvironmentVariables);
+  for (const sheetName in sheetToFragmentsMap) {
+    const readSheetData = async (relativeFilePath) => fileUtils.readJson(
+      path.join(args.sheetsDir, relativeFilePath), Substitutor.injectEnvironmentVariables);
 
-      if (filesFragments.length === 0) {
-        return readJsonFile(file);
-      } else {
-        const jsonFragments = await Promise.all(
-          filesFragments.map(fileFragment => readJsonFile(`${file}/${fileFragment}`)));
-        return jsonFragments.flat();
-      }
+    const readSheetDataFromFragments = async (rootSheetName, filesFragments) => {
+      const jsonFragments = await Promise.all(
+        filesFragments.map(fileFragment => readSheetData(`${rootSheetName}/${fileFragment}`)));
+      return jsonFragments.flat();
     };
 
-    console.log(`  importing sheet data from ${file} ${file.indexOf('.json') === -1 ? 'directory' : 'file'}`);
+    console.log(`  importing sheet data from ${sheetName} ${sheetName.indexOf('.json') === -1 ? 'directory' : 'file'}`);
 
-    const fragments = fileMap[file].length === 0 ? [] : fileMap[file];
-    const json = await readSheetData(fragments);
+    const json = await (sheetToFragmentsMap[sheetName].length === 0 ?
+      readSheetData(sheetName) : readSheetDataFromFragments(sheetName, sheetToFragmentsMap[sheetName]));
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
-    builder.updateSheetDataJson(path.basename(file, '.json'), json);
+    builder.updateSheetDataJson(path.basename(sheetName, '.json'), json);
   }
 
   console.log(` saving workbook: ${args.destinationXlsx}`);

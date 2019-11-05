@@ -27,7 +27,7 @@ const run = async (args) => {
     stringUtils.split(args.excludedFilenamePatterns) : [];
 
   const paths = await fileUtils.getJsonFilePaths(args.sheetsDir, excludedFilenamePatterns);
-  const sheetToFragmentsMap = await sheetUtils.groupToSheets(paths);
+  const sheetToFragmentsMap = sheetUtils.groupToSheets(paths);
 
   for (const sheetName in sheetToFragmentsMap) {
     const readSheetData = async (relativeFilePath) => fileUtils.readJson(

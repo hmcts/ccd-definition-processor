@@ -1,11 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 const matcher = require('matcher');
 
 const readJson = (filename, processFn) => {
   return new Promise((resolve) => {
     fs.readFile(filename, 'utf8', function (err, data) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       if (processFn) {
         data = processFn(data);
       }
@@ -17,28 +20,30 @@ const readJson = (filename, processFn) => {
 const writeJson = (filename, json) => {
   return new Promise((resolve) => {
     fs.writeFile(filename, json, (err) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       resolve();
     });
   });
 };
 
-const exists = (path) => {
-  return fs.existsSync(path);
+const exists = (path) => fs.existsSync(path);
+
+const getJsonFilePaths = (directory, exclusions = []) => {
+  const paths = glob.sync(directory + '/**/*.json');
+  const relativePaths = toRelativePaths(paths, directory);
+  return exclusions.length === 0 ? relativePaths : relativePaths.filter(
+    path => !exclusions.some(exclusion => path.split('/').some(chunk => matcher.isMatch(chunk, exclusion))));
 };
 
-const listFilesInDirectory = (dir, excludes = []) => {
-  return fs.readdirSync(dir, { withFileTypes: true })
-    .filter((file) => {
-      if (file.isDirectory()) {
-        return true;
-      } else {
-        return path.extname(file.name) === '.json';
-      }
-    })
-    .filter((file) =>
-      !excludes.some(el => matcher.isMatch(file.name, el))
-    );
-};
+function toRelativePaths (array, root) {
+  return array.map(file => path.relative(root, file));
+}
 
-module.exports = { writeJson, readJson, listFilesInDirectory, exists };
+module.exports = {
+  writeJson,
+  readJson,
+  getJsonFilePaths,
+  exists
+};

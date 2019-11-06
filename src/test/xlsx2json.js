@@ -1,7 +1,7 @@
 const assert = require('assert');
-
+const glob = require('glob');
+const fs = require('fs');
 const run = require('../main/xlsx2json');
-
 const fileUtils = require('../main/lib/file-utils');
 
 describe('xlsx2json', () => {
@@ -34,6 +34,12 @@ describe('xlsx2json', () => {
   });
 
   describe('outcome', () => {
+    beforeEach(() => {
+      glob.sync('./temp/*.json').forEach(path => {
+        fs.unlinkSync(path);
+      });
+    });
+
     it('should create empty JSON files from embedded template', async () => {
       await run({
         _: [],
@@ -41,11 +47,11 @@ describe('xlsx2json', () => {
         sheetsDir: './temp'
       });
 
-      const files = fileUtils.listFilesInDirectory('./temp');
+      const files = glob.sync('./temp/*.json');
       assert(files.length > 0, 'No files have been created');
 
       for (const file of files) {
-        assert.deepEqual(await fileUtils.readJson(`./temp/${file.name}`), [], `File ${file.name} is not empty`);
+        assert.deepEqual(await fileUtils.readJson(file), [], `${file} is not empty`);
       }
     });
 
@@ -56,7 +62,7 @@ describe('xlsx2json', () => {
         sheetsDir: './temp'
       });
 
-      const files = fileUtils.listFilesInDirectory('./temp');
+      const files = glob.sync('./temp/*.json');
       assert(files.length > 0, 'No files have been created');
       const exported = await fileUtils.readJson('./temp/Jurisdiction.json');
       const expected = [{ Description: 'description', 'ID': 1, 'LiveFrom': '20/06/2017', 'LiveTo': '20/07/2018', 'Name': 'name' }];

@@ -39,6 +39,7 @@ to become:
 ### JSON fragments
 
 A `json2xlsx` processor is able to read smaller JSON fragments with CCD definitions that helps splitting large definition files into smaller chunks.
+These fragments can be read from any level of nested directory as long as the top level directory corresponds to a valid sheet name.
 
 For example large `AuthorisationCaseField.json` file presented below: 
 

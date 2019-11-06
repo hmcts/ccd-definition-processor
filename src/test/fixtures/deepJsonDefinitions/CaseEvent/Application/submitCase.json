@@ -1,0 +1,13 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "ID": "submitCase",
+    "Name": "Submit Case",
+    "Description": "Submit case",
+    "DisplayOrder": 1,
+    "PostConditionState": "2_Submitted",
+    "SecurityClassification": "Public",
+    "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/submit/callback"
+  }
+]

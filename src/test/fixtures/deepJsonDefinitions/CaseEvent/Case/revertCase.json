@@ -1,0 +1,12 @@
+{
+  "LiveFrom": "01/01/2017",
+  "CaseTypeID": "DRAFT",
+  "ID": "revertCase",
+  "Name": "Revert Case",
+  "Description": "Revert a case to initiation state",
+  "DisplayOrder": 1,
+  "PreConditionState(s)": "2_Submitted",
+  "PostConditionState": "1_Initiation",
+  "SecurityClassification": "Public",
+  "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/submit/callback"
+}

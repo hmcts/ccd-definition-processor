@@ -2,7 +2,7 @@
   "name": "ccd-definition-processor",
   "version": "1.0.0",
   "dependencies": {
-    "glob": "^7.1.5",
+    "glob": "^7.1.6",
     "json-stringify-pretty-compact": "^2.0.0",
     "matcher": "^2.0.0",
     "minimist": "^1.2.0",

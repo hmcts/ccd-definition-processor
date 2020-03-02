@@ -8,7 +8,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.24.0",
     "xlsx": "^0.15.1",
-    "xlsx-populate": "^1.20.1"
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

@@ -65,7 +65,7 @@ describe('xlsx2json', () => {
       const files = glob.sync('./temp/*.json');
       assert(files.length > 0, 'No files have been created');
       const exported = await fileUtils.readJson('./temp/Jurisdiction.json');
-      const expected = [{ Description: 'description', 'ID': 1, 'LiveFrom': '20/06/2017', 'LiveTo': '20/07/2018', 'Name': 'name' }];
+      const expected = [{ Description: 'description', 'ID': 1, 'LiveFrom': '20/06/2017', 'LiveTo': '20/07/2018', 'Name': 'name', 'Shuttered': 'No' }];
       assert.deepEqual(exported, expected, 'Jurisdiction.json does not contain correctly formatted dates');
     });
 

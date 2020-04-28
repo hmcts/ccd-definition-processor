@@ -37,8 +37,22 @@ const getJsonFilePaths = (directory, exclusions = []) => {
     path => !exclusions.some(exclusion => path.split('/').some(chunk => matcher.isMatch(chunk, exclusion))));
 };
 
-function toRelativePaths (array, root) {
-  return array.map(file => path.relative(root, file));
+function toRelativePaths(array, root) {
+  return array.map(file => path.relative(root, file))
+    .sort(function (a, b) {
+      const filename_a = a.replace('\.json', '');
+      const filename_b = b.replace('\.json', '');
+
+      //Looking for files with similar names
+      if (filename_b.startsWith(filename_a)) {
+        //Found files that have nearly identical names. Put longer name later.
+        return -1;
+      } else {
+        //Otherwise, just return in their original order
+        return 0;
+      }
+    })
+    ;
 }
 
 module.exports = {

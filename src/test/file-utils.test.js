@@ -7,17 +7,19 @@ describe('file-utils', () => {
     it('lists all files in the directory if no filters are provided', () => {
       const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles');
 
-      assert.equal(filesInDirectory.length, 2);
+      assert.equal(filesInDirectory.length, 3);
       assert.equal(filesInDirectory[0], 'NotExcluded.json');
       assert.equal(filesInDirectory[1], 'UserProfile.json');
+      assert.equal(filesInDirectory[2], 'UserProfile-nonprod.json');
     });
 
     it('lists all files in the directory if filters are not matching any of the file', () => {
       const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile']);
 
-      assert.equal(filesInDirectory.length, 2);
+      assert.equal(filesInDirectory.length, 3);
       assert.equal(filesInDirectory[0], 'NotExcluded.json');
       assert.equal(filesInDirectory[1], 'UserProfile.json');
+      assert.equal(filesInDirectory[2], 'UserProfile-nonprod.json');
     });
 
     it('excludes the directory which is on the dir list', () => {
@@ -28,7 +30,7 @@ describe('file-utils', () => {
     });
 
     it('excludes the files from the exclude list', () => {
-      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile.json']);
+      const filesInDirectory = fileUtils.getJsonFilePaths('./src/test/fixtures/listFiles', ['UserProfile.json', 'UserProfile-nonprod.json']);
 
       assert.equal(filesInDirectory.length, 1);
       assert.equal(filesInDirectory[0], 'NotExcluded.json');

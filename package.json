@@ -6,7 +6,7 @@
     "json-stringify-pretty-compact": "^2.0.0",
     "matcher": "^2.0.0",
     "minimist": "^1.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.25.1",
     "xlsx": "^0.15.1",
     "xlsx-populate": "^1.20.1"
   },

@@ -4,16 +4,16 @@
   "dependencies": {
     "glob": "^7.1.6",
     "json-stringify-pretty-compact": "^2.0.0",
-    "matcher": "^2.0.0",
-    "minimist": "^1.2.0",
-    "moment": "^2.24.0",
-    "xlsx": "^0.15.1",
-    "xlsx-populate": "^1.20.1"
+    "matcher": "^3.0.0",
+    "minimist": "^1.2.5",
+    "moment": "^2.25.3",
+    "xlsx": "^0.16.0",
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-plugin-mocha": "^6.2.1",
-    "mocha": "^6.2.2"
+    "eslint": "^6.8.0",
+    "eslint-plugin-mocha": "^6.3.0",
+    "mocha": "^7.1.2"
   },
   "scripts": {
     "lint": "eslint src",

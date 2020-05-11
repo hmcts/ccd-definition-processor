@@ -4,6 +4,7 @@
     "CaseTypeID": "DRAFT",
     "CaseFieldID": "caseTitle",
     "Label": "Case title",
-    "DisplayOrder": 1
+    "DisplayOrder": 1,
+    "ResultsOrdering": "1:ASC"
   }
 ]

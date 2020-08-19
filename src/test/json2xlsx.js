@@ -98,6 +98,11 @@ describe('json2xlsx', () => {
           assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
         }
+        if (sheetName === 'CaseEventToComplexTypes') {
+          assert.equal(sheets[sheetName]['G3'].v, 'DefaultValue', 'Missing DefaultValue column');
+          assert.equal(sheets[sheetName]['G4'].v, 'DefaultValue value', 'Missing DefaultValue value');
+        }
+
       });
 
     });

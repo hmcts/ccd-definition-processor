@@ -9,6 +9,7 @@
     "EventHintText": "Event hint text",
     "FieldDisplayOrder": "1",
     "DisplayContext": "OPTIONAL",
+    "DefaultValue": "DefaultValue value",
     "FieldShowCondition": ""
   }
 ]

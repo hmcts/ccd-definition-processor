@@ -83,6 +83,31 @@ describe('json2xlsx', () => {
 
       sheetNames.forEach(sheetName => {
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${sheetName} exists`);
+        if (sheetName === 'AuthorisationCaseEvent') {
+          assert.equal(sheets[sheetName]['D4'].v, 'initiateCase', `Unexpected value found in D4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E4'].v, 'caseworker', `Unexpected value found in E4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F4'].v, 'CRU', `Unexpected value found in F4 cell of ${sheetName} sheet`);
+
+          assert.equal(sheets[sheetName]['D5'].v, 'initiateCase2', `Unexpected value found in D5 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E5'].v, 'caseworker1', `Unexpected value found in E5 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F5'].v, 'CRU', `Unexpected value found in F5 cell of ${sheetName} sheet`);
+
+          assert.equal(sheets[sheetName]['D6'].v, 'initiateCase2', `Unexpected value found in D6 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E6'].v, 'caseworker2', `Unexpected value found in E6 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F6'].v, 'CRU', `Unexpected value found in F6 cell of ${sheetName} sheet`);
+
+          assert.equal(sheets[sheetName]['D7'].v, 'initiateCase3', `Unexpected value found in D7 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E7'].v, 'caseworker1', `Unexpected value found in E7 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F7'].v, 'C', `Unexpected value found in F7 cell of ${sheetName} sheet`);
+
+          assert.equal(sheets[sheetName]['D8'].v, 'initiateCase3', `Unexpected value found in D8 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E8'].v, 'caseworker2', `Unexpected value found in E8 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F8'].v, 'C', `Unexpected value found in F8 cell of ${sheetName} sheet`);
+
+          assert.equal(sheets[sheetName]['D9'].v, 'initiateCase3', `Unexpected value found in D9 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['E9'].v, 'caseworker3', `Unexpected value found in E9 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['F9'].v, 'D', `Unexpected value found in F9 cell of ${sheetName} sheet`);
+        }
         if (sheetName === 'AuthorisationCaseField') { // AuthorisationCaseField tab uniquely is build from JSON fragments
           assert.equal(sheets[sheetName]['E4'].v, 'caseworker', `Unexpected value found in E4 cell of ${sheetName} sheet`);
           assert.equal(sheets[sheetName]['E5'].v, 'solicitor', `Unexpected value found in E5 cell of ${sheetName} sheet`);

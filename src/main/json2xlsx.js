@@ -6,6 +6,7 @@ const ccdUtils = require('./lib/ccd-spreadsheet-utils');
 const stringUtils = require('./lib/string-utils');
 const sheetUtils = require('./lib/sheet-utils');
 const { Substitutor } = require('./lib/substitutor');
+const accessControl = require('./lib/access-control-transformer');
 
 const sourceXlsx = './data/ccd-template.xlsx';
 
@@ -45,7 +46,8 @@ const run = async (args) => {
       readSheetData(sheetName) : readSheetDataFromFragments(sheetName, sheetToFragmentsMap[sheetName]));
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveFrom', json);
     ccdUtils.JsonHelper.convertPropertyValueStringToDate('LiveTo', json);
-    builder.updateSheetDataJson(path.basename(sheetName, '.json'), json);
+    const transformedJson = accessControl.transform(json);
+    builder.updateSheetDataJson(path.basename(sheetName, '.json'), transformedJson);
   }
 
   console.log(` saving workbook: ${args.destinationXlsx}`);

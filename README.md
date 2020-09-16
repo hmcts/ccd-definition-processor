@@ -92,6 +92,93 @@ and `solicitor.json` file presented below:
 
 located in `AuthorisationCaseField` directory that corresponds the XLS tab name.
 
+### Access control shortcuts
+
+**UserRoles** and **AccessControl** tags has special meanings which reduces verbosity of access control related definitions
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRoles": ["caseworker1","caseworker2"],
+    "CRUD": "CRU"
+  }
+]
+```
+
+is transformed to
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker1",
+    "CRUD": "CRU"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker2",
+    "CRUD": "CRU"
+  }
+]
+```
+
+And 
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "AccessControl": [
+      {
+        "UserRoles": ["caseworker1", "caseworker2"],
+        "CRUD": "CR"
+      },
+      {
+        "UserRoles": ["caseworker3"],
+        "CRUD": "D"
+      }
+    ]
+  }
+]
+```
+
+is transformed to
+
+```json
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker1",
+    "CRUD": "CR"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker2",
+    "CRUD": "CR"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "CaseFieldID": "caseTitle",
+    "UserRole": "caseworker3",
+    "CRUD": "D"
+  }
+]
+```
+
 ## Dependencies
 
 Dependencies have to be installed prior first use by running:

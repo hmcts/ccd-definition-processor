@@ -19,6 +19,7 @@ const sheetNames = [
   'FixedLists',
   'Jurisdiction',
   'SearchAlias',
+  'SearchCasesResultFields',
   'SearchInputFields',
   'SearchResultFields',
   'State',

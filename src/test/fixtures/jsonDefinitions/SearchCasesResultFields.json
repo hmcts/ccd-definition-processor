@@ -1,0 +1,15 @@
+[
+  {
+    "LiveFrom": "01/01/2017",
+    "LiveTo": "",
+    "CaseTypeID": "DRAFT",
+    "UserRole": "[APPSOLICITOR]",
+    "CaseFieldID": "caseTitle",
+    "ListElement": "1",
+    "Label": "Case title",
+    "DisplayOrder": 1,
+    "ResultsOrdering": "1:ASC",
+    "DisplayContextParameter": "1:ASC",
+    "UseCase": "orgcases"
+  }
+]

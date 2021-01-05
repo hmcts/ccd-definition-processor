@@ -128,6 +128,7 @@ describe('json2xlsx', () => {
         }
         if (sheetName === 'CaseField') {
           assertCell(sheetName, 'M3', 'Searchable');
+          assertCell(sheetName, 'N3', 'RetainHiddenValue');
 
           assertCell(sheetName, 'D4', 'caseTitle');
           assertCell(sheetName, 'E4', 'Case Title');
@@ -141,6 +142,7 @@ describe('json2xlsx', () => {
         }
         if (sheetName === 'ComplexType') {
           assertCell(sheetName, 'N3', 'Searchable');
+          assertCell(sheetName, 'O3', 'RetainHiddenValue');
 
           assertCell(sheetName, 'C4', 'UploadDocument');
           assertCell(sheetName, 'D4', 'typeOfDocument');

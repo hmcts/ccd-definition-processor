@@ -123,6 +123,18 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'N4', 'http://localhost/initiate/callback');
           assertCell(sheetName, 'N5', 'http://localhost/submit/callback');
         }
+        if (sheetName === 'CaseEventToFields') {
+          assertCell(sheetName, 'C4', 'DRAFT');
+          assertCell(sheetName, 'D4', 'addCaseIDReference');
+          assertCell(sheetName, 'E4', 'caseIDReference');
+          assertCell(sheetName, 'F4', '1');
+          assertCell(sheetName, 'G4', 'OPTIONAL');
+          assertCell(sheetName, 'H4', '1');
+          assertCell(sheetName, 'I4', 'Add Case ID');
+          assertCell(sheetName, 'R4', 'caseIDLabelOverride');
+          assertCell(sheetName, 'S4', 'caseIDHintOverride');
+          assertCell(sheetName, 'T4', 'Y');
+        }
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assertCell(sheetName, 'D5', 0);
         }
@@ -151,6 +163,7 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'D5', 'type');
           assertCell(sheetName, 'E5', 'Text');
           assertCell(sheetName, 'N5', 'N');
+          assertCell(sheetName, 'O5', 'Y');
         }
         if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
           assertCell(sheetName, 'A4', 42736);

@@ -19,6 +19,7 @@ const sheetNames = [
   'FixedLists',
   'Jurisdiction',
   'SearchAlias',
+  'SearchCasesResultFields',
   'SearchInputFields',
   'SearchResultFields',
   'State',
@@ -81,51 +82,96 @@ describe('json2xlsx', () => {
       const sheets = XLSX.readFile('./temp/ccd-definitions.xlsx').Sheets;
       assert(Object.keys(sheets).length > 0, 'No sheets have been created');
 
+      const assertCell = (sheetName, cell, expectedCellValue) => {
+        const actualCellValue = expectedCellValue === undefined ? sheets[sheetName][cell] : sheets[sheetName][cell].v;
+        assert.equal(actualCellValue, expectedCellValue, `Unexpected value found in ${cell} cell of ${sheetName} sheet`);
+      };
+
       sheetNames.forEach(sheetName => {
         assert(sheets[sheetName], `No sheet corresponding to JSON file ${sheetName} exists`);
         if (sheetName === 'AuthorisationCaseEvent') {
-          assert.equal(sheets[sheetName]['D4'].v, 'initiateCase', `Unexpected value found in D4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E4'].v, 'caseworker', `Unexpected value found in E4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F4'].v, 'CRU', `Unexpected value found in F4 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D4', 'initiateCase');
+          assertCell(sheetName, 'E4', 'caseworker');
+          assertCell(sheetName, 'F4', 'CRU');
 
-          assert.equal(sheets[sheetName]['D5'].v, 'initiateCase2', `Unexpected value found in D5 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E5'].v, 'caseworker1', `Unexpected value found in E5 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F5'].v, 'CRU', `Unexpected value found in F5 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D5', 'initiateCase2');
+          assertCell(sheetName, 'E5', 'caseworker1');
+          assertCell(sheetName, 'F5', 'CRU');
 
-          assert.equal(sheets[sheetName]['D6'].v, 'initiateCase2', `Unexpected value found in D6 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E6'].v, 'caseworker2', `Unexpected value found in E6 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F6'].v, 'CRU', `Unexpected value found in F6 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D6', 'initiateCase2');
+          assertCell(sheetName, 'E6', 'caseworker2');
+          assertCell(sheetName, 'F6', 'CRU');
 
-          assert.equal(sheets[sheetName]['D7'].v, 'initiateCase3', `Unexpected value found in D7 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E7'].v, 'caseworker1', `Unexpected value found in E7 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F7'].v, 'C', `Unexpected value found in F7 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D7', 'initiateCase3');
+          assertCell(sheetName, 'E7', 'caseworker1');
+          assertCell(sheetName, 'F7', 'C');
 
-          assert.equal(sheets[sheetName]['D8'].v, 'initiateCase3', `Unexpected value found in D8 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E8'].v, 'caseworker2', `Unexpected value found in E8 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F8'].v, 'C', `Unexpected value found in F8 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D8', 'initiateCase3');
+          assertCell(sheetName, 'E8', 'caseworker2');
+          assertCell(sheetName, 'F8', 'C');
 
-          assert.equal(sheets[sheetName]['D9'].v, 'initiateCase3', `Unexpected value found in D9 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E9'].v, 'caseworker3', `Unexpected value found in E9 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['F9'].v, 'D', `Unexpected value found in F9 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'D9', 'initiateCase3');
+          assertCell(sheetName, 'E9', 'caseworker3');
+          assertCell(sheetName, 'F9', 'D');
         }
         if (sheetName === 'AuthorisationCaseField') { // AuthorisationCaseField tab uniquely is build from JSON fragments
-          assert.equal(sheets[sheetName]['E4'].v, 'caseworker', `Unexpected value found in E4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['E5'].v, 'solicitor', `Unexpected value found in E5 cell of ${sheetName} sheet`);
+
+          assertCell(sheetName, 'E4', 'caseworker');
+          assertCell(sheetName, 'E5', 'solicitor');
         }
         if (sheetName === 'CaseEvent') { // CaseEvent tab uniquely has environment variable placeholders
-          assert.equal(sheets[sheetName]['N4'].v, 'http://localhost/initiate/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['N5'].v, 'http://localhost/submit/callback', `Unexpected value found in N4 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'N4', 'http://localhost/initiate/callback');
+          assertCell(sheetName, 'N5', 'http://localhost/submit/callback');
+        }
+        if (sheetName === 'CaseEventToFields') {
+          assertCell(sheetName, 'C4', 'DRAFT');
+          assertCell(sheetName, 'D4', 'addCaseIDReference');
+          assertCell(sheetName, 'E4', 'caseIDReference');
+          assertCell(sheetName, 'F4', '1');
+          assertCell(sheetName, 'G4', 'OPTIONAL');
+          assertCell(sheetName, 'H4', '1');
+          assertCell(sheetName, 'I4', 'Add Case ID');
+          assertCell(sheetName, 'R4', 'caseIDLabelOverride');
+          assertCell(sheetName, 'S4', 'caseIDHintOverride');
+          assertCell(sheetName, 'T4', 'Y');
         }
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
-          assert.equal(sheets[sheetName]['D5'].v, 0, `Missing zero value in ${sheetName} sheet`);
+          assertCell(sheetName, 'D5', 0);
+        }
+        if (sheetName === 'CaseField') {
+          assertCell(sheetName, 'M3', 'Searchable');
+
+          assertCell(sheetName, 'D4', 'caseTitle');
+          assertCell(sheetName, 'E4', 'Case Title');
+          assertCell(sheetName, 'G4', 'Text');
+          assertCell(sheetName, 'M4', undefined);
+
+          assertCell(sheetName, 'D5', 'caseOwner');
+          assertCell(sheetName, 'E5', 'Case Owner');
+          assertCell(sheetName, 'G4', 'Text');
+          assertCell(sheetName, 'M5', 'Y');
+        }
+        if (sheetName === 'ComplexType') {
+          assertCell(sheetName, 'N3', 'Searchable');
+
+          assertCell(sheetName, 'C4', 'UploadDocument');
+          assertCell(sheetName, 'D4', 'typeOfDocument');
+          assertCell(sheetName, 'E4', 'Document');
+          assertCell(sheetName, 'N4', undefined);
+
+          assertCell(sheetName, 'C5', 'GenerateDocument');
+          assertCell(sheetName, 'D5', 'type');
+          assertCell(sheetName, 'E5', 'Text');
+          assertCell(sheetName, 'N5', 'N');
+          assertCell(sheetName, 'O5', 'Y');
         }
         if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
-          assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
-          assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+          assertCell(sheetName, 'A4', 42736);
+          assertCell(sheetName, 'B4', undefined);
         }
         if (sheetName === 'CaseEventToComplexTypes') {
-          assert.equal(sheets[sheetName]['G3'].v, 'DefaultValue', 'Missing DefaultValue column');
-          assert.equal(sheets[sheetName]['G4'].v, 'DefaultValue value', 'Missing DefaultValue value');
+          assertCell(sheetName, 'G3', 'DefaultValue');
+          assertCell(sheetName, 'G4', 'DefaultValue value');
         }
 
       });

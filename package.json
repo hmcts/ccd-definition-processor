@@ -12,7 +12,7 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "eslint-plugin-mocha": "^6.3.0",
     "mocha": "^8.2.1"
   },

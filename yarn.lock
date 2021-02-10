@@ -382,13 +382,13 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-plugin-mocha@^6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-6.3.0.tgz#72bfd06a5c4323e17e30ef41cd726030e8cdb8fd"
-  integrity sha512-Cd2roo8caAyG21oKaaNTj7cqeYRWW1I2B5SfpKRp0Ip1gkfwoR1Ow0IGlPWnNjzywdF4n+kHL8/9vM6zCJUxdg==
+eslint-plugin-mocha@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-8.0.0.tgz#7ec5d228bcb3735301701dfbc3376320a1ca3791"
+  integrity sha512-n67etbWDz6NQM+HnTwZHyBwz/bLlYPOxUbw7bPuCyFujv7ZpaT/Vn6KTAbT02gf7nRljtYIjWcTxK/n8a57rQQ==
   dependencies:
-    eslint-utils "^2.0.0"
-    ramda "^0.27.0"
+    eslint-utils "^2.1.0"
+    ramda "^0.27.1"
 
 eslint-scope@^5.1.1:
   version "5.1.1"
@@ -398,7 +398,7 @@ eslint-scope@^5.1.1:
     esrecurse "^4.3.0"
     estraverse "^4.1.1"
 
-eslint-utils@^2.0.0, eslint-utils@^2.1.0:
+eslint-utils@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-2.1.0.tgz#d2de5e03424e707dc10c74068ddedae708741b27"
   integrity sha512-w94dQYoauyvlDc43XnGB8lU3Zt713vNChgt4EWwhXAP2XkBvndfxF0AgIqKOOasjPIPzj9JqgwkwbCYD0/V3Zg==
@@ -1015,10 +1015,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-ramda@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
-  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
+ramda@^0.27.1:
+  version "0.27.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.1.tgz#66fc2df3ef873874ffc2da6aa8984658abacf5c9"
+  integrity sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==
 
 randombytes@^2.1.0:
   version "2.1.0"

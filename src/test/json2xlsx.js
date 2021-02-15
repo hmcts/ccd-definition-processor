@@ -16,6 +16,7 @@ const sheetNames = [
   'CaseType',
   'CaseTypeTab',
   'ComplexTypes',
+  'ChallengeQuestion',
   'FixedLists',
   'Jurisdiction',
   'SearchAlias',
@@ -172,6 +173,14 @@ describe('json2xlsx', () => {
         if (sheetName === 'CaseEventToComplexTypes') {
           assertCell(sheetName, 'G3', 'DefaultValue');
           assertCell(sheetName, 'G4', 'DefaultValue value');
+        }
+        if (sheetName === 'ChallengeQuestion') {
+          assertCell(sheetName, 'E3', 'DisplayOrder');
+          assertCell(sheetName, 'E4', '1');
+          assertCell(sheetName, 'F3', 'QuestionText');
+          assertCell(sheetName, 'F4', 'The Question');
+          assertCell(sheetName, 'I3', 'Answer');
+          assertCell(sheetName, 'I4', 'My Answer');
         }
 
       });

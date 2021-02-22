@@ -123,6 +123,8 @@ describe('json2xlsx', () => {
         if (sheetName === 'CaseEvent') { // CaseEvent tab uniquely has environment variable placeholders
           assertCell(sheetName, 'N4', 'http://localhost/initiate/callback');
           assertCell(sheetName, 'N5', 'http://localhost/submit/callback');
+          assertCell(sheetName, 'U4', 'N');
+          assertCell(sheetName, 'U5', 'Y');
         }
         if (sheetName === 'CaseEventToFields') {
           assertCell(sheetName, 'C4', 'DRAFT');

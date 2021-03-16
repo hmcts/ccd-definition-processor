@@ -8,8 +8,8 @@ Tooling to support collaborative development of CCD configuration thought the us
 
 ### Variable substitution
 
-A `json2xlsx` processor is able to replace variable placeholders defined in JSON definition files with values read from environment variables as long as variable name starts with `CCD_DEF` prefix. 
- 
+A `json2xlsx` processor is able to replace variable placeholders defined in JSON definition files with values read from environment variables as long as variable name starts with `CCD_DEF` prefix.
+
 For example `CCD_DEF_BASE_URL=http://localhost` environment variable gets injected into fragment of following CCD definition:
 
 ```json
@@ -41,7 +41,7 @@ to become:
 A `json2xlsx` processor is able to read smaller JSON fragments with CCD definitions that helps splitting large definition files into smaller chunks.
 These fragments can be read from any level of nested directory as long as the top level directory corresponds to a valid sheet name.
 
-For example large `AuthorisationCaseField.json` file presented below: 
+For example large `AuthorisationCaseField.json` file presented below:
 
 ```json
 [
@@ -129,7 +129,7 @@ is transformed to
 ]
 ```
 
-And 
+And
 
 ```json
 [
@@ -205,9 +205,9 @@ _options:_
 * -o    path to the output XLSX file
 * -D    path to the input folder with JSON files
 * -e    (optional) comma delimited list of wildcards patterns of the files which needs to be excluded from processing,
-        i.e. -e 'UserProfile.json, *-nonprod.json' will exclude UserProfile.json and all -nonprod.json files from processing 
+        i.e. -e 'UserProfile.json, *-nonprod.json' will exclude UserProfile.json and all -nonprod.json files from processing
 
-#### Warning: 
+#### Warning:
 
 The previous support for includes parameters to select JSON files to process was removed (replaced with -e option).
 
@@ -251,12 +251,14 @@ $ docker build --tag hmctspublic.azurecr.io/ccd/definition-processor:latest .
 Dockerhub (https://hub.docker.com/r/hmcts/ccd-definition-processor) is deprecated - please use ACR.
 
 Any commit or merge into master will automatically trigger an Azure ACR task. This task has been manually
-created using `./bin/deploy-acr-task.sh`. The task is defined in `acr-build-task.yaml`. 
+created using `./bin/deploy-acr-task.sh`. The task is defined in `acr-build-task.yaml`.
 
 Note: you will need a GitHub personal token defined in `GITHUB_TOKEN` environment variable to run deploy script (https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). The token is for setting up a webhook so Azure will be notified when a merge or commit happens. Make sure you are a repo admin and select token scope of: `admin:repo_hook  Full control of repository hooks`
 
 More info on ACR tasks can be read here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
 
-## License 
+## License
+
+
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.

@@ -137,6 +137,7 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'R4', 'caseIDLabelOverride');
           assertCell(sheetName, 'S4', 'caseIDHintOverride');
           assertCell(sheetName, 'T4', 'Y');
+          assertCell(sheetName, 'U4', 'Y');
         }
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assertCell(sheetName, 'D5', 0);
@@ -175,6 +176,7 @@ describe('json2xlsx', () => {
         if (sheetName === 'CaseEventToComplexTypes') {
           assertCell(sheetName, 'G3', 'DefaultValue');
           assertCell(sheetName, 'G4', 'DefaultValue value');
+          assertCell(sheetName, 'M4', 'Y');
         }
         if (sheetName === 'ChallengeQuestion') {
           assertCell(sheetName, 'E3', 'DisplayOrder');

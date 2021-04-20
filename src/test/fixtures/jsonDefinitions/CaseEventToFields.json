@@ -12,6 +12,7 @@
     "PageColumnNumber": 1,
     "CaseEventFieldLabel": "caseIDLabelOverride",
     "CaseEventFieldHint": "caseIDHintOverride",
-    "RetainHiddenValue": "Y"
+    "RetainHiddenValue": "Y",
+    "Publish": "Y"
   }
 ]

@@ -2,19 +2,19 @@
   "name": "ccd-definition-processor",
   "version": "1.0.0",
   "dependencies": {
-    "glob": "^7.1.6",
+    "glob": "^7.1.7",
     "json-stringify-pretty-compact": "^2.0.0",
     "matcher": "^4.0.0",
     "minimist": "^1.2.5",
     "moment": "^2.29.1",
-    "xlsx": "^0.16.9",
+    "xlsx": "^0.17.0",
     "xlsx-populate": "^1.21.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint": "^7.19.0",
+    "eslint": "^7.26.0",
     "eslint-plugin-mocha": "^8.0.0",
-    "mocha": "^8.3.0"
+    "mocha": "^8.4.0"
   },
   "scripts": {
     "lint": "eslint src",

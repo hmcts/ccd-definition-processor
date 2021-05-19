@@ -125,6 +125,7 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'N5', 'http://localhost/submit/callback');
           assertCell(sheetName, 'U4', 'N');
           assertCell(sheetName, 'U5', 'Y');
+          assertCell(sheetName, 'V5', 'caseTitle != ""');
         }
         if (sheetName === 'CaseEventToFields') {
           assertCell(sheetName, 'C4', 'DRAFT');

@@ -21,6 +21,7 @@
     "PostConditionState": "1_Initiation",
     "SecurityClassification": "Public",
     "CallBackURLSubmittedEvent": "${CCD_DEF_BASE_URL}/submit/callback",
-    "Publish": "Y"
+    "Publish": "Y",
+    "EventEnablingCondition": "caseTitle != \"\""
   }
 ]

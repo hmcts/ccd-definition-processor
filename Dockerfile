@@ -14,7 +14,7 @@ RUN addgroup -g $GID -S $APP_USER && \
 
 USER ${APP_USER}
 
-COPY --chown=${APP_USER}:${APP_USER}} package.json yarn.lock ./
+COPY --chown=${APP_USER}:${APP_USER} package.json yarn.lock ./
 
 RUN yarn install --production \
     && yarn cache clean

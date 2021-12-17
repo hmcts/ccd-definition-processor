@@ -6,6 +6,6 @@
     "Description": "DRAFT v.1.0",
     "JurisdictionID": "PUBLICLAW",
     "SecurityClassification": "Public",
-    "CallbackGetCaseURL": "${CCD_DEF_CASE_SERVICE_BASE_URL}/cases/getCaseCallBack"
+    "CallbackGetCaseUrl": "${CCD_DEF_BASE_URL}/cases/getCaseCallBack"
   }
 ]

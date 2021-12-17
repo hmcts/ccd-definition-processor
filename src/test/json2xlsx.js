@@ -127,6 +127,9 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'U5', 'Y');
           assertCell(sheetName, 'V5', 'caseTitle != ""');
         }
+        if (sheetName === 'CaseType') { // CaseType tab uniquely is build from JSON fragments
+          assertCell(sheetName, 'J3', 'http://localhost/cases/getCaseCallBack');
+        }
         if (sheetName === 'CaseEventToFields') {
           assertCell(sheetName, 'C4', 'DRAFT');
           assertCell(sheetName, 'D4', 'addCaseIDReference');

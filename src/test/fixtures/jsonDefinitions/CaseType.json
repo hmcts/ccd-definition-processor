@@ -5,6 +5,7 @@
     "Name": "DRAFT v1.0",
     "Description": "DRAFT v.1.0",
     "JurisdictionID": "PUBLICLAW",
-    "SecurityClassification": "Public"
+    "SecurityClassification": "Public",
+    "CallbackGetCaseUrl": "${CCD_DEF_BASE_URL}/cases/getCaseCallBack"
   }
 ]

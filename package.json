@@ -7,7 +7,7 @@
     "matcher": "4.0.0",
     "minimist": "^1.2.5",
     "moment": "^2.29.1",
-    "xlsx": "^0.17.0",
+    "xlsx": "^0.18.0",
     "xlsx-populate": "^1.21.0",
     "lodash": "^4.17.21"
   },

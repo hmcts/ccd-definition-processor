@@ -1,6 +1,5 @@
 const assert = require('assert');
 const XLSX = require('xlsx');
-const stringify = require('json-stringify-pretty-compact');
 const XlsxPopulate = require('xlsx-populate');
 const moment = require('moment');
 
@@ -95,7 +94,7 @@ class JsonHelper {
   }
 
   static stringify (json) {
-    return stringify(json, { maxLength: 420, indent: 2 });
+    return JSON.stringify(json, null, 2);
   }
 
 }

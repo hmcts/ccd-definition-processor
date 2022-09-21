@@ -84,7 +84,7 @@ describe('json2xlsx', () => {
       assert(Object.keys(sheets).length > 0, 'No sheets have been created');
 
       const assertCell = (sheetName, cell, expectedCellValue) => {
-        const actualCellValue = expectedCellValue === undefined ? sheets[sheetName][cell] : sheets[sheetName][cell].v;
+        const actualCellValue = expectedCellValue === undefined ? sheets[sheetName][cell] : sheets[sheetName][cell]?.v;
         assert.equal(actualCellValue, expectedCellValue, `Unexpected value found in ${cell} cell of ${sheetName} sheet`);
       };
 
@@ -136,12 +136,12 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'E4', 'caseIDReference');
           assertCell(sheetName, 'F4', '1');
           assertCell(sheetName, 'G4', 'OPTIONAL');
-          assertCell(sheetName, 'H4', '1');
-          assertCell(sheetName, 'I4', 'Add Case ID');
-          assertCell(sheetName, 'R4', 'caseIDLabelOverride');
-          assertCell(sheetName, 'S4', 'caseIDHintOverride');
-          assertCell(sheetName, 'T4', 'Y');
+          assertCell(sheetName, 'I4', '1');
+          assertCell(sheetName, 'J4', 'Add Case ID');
+          assertCell(sheetName, 'S4', 'caseIDLabelOverride');
+          assertCell(sheetName, 'T4', 'caseIDHintOverride');
           assertCell(sheetName, 'U4', 'Y');
+          assertCell(sheetName, 'V4', 'Y');
         }
         if (sheetName === 'FixedLists') { // FixedLists tab uniquely has 0 value that should be carried though
           assertCell(sheetName, 'D5', 0);

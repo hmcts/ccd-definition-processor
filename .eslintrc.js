@@ -9,7 +9,7 @@ module.exports = {
     "mocha": true
   },
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2022
   },
   "rules": {
     "indent": [
@@ -57,7 +57,7 @@ module.exports = {
     "no-multi-spaces": "error",
     "no-multiple-empty-lines": [
       "error", {
-        "max": 1, 
+        "max": 1,
         "maxEOF": 0
       }
     ]

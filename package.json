@@ -4,7 +4,7 @@
   "dependencies": {
     "glob": "^8.0.3",
     "matcher": "4.0.0",
-    "minimist": "^1.2.6",
+    "minimist": "^1.2.7",
     "moment": "^2.29.4",
     "xlsx": "^0.18.5",
     "xlsx-populate": "^1.21.0",

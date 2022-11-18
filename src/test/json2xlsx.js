@@ -18,6 +18,7 @@ const sheetNames = [
   'ComplexTypes',
   'ChallengeQuestion',
   'FixedLists',
+  'IgnoreNULLFields',
   'Jurisdiction',
   'SearchAlias',
   'SearchCasesResultFields',
@@ -189,6 +190,8 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'F4', 'The Question');
           assertCell(sheetName, 'I3', 'Answer');
           assertCell(sheetName, 'I4', 'My Answer');
+          assertCell(sheetName, 'K3', 'IgnoreNULLFields');
+          assertCell(sheetName, 'K4', 'Yes');
         }
 
       });

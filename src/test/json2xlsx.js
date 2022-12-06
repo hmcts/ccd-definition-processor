@@ -17,6 +17,7 @@ const sheetNames = [
   'CaseTypeTab',
   'ComplexTypes',
   'ChallengeQuestion',
+  'Categories',
   'FixedLists',
   'Jurisdiction',
   'SearchAlias',
@@ -189,6 +190,14 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'F4', 'The Question');
           assertCell(sheetName, 'I3', 'Answer');
           assertCell(sheetName, 'I4', 'My Answer');
+        }
+        if (sheetName === 'Categories') {
+          assertCell(sheetName, 'D3', 'CategoryID');
+          assertCell(sheetName, 'D4', 'Category');
+          assertCell(sheetName, 'E3', 'CategoryLabel');
+          assertCell(sheetName, 'E4', 'CategoryName');
+          assertCell(sheetName, 'F3', 'DisplayOrder');
+          assertCell(sheetName, 'F4', '1');
         }
 
       });

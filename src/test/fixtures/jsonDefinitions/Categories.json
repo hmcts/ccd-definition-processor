@@ -1,11 +1,11 @@
 [
   {
-    "LiveFrom": "06/12/2022",
-    "LiveTo": "06/12/2030",
-    "CaseTypeID": "DRAFT",
-    "CategoryID": "NoCategory",
-    "CategoryLabel": "NoCategoryLabel",
-    "DisplayOrder": "1",
-    "ParentCategoryID": "NoParentCategory"
+    "LiveFrom": "",
+    "LiveTo": "",
+    "CaseTypeID": "",
+    "CategoryID": "",
+    "CategoryLabel": "",
+    "DisplayOrder": "",
+    "ParentCategoryID": ""
   }
 ]

@@ -193,11 +193,8 @@ describe('json2xlsx', () => {
         }
         if (sheetName === 'Categories') {
           assertCell(sheetName, 'D3', 'CategoryID');
-          assertCell(sheetName, 'D4', 'NoCategory');
           assertCell(sheetName, 'E3', 'CategoryLabel');
-          assertCell(sheetName, 'E4', 'NoCategoryLabel');
           assertCell(sheetName, 'F3', 'DisplayOrder');
-          assertCell(sheetName, 'F4', '1');
         }
       });
 

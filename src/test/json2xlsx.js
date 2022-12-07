@@ -15,6 +15,7 @@ const sheetNames = [
   'CaseRoles',
   'CaseType',
   'CaseTypeTab',
+  'Categories',
   'ComplexTypes',
   'ChallengeQuestion',
   'FixedLists',
@@ -173,10 +174,11 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'N5', 'N');
           assertCell(sheetName, 'O5', 'Y');
         }
-        if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
+        if (sheetName !== 'SearchAlias' && sheetName !== 'Categories') { // SearchAlias tab uniquely does not have live from / to columns
           assertCell(sheetName, 'A4', 42736);
           assertCell(sheetName, 'B4', undefined);
         }
+
         if (sheetName === 'CaseEventToComplexTypes') {
           assertCell(sheetName, 'G3', 'DefaultValue');
           assertCell(sheetName, 'G4', 'DefaultValue value');
@@ -190,7 +192,11 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'I3', 'Answer');
           assertCell(sheetName, 'I4', 'My Answer');
         }
-
+        if (sheetName === 'Categories') {
+          assertCell(sheetName, 'D3', 'CategoryID');
+          assertCell(sheetName, 'E3', 'CategoryLabel');
+          assertCell(sheetName, 'F3', 'DisplayOrder');
+        }
       });
 
     });

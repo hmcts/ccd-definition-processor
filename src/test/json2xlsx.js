@@ -175,8 +175,8 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'O5', 'Y');
         }
         if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
-          assertCell(sheetName, 'A4', 42736);
-          assertCell(sheetName, 'B4', undefined);
+          assert.equal(sheets[sheetName]['A4'].v, 42736, `Unexpected value found in A4 cell of ${sheetName} sheet`);
+          assert.equal(sheets[sheetName]['B4'], undefined, `Unexpected value found in B4 cell of ${sheetName} sheet`);
         }
         if (sheetName === 'CaseEventToComplexTypes') {
           assertCell(sheetName, 'G3', 'DefaultValue');

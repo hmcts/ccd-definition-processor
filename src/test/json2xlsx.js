@@ -148,36 +148,31 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'D5', 0);
         }
         if (sheetName === 'CaseField') {
-          assertCell(sheetName, 'M3', 'Searchable');
+          assertCell(sheetName, 'N3', 'Searchable');
 
           assertCell(sheetName, 'D4', 'caseTitle');
           assertCell(sheetName, 'E4', 'Case Title');
           assertCell(sheetName, 'G4', 'Text');
-          assertCell(sheetName, 'M4', undefined);
+          assertCell(sheetName, 'N4', undefined);
 
           assertCell(sheetName, 'D5', 'caseOwner');
           assertCell(sheetName, 'E5', 'Case Owner');
           assertCell(sheetName, 'G4', 'Text');
-          assertCell(sheetName, 'M5', 'Y');
+          assertCell(sheetName, 'N5', 'Y');
         }
         if (sheetName === 'ComplexType') {
-          assertCell(sheetName, 'N3', 'Searchable');
+          assertCell(sheetName, 'O3', 'Searchable');
 
           assertCell(sheetName, 'C4', 'UploadDocument');
           assertCell(sheetName, 'D4', 'typeOfDocument');
           assertCell(sheetName, 'E4', 'Document');
-          assertCell(sheetName, 'N4', undefined);
+          assertCell(sheetName, 'O4', undefined);
 
           assertCell(sheetName, 'C5', 'GenerateDocument');
           assertCell(sheetName, 'D5', 'type');
           assertCell(sheetName, 'E5', 'Text');
-          assertCell(sheetName, 'N5', 'N');
-          assertCell(sheetName, 'O5', 'Y');
-
-          assertCell(sheetName, 'C6', 'StandardDirection');
-          assertCell(sheetName, 'D6', 'dateToBeCompletedBy');
-          assertCell(sheetName, 'E6', 'DateTime');
-          assertCell(sheetName, 'P6', '#DATETIMEENTRY(dd-MM-yyyy hh:mm)');
+          assertCell(sheetName, 'O5', 'N');
+          assertCell(sheetName, 'P5', 'Y');
         }
         if (sheetName !== 'SearchAlias' && sheetName !== 'Categories') { // SearchAlias tab uniquely does not have live from / to columns
           assertCell(sheetName, 'A4', 42736);

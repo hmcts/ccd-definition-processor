@@ -4,6 +4,7 @@
     "ID": "UploadDocument",
     "ListElementCode": "typeOfDocument",
     "FieldType": "Document",
+    "CategoryID": "CaseDoc",
     "ElementLabel": "Upload a file",
     "SecurityClassification": "Public"
   },

@@ -15,5 +15,15 @@
     "FieldType": "Text",
     "SecurityClassification": "Public",
     "Searchable": "Y"
+  },
+  {
+    "LiveFrom": "01/01/2017",
+    "CaseTypeID": "DRAFT",
+    "ID": "caseDoc",
+    "Label": "Case Document",
+    "FieldType": "Document",
+    "CategoryID": "CaseDoc",
+    "SecurityClassification": "Public",
+    "Searchable": "Y"
   }
 ]

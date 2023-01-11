@@ -162,6 +162,7 @@ describe('json2xlsx', () => {
         }
         if (sheetName === 'ComplexType') {
           assertCell(sheetName, 'O3', 'Searchable');
+          assertCell(sheetName, 'Q3', 'DisplayContextParameter');
 
           assertCell(sheetName, 'C4', 'UploadDocument');
           assertCell(sheetName, 'D4', 'typeOfDocument');
@@ -173,6 +174,11 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'E5', 'Text');
           assertCell(sheetName, 'O5', 'N');
           assertCell(sheetName, 'P5', 'Y');
+
+          assertCell(sheetName, 'C6', 'StandardDirection');
+          assertCell(sheetName, 'D6', 'dateToBeCompletedBy');
+          assertCell(sheetName, 'E6', 'DateTime');
+          assertCell(sheetName, 'Q6', '#DATETIMEENTRY(dd-MM-yyyy hh:mm)');
         }
         if (sheetName !== 'SearchAlias' && sheetName !== 'Categories') { // SearchAlias tab uniquely does not have live from / to columns
           assertCell(sheetName, 'A4', 42736);

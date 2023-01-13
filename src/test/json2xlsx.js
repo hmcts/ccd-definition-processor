@@ -180,7 +180,7 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'E6', 'DateTime');
           assertCell(sheetName, 'Q6', '#DATETIMEENTRY(dd-MM-yyyy hh:mm)');
         }
-        if (sheetName !== 'SearchAlias' && sheetName !== 'Categories') { // SearchAlias tab uniquely does not have live from / to columns
+        if (sheetName !== 'SearchAlias') { // SearchAlias tab uniquely does not have live from / to columns
           assertCell(sheetName, 'A4', 42736);
           assertCell(sheetName, 'B4', undefined);
         }

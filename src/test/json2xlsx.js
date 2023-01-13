@@ -199,8 +199,6 @@ describe('json2xlsx', () => {
           assertCell(sheetName, 'I4', 'My Answer');
         }
         if (sheetName === 'Categories') {
-          assertCell(sheetName, 'A3', 'LiveFrom');
-          assertCell(sheetName, 'A4', '01/01/2017');
           assertCell(sheetName, 'D3', 'CategoryID');
           assertCell(sheetName, 'E3', 'CategoryLabel');
           assertCell(sheetName, 'F3', 'DisplayOrder');

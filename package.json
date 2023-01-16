@@ -2,7 +2,7 @@
   "name": "ccd-definition-processor",
   "version": "1.0.0",
   "dependencies": {
-    "glob": "^8.0.3",
+    "glob": "^8.1.0",
     "matcher": "4.0.0",
     "minimist": "^1.2.6",
     "moment": "^2.29.4",

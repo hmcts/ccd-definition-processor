@@ -4,6 +4,8 @@
 
 Tooling to support collaborative development of CCD configuration thought the use of text based representation of CCD definitions, supporting textual comparison, change control and the treatment of configuration as source code during development.
 
+This project is community maintained. See #developers for advice.
+
 ## Features
 
 ### Variable substitution

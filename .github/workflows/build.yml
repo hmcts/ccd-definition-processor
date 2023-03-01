@@ -1,10 +1,10 @@
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 name: Build and Publish
 
@@ -64,4 +64,4 @@ jobs:
       - run: |
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:latest
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:latest
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'

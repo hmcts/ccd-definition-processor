@@ -29,8 +29,7 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies and check their integrity
         run: |
-          yarn install --check-files
-
+          yarn install
       # Test
       - name: Lint code
         run: yarn lint

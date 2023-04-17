@@ -6,7 +6,6 @@ FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 FROM base as build
 USER root
 RUN corepack enable
-USER hmcts
 ENV APP_USER=hmcts \
   WORKDIR=/opt/ccd-definition-processor \
   UID=1001 \

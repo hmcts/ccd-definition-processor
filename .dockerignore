@@ -3,7 +3,11 @@
 *
 
 # exceptions from `exclude all` rule
-
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 !package.json
 !yarn.lock
 

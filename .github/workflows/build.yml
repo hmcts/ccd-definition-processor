@@ -30,8 +30,6 @@ jobs:
       - name: Install dependencies and check their integrity
         run: |
           yarn install
-          yarn check --integrity
-
       # Test
       - name: Lint code
         run: yarn lint

@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "dependencies": {
     "glob": "^8.0.3",
+    "lodash": "^4.17.21",
     "matcher": "4.0.0",
     "minimist": "^1.2.6",
     "moment": "^2.29.4",
     "xlsx": "^0.18.5",
-    "xlsx-populate": "^1.21.0",
-    "lodash": "^4.17.21"
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "eslint": "^8.23.1",
@@ -23,5 +23,6 @@
     "xlsx2json": "node ./bin/xlsx2json"
   },
   "author": "mh-hmcts",
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@3.5.0"
 }

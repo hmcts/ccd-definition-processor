@@ -5,6 +5,7 @@ FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 # ---- Build image ---- #
 FROM base as build
 USER root
+RUN usermod -u 1001 -g 1001 hmcts
 RUN corepack enable
 WORKDIR /opt/ccd-definition-processor
 USER hmcts

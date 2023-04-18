@@ -6,7 +6,7 @@ FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 FROM base as build
 USER root
 RUN corepack enable
-
+WORKDIR=/opt/ccd-definition-processor
 USER hmcts
 
 COPY --chown=hmcts:hmcts . .

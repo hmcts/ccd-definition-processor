@@ -1,13 +1,11 @@
 # ---- Base Image ----
 FROM hmctspublic.azurecr.io/base/node:16-alpine as base
 
-
 # ---- Build image ---- #
 FROM base as build
 USER root
 # Install the shadow package to enable the usermod command
 RUN apk add --no-cache shadow
-RUN getent group
 RUN groupmod -g 1001 hmcts && usermod -u 1001 hmcts
 RUN corepack enable
 WORKDIR /opt/ccd-definition-processor

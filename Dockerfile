@@ -17,7 +17,7 @@ FROM build as runtime
 
 
 COPY . .
-USER ROOT
+USER root
 RUN chown hmcts:hmcts /tmp
 USER hmcts
 ENTRYPOINT [ "yarn","run", "--silent" ]

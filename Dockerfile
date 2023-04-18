@@ -16,6 +16,7 @@ RUN yarn install && yarn cache clean
 FROM build as runtime
 
 COPY . .
+USER root
 RUN chmod -R 777 /tmp
 ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]

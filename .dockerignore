@@ -14,7 +14,7 @@
 !package.json
 !yarn.lock
 !node_modules/
-
+!tsconfig.json
 !bin/**
 !data/**
 !src/main/**

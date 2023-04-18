@@ -17,7 +17,9 @@ FROM build as runtime
 
 
 COPY . .
+USER ROOT
 RUN chown hmcts:hmcts /tmp
+USER hmcts
 ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]
 

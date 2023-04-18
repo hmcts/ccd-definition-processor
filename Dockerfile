@@ -15,6 +15,7 @@ RUN yarn install && yarn cache clean
 # ---- Runtime Image ----
 FROM build as runtime
 
+
 COPY . .
 RUN chown hmcts:hmcts /tmp
 ENTRYPOINT [ "yarn","run", "--silent" ]

@@ -15,5 +15,6 @@ RUN yarn install && yarn cache clean
 FROM build as runtime
 
 COPY . .
+ENTRYPOINT [ "yarn","run", "--silent" ]
+CMD [ "json2xlsx" ]
 
-CMD [ "yarn", "run", "--silent","json2xlsx" ]

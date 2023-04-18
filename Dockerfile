@@ -7,13 +7,17 @@ FROM base as build
 USER root
 RUN corepack enable
 
+USER hmcts
+
 COPY --chown=hmcts:hmcts . .
 RUN yarn install && yarn cache clean
 
 # ---- Runtime Image ----
-FROM base as runtime
+FROM build as runtime
 
 COPY . .
-
-ENTRYPOINT [ "yarn", "--silent" ]
+USER root
+RUN chmod -R 777 /tmp
+ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]
+

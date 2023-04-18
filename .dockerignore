@@ -7,10 +7,14 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
+
+!.yarnrc.yml
+
 !.yarn/versions
 !package.json
 !yarn.lock
-
+!node_modules/
+!tsconfig.json
 !bin/**
 !data/**
 !src/main/**

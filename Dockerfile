@@ -19,7 +19,7 @@ FROM build as runtime
 
 COPY . .
 USER root
-RUN chmod -R 777 /tmp
+RUN chmod -R 777 /tmp /cache
 ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]
 

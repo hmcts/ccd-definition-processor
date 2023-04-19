@@ -19,7 +19,7 @@ FROM build as runtime
 
 COPY . .
 USER root
-RUN chmod -R 777 /tmp ./cache
+RUN chmod -R 777 /tmp /opt/ccd-definition-processor
 ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]
 

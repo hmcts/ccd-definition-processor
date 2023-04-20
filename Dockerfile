@@ -16,7 +16,6 @@ RUN yarn install && yarn cache clean
 
 # ---- Runtime Image ----
 FROM build as runtime
-
 COPY . .
 USER root
 RUN chmod -R 777 /tmp

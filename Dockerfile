@@ -16,10 +16,9 @@ RUN yarn install && yarn cache clean
 
 # ---- Runtime Image ----
 FROM build as runtime
-
 COPY . .
-USER root
-RUN chmod -R 777 /tmp /opt/ccd-definition-processor
+ENV YARN_CACHE_FOLDER=/opt/ccd-definition-processor/.yarn/cache
+
 ENTRYPOINT [ "yarn","run", "--silent" ]
 CMD [ "json2xlsx" ]
 

@@ -94,27 +94,27 @@ describe('json2xlsx', () => {
         if (sheetName === 'AuthorisationCaseEvent') {
           assertCell(sheetName, 'D4', 'initiateCase');
           assertCell(sheetName, 'E4', 'caseworker');
-          assertCell(sheetName, 'F4', 'CRU');
+          assertCell(sheetName, 'G4', 'CRU');
 
           assertCell(sheetName, 'D5', 'initiateCase2');
           assertCell(sheetName, 'E5', 'caseworker1');
-          assertCell(sheetName, 'F5', 'CRU');
+          assertCell(sheetName, 'G5', 'CRU');
 
           assertCell(sheetName, 'D6', 'initiateCase2');
           assertCell(sheetName, 'E6', 'caseworker2');
-          assertCell(sheetName, 'F6', 'CRU');
+          assertCell(sheetName, 'G6', 'CRU');
 
           assertCell(sheetName, 'D7', 'initiateCase3');
           assertCell(sheetName, 'E7', 'caseworker1');
-          assertCell(sheetName, 'F7', 'C');
+          assertCell(sheetName, 'G7', 'C');
 
           assertCell(sheetName, 'D8', 'initiateCase3');
           assertCell(sheetName, 'E8', 'caseworker2');
-          assertCell(sheetName, 'F8', 'C');
+          assertCell(sheetName, 'G8', 'C');
 
           assertCell(sheetName, 'D9', 'initiateCase3');
           assertCell(sheetName, 'E9', 'caseworker3');
-          assertCell(sheetName, 'F9', 'D');
+          assertCell(sheetName, 'G9', 'D');
         }
         if (sheetName === 'AuthorisationCaseField') { // AuthorisationCaseField tab uniquely is build from JSON fragments
 

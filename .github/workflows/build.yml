@@ -80,7 +80,7 @@ jobs:
           docker push ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
 
       - name: "Build and push prod image - hmctsprod"
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         run: |
           docker build . -t ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest
           docker push ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest

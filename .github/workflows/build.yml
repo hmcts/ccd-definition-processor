@@ -11,7 +11,11 @@ name: Build and Publish
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
+    env:
+      AZURE_CONTAINER_REGISTRY_URL: hmctspublic.azurecr.io
+      NEW_AZURE_CONTAINER_REGISTRY_URL: hmctsprod.azurecr.io
     strategy:
       matrix:
         node-version: [16.x]
@@ -19,22 +23,33 @@ jobs:
     steps:
       # Setup
       - uses: actions/checkout@v3
+
       - name: use node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: 'npm'
+
       - name: Install Yarn package manager
         run: npm install -g yarn
+
       - name: Install dependencies and check their integrity
         run: |
           yarn install
       # Test
       - name: Lint code
         run: yarn lint
+
       - name: Run tests
         run: yarn test
+
+      - name: "Az CLI login"
+        uses: azure/login@v2
+        with:
+          client-id: b5e07540-9063-466a-b209-205566156f3e # DTS Developers GitHub Actions ACR Publisher 1
+          tenant-id: 531ff96d-0ae9-462a-8d2d-bec7c0b42082 # HMCTS.NET
+          allow-no-subscriptions: true
 
       # Publish
       - name: "Get Short Sha Hash"
@@ -44,22 +59,50 @@ jobs:
           script: |
             const shortSha = context.sha.substring(0, 7)
             core.setOutput('shortSha', shortSha)
+
       - name: 'Get Commit Timestamp'
         id: get-timestamp
         run: |
           TIMESTAMP=$(git log -1 --format='%cI' | sed -e's/[-T:]//g' -e's/+.*$//g')
           echo "::set-output name=timestamp::$TIMESTAMP"
-      - name: 'Build and push image'
+
+      ###################################################
+      # HMCTSPROD ACR
+      ###################################################
+      - name: "ACR Login - hmctsprod"
+        run: |
+          az acr login --name hmctsprod
+
+      - name: "Build and Push PR image - hmctsprod"
+        if: startsWith(github.ref, 'refs/pull')
+        run: |
+          docker build . -t ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+          docker push ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+
+      - name: "Build and push prod image - hmctsprod"
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker build . -t ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest
+          docker push ${{ env.NEW_AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest
+
+      ###################################################
+      # HMCTSPUBLIC ACR - Push
+      ###################################################
+      - name: "ACR Login - hmctspublic"
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          login-server: ${{ env.AZURE_CONTAINER_REGISTRY_URL }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-      - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+
+      - name: "Build and Push PR image - hmctspublic"
         if: startsWith(github.ref, 'refs/pull')
-      - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:latest
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/ccd/definition-processor:latest
+        run: |
+          docker build . -t ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+
+      - name: "Build and push prod image - hmctspublic"
         if: github.ref == 'refs/heads/master'
+        run: |
+          docker build . -t ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY_URL }}/ccd/definition-processor:latest

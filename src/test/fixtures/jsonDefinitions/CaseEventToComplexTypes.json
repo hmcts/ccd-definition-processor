@@ -12,6 +12,6 @@
     "DefaultValue": "DefaultValue value",
     "FieldShowCondition": "",
     "Publish": "Y",
-    "RetainHiddenValue": "Y"
+    "RetainHiddenValue": ""
   }
 ]

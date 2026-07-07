@@ -11,6 +11,7 @@
     "DisplayContext": "OPTIONAL",
     "DefaultValue": "DefaultValue value",
     "FieldShowCondition": "",
-    "Publish": "Y"
+    "Publish": "Y",
+    "RetainHiddenValue": ""
   }
 ]

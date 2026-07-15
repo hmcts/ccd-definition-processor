@@ -4,6 +4,7 @@ const ACCESS_CONTROL = 'AccessControl';
 const USER_ROLES = 'UserRoles';
 const USER_ROLE = 'UserRole';
 const CRUD = 'CRUD';
+const ACCESS_PROFILE = 'AccessProfile';
 
 const transform = json => {
   const newJson = [];
@@ -17,7 +18,7 @@ const transform = json => {
         throw new Error(`${ACCESS_CONTROL} must be non empty array.`);
       }
 
-      if (obj[USER_ROLE]) {
+      if (obj[USER_ROLE] || obj[ACCESS_PROFILE]) {
         throw new Error(`${ACCESS_CONTROL} and ${USER_ROLE} not allowed on the same element.`);
       }
 
@@ -52,7 +53,7 @@ const transform = json => {
         throw new Error(`${USER_ROLES} must be non empty array.`);
       }
 
-      if (obj[USER_ROLE]) {
+      if (obj[USER_ROLE] || obj[ACCESS_PROFILE]) {
         throw new Error(`${USER_ROLES} and ${USER_ROLE} not allowed on the same element.`);
       }
 
@@ -72,7 +73,15 @@ const transform = json => {
     }
   });
 
-  return newJson;
+  return newJson.map(row => {
+    // switch UserRole columns to AccessProfile as UserRole is deprecated
+    if (row[USER_ROLE]) {
+      row[ACCESS_PROFILE] = row[USER_ROLE];
+      delete row[USER_ROLE];
+    }
+
+    return row;
+  });
 };
 
 module.exports = {
